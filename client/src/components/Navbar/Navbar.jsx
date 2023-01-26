@@ -4,11 +4,11 @@ import { TfiMenu } from "react-icons/tfi";
 import { AiOutlineCloseCircle} from "react-icons/ai";
 export default function Navbar()
 {
-const [open,setopen]=React.useState(true)
+const [open,setopen]=React.useState(false)
     let Links =[
         {name:"Home" ,link:"/"},
         {name:"Headphone" ,link:"/"},
-        {name:"Speaker" ,link:"/"},
+        {name:"Speaker" ,link:"earphones"},
         {name:"Earphone"  ,link:"/"},
       
     ]
@@ -18,16 +18,16 @@ const [open,setopen]=React.useState(true)
     }
     return(
     <>
-    <div className="  shadow-md w-full fixed top-0 left-0 ">
-    <div className="  md:flex items-center bg-black py-4 md:justify-around">
-   <div className=" flex justify-between px-3  text-white cursor-pointer font-[Poppins]">audiophile
-   <div onClick={change} className=" md:hidden  w-9  ">
+    <div className=" fixed shadow-md w-full  top-0 left-0 ">
+    <div className="  lg:flex items-center bg-black py-4 md:justify-around">
+   <div className=" flex justify-between px-3 pt-2  text-white cursor-pointer font-[Poppins]">audiophile
+   <div onClick={change} className=" lg:hidden  w-9 inline-block  ">
     {open ?     <span  className=""><AiOutlineCloseCircle/></span>:    <span  className=""><TfiMenu/></span>}
 
 
    </div>
    </div>
-   <ul className={`md:flex md:items-center ${open ?"" :"hidden"}  `}>
+   <ul className={`lg:flex md:items-center ${open ?"" :"hidden"}  `}>
     {
         Links.map((link)=>(
             <li className='  md:ml-8 text-xl md:my-0 my-7'> 
@@ -38,7 +38,7 @@ const [open,setopen]=React.useState(true)
     }
    </ul>
    <div className>
-<img className="absolute top-3 right-20   md:inline-block  w-7 cursor- md:top-5 " src={cart} alt="cart" />
+<img className="absolute right-20   md:inline-block  w-7 cursor- top-5 " src={cart} alt="cart" />
    </div>
    </div>
    </div>
