@@ -18,7 +18,7 @@ const [open,setopen]=React.useState(false)
     }
     return(
     <>
-    <div className=" fixed shadow-md w-full  top-0 left-0 ">
+    <div className=" z-5000 fixed shadow-md w-full  top-0 left-0 ">
     <div className="  lg:flex items-center bg-black py-4 md:justify-around">
    <div className=" flex justify-between px-3 pt-2  text-white cursor-pointer font-[Poppins]">audiophile
    <div onClick={change} className=" lg:hidden  w-9 inline-block  ">
@@ -30,7 +30,7 @@ const [open,setopen]=React.useState(false)
    <ul className={`lg:flex md:items-center ${open ?"" :"hidden"}  `}>
     {
         Links.map((link)=>(
-            <li className='  md:ml-8 text-xl md:my-0 my-7'> 
+            <li className='  my-7  ml-8 text-xl '> 
         <a href={link.link} className='text-white hover:text-yellow-500 duration-500'>{link.name}</a>
         </li>
         ))

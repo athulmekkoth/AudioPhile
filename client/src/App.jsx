@@ -9,8 +9,10 @@ export default function App()
 return(
   
     <BrowserRouter>
-      <Navbar/>
-   
+    <div className='z-5000'>
+ <Navbar />
+ </div>
+ 
             <Routes>
               <Route path="/" element={<Home />} />
             </Routes>
