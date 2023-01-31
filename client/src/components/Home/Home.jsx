@@ -3,6 +3,7 @@ import Marktwo from "../Homecomponents/Marktwo";
 
 import Listpage from "../Homecomponents/Listpage";
 import Zspeaker from "../Homecomponents/Zspeaker";
+import ZX7speaker from "../Homecomponents/ZX7speaker";
 
 export default function Home()
 {
@@ -11,8 +12,8 @@ export default function Home()
      <Marktwo /> 
      <Listpage />
      <Zspeaker />
-     <Zspeaker />
-     <Zspeaker />
+     <ZX7speaker />
+     
   
      </div>
     )
