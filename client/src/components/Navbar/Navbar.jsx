@@ -19,7 +19,7 @@ const [open,setopen]=React.useState(false)
     return(
     <>
     <div className=" z-5000 fixed shadow-md w-full  top-0 left-0 ">
-    <div className="  lg:flex items-center bg-black py-4 md:justify-around items-center">
+    <div className="  lg:flex  bg-black py-4 md:justify-around items-center">
    <div className=" flex justify-between px-3 pt-2  text-white cursor-pointer font-[Poppins]">audiophile
    <div onClick={change} className=" lg:hidden  w-9 inline-block  ">
     {open ?     <span  className=""><AiOutlineCloseCircle/></span>:    <span  className=""><TfiMenu/></span>}
@@ -38,7 +38,7 @@ const [open,setopen]=React.useState(false)
     }
    </ul>
    <div className>
-<img className="absolute right-20   w-7 cursor- top-10 lg:flex items-center " src={cart} alt="cart" />
+<img className="absolute right-20   w-7 cursor- top-5 lg:flex items-center " src={cart} alt="cart" />
    </div>
    </div>
    </div>
