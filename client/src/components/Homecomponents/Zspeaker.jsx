@@ -6,7 +6,7 @@ export default function Zspeaker()
     return(
 <div className=" mx-auto mt-6 bg-orangish-blue  w-[85%] rounded-xl ">
   <div className=" lg:pt-12 flex flex-col lg:gap-20 justify-around items-center rounded-xl mx-auto w-[90%]   lg:flex-row lg:px-20 ">
-    <div className=" relative">
+    <div className=" ">
     <img className="  w-48 lg:w-64  5" src={img} alt="speaker" />
     </div>
     <div className="items-center flex flex-col lg:items-start text-white py-7">
