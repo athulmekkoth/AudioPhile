@@ -2,6 +2,8 @@ import React from "react";
 import cart from "../assets/images/cart.png"
 import { TfiMenu } from "react-icons/tfi";
 import { AiOutlineCloseCircle} from "react-icons/ai";
+
+import { AiOutlineShoppingCart} from "react-icons/ai";
 export default function Navbar()
 {
 const [open,setopen]=React.useState(false)
@@ -20,7 +22,7 @@ const [open,setopen]=React.useState(false)
     <>
     <div className=" z-5000 fixed shadow-md w-full  top-0 left-0 ">
     <div className="  lg:flex  bg-black py-4 md:justify-around items-center">
-   <div className=" flex justify-between px-3 pt-2  text-white cursor-pointer font-[Poppins]">audiophile
+   <div className=" text-2xl flex justify-between px-3 pt-2  text-white cursor-pointer font-[Poppins]">audiophile
    <div onClick={change} className=" lg:hidden  w-9 inline-block  ">
     {open ?     <span  className=""><AiOutlineCloseCircle/></span>:    <span  className=""><TfiMenu/></span>}
 
@@ -31,14 +33,15 @@ const [open,setopen]=React.useState(false)
     {
         Links.map((link)=>(
             <li className='  my-7  ml-8 text-xl '> 
-        <a href={link.link} className='text-white hover:text-yellow-500 duration-500'>{link.name}</a>
+        <a href={link.link} className='text-white hover:text-yellow-500 duration-1000'>{link.name}</a>
         </li>
         ))
         
     }
    </ul>
-   <div className>
-<img className="absolute right-20   w-7 cursor- top-5 lg:flex items-center " src={cart} alt="cart" />
+   <div className = "text-white text-4xl">
+<h1 className="absolute right-20   w-7 cursor- top-5 lg:flex items-center " ><AiOutlineShoppingCart /></h1>
+
    </div>
    </div>
    </div>

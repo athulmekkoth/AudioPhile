@@ -3,8 +3,8 @@ import img from "../../../public/images/shared/man-headerphone.png"
 export default function Detail()
 {
     return(
-    <div className="mt-11 w-full">
-        <div className="w-[90%] flex  flex-col mx-auto gap-7 items-center lg:flex-row">
+    <div className="mt-11 w-full pb-7">
+        <div className="w-[90%] flex  flex-col mx-auto gap-7 items-center lg:flex-row lg:justify-evenly">
         <div className="basis-1/2">
         <h1 className="text-3xl font-medium tracking-wider">THE BEST AUDIO <span className="text-yellow-600 ">EXPERIENCE</span><br />EVER</h1>
         <p className=" text-justify font-extralight    lg:wd-full">
