@@ -31,7 +31,7 @@ const Signup = () => {
             </form>
             <div className="w-full  pb-5 flex flex-col justify-center items-center">
                 <button className="bg-black w-[70%] h-8 rounded-xl text-white font-thin " >Create an Account</button>
-                <Link to="login" className="">Already have a account? <span className="hover:text-yellow-500g">Login</span></Link>
+                <Link to="/login" className="">Already have a account? <span className="hover:text-yellow-500g">Login</span></Link>
             </div>
        
           </div>

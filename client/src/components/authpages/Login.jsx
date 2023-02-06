@@ -11,13 +11,7 @@ const Login = () => {
           </div>
           
             <form className="flex gap-5 flex-col w-[70%] mx-auto py-7">
-              <label>Name</label>
-              <input
-                className="border-2 h-9  border-slate-700 rounded-xl"
-                name="name"
-                placeholder="name"
-                type="text"
-              />
+                
               <label>Email</label>
               <input name="email"
                        className="border-2 h-9  border-slate-700 rounded-xl"
@@ -30,8 +24,8 @@ const Login = () => {
                type="password" />
             </form>
             <div className="w-full  pb-5 flex flex-col justify-center items-center">
-                <button className="bg-black w-[70%] h-8 rounded-xl text-white font-thin " >Create an Account</button>
-                <Link to="/login" className="">Already have a account? <span className="hover:text-yellow-500g">Login</span></Link>
+                <button className="bg-black w-[70%] h-8 rounded-xl text-white font-thin " >Login</button>
+                <Link to="/signup" className="">First time user? <span className="text-violet-400 hover:text-yellow-500g">Cretae an Account</span></Link>
 
             </div>
        
