@@ -1,9 +1,10 @@
 import express  from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import userrouter from "./routers/Userroute.js"
+import userrouter from "./routers/Auth.js"
 import cookieParser from "cookie-parser";
 import bodyParser  from 'body-parser'
+import authrouter from "./routers/Auth.js";
 
 
 
@@ -29,7 +30,7 @@ const connect=()=>{
 }
 app.use(cookieParser())
 
-app.use("/api/users",userrouter)
+app.use("/api/auth",authrouter)
 
 app.listen(5000,()=>{
   connect();

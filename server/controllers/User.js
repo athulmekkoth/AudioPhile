@@ -39,8 +39,8 @@ res.status(500).json("check password")
 
 
 const token= jwt.sign({id:user._id},process.env.JWT) 
-const{password,...others}=user._doc
-res.cookie("acess token",token,{
+
+res.cookie("acess_token",token,{
  httpOnly:true  //o 3rdpart
  
  }).status(200).json(user);

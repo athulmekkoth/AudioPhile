@@ -6,7 +6,7 @@ import Footer from './components/footer/Footer'
 import Signup from './components/authpages/Signup'
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Login from './components/authpages/Login'
-import Adresspage from './components/pages/Adresspage.jsx'
+
 
 
 import React from 'react';
