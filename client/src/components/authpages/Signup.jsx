@@ -11,14 +11,18 @@ const Signup = () => {
   const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
-const accbt = async () => {
- 
-  try {
-    
-    const data = await axios.post("auth/signup", { name,email,password });
-  } catch (err) {
-    console.warn(err);
-  }
+const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  
+    try {
+      const response = await axios.post("/api/auth/signup", { name, email, password });
+
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  
 }
   return (
     <div className="w-full h-screen flex justify-center items-center">
@@ -55,7 +59,7 @@ const accbt = async () => {
                     
             </form>
             <div className="w-full  pb-5 flex flex-col justify-center items-center">
-                <button onClick={accbt} className="bg-black w-[70%] h-8 rounded-xl text-white font-thin " >Create an Account</button>
+                <button onClick={handleSubmit} className="bg-black w-[70%] h-8 rounded-xl text-white font-thin " >Create an Account</button>
                 <Link to="/login" className="">Already have a account? <span className="hover:text-yellow-500g">Login</span></Link>
             </div>
        
