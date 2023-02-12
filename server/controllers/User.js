@@ -21,31 +21,33 @@ export const signup = async (req, res, next) => {
     }
 
   } catch (err) {
-    console.error(err);
+    console.error(err); 
     res.status(500).json({ message: "something went wrong" });
   }
 };
 
 export const signin=async (req,res,next)=>{
-    const { email, password } = req.body;
+    const { email} = req.body;
     try{
     const user=await User.findOne({email:email});
     if(!user)
 res.status(500).json("please create an acoount first");
 
-const matchpass = await bcrypt.compare(password,user.password)
+const matchpass = await bcrypt.compare(req.body.password,user.password)
 if(!matchpass)
 res.status(500).json("check password")
 
+//jwt sert kry
 
 const token= jwt.sign({id:user._id},process.env.JWT) 
+const {password,...others}=user._doc
 
 res.cookie("acess_token",token,{
  httpOnly:true  //o 3rdpart
  
- }).status(200).json(user);
+ }).status(200).json(others);
 
-    }
+    } 
 catch(err)
 {
     console.log(err);
