@@ -3,7 +3,7 @@ const ProductSchema= new mongoose.Schema({
    
     price: {
         type:String,
-        required:true,
+       
         },
 
     name:{
@@ -13,12 +13,12 @@ const ProductSchema= new mongoose.Schema({
 
     },
     photos:{
-        required:true,
+        
         type:Array
 
     },
     description:{
-        required:true,
+       
         type:String
     },
     category:{

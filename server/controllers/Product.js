@@ -25,14 +25,14 @@ export const deleteitem= async(req,res,next)=>{
     const exist = await Product.findOne({ name: req.body.name, category: req.body.category });
     try{
     if(exist){
-        const deleteval =await Product.deleteOne(exist);
-        res.status(404).json({ message: "item deleted" });
+
+        await exist.deleteOne();
+      
+        res.status(404).json({ message: "item already deleted" });
     }
     else{
- 
-    const product = new Product(req.body);
-    product.save();
-    res.status(404).json({ message: "item saved" });
+
+    res.status(400).json({ message: "item noy prdent " });
     }
 }
 catch(err)

@@ -1,6 +1,6 @@
 import { createError } from "./err";
 import  jwt  from "jsonwebtoken";
-export const verifytoken=(req,res,next)=>
+export const verifyToken=(req,res,next)=>
 {
     const token=req.cookies.acess_token
     if(!token) return createError(401,"you are not athticate");
