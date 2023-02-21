@@ -39,7 +39,13 @@ res.status(500).json("check password")
 
 //jwt sert kry
 
-const token= jwt.sign({id:user._id},process.env.JWT) 
+const token= jwt.sign({
+  
+  id:user._id,
+  isAdmin:user.isadmin
+
+
+},process.env.JWT) 
 const {password,...others}=user._doc
 
 res.cookie("acess_token",token,{
@@ -55,3 +61,5 @@ catch(err)
     
     
 }
+////admin roles to be added
+

@@ -7,7 +7,7 @@ import bodyParser  from 'body-parser'
 import authrouter from "./routers/Auth.js";
 import cors from "cors"
 import productrouter from "./routers/items.js";
-import Cartrt from "./routers/Cartrt.js"
+import Cartrouter from "./routers/Cartrt.js"
 
 
 const app=express();
@@ -36,6 +36,8 @@ app.use(cookieParser())
 app.use("/api/auth",authrouter)
 
 app.use("/api/product",productrouter)
+
+app.use("/api/cart",Cartrouter)
 app.listen(5000,()=>{
   connect();
     console.log("connected")

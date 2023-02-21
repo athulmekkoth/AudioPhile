@@ -24,6 +24,9 @@ const Userschema= new mongoose.Schema({
     password:
     {
         type:String
+    },
+    isadmin:{
+        type:Boolean
     }
 },{timestamps:true})
 export default mongoose.model("User",Userschema)
