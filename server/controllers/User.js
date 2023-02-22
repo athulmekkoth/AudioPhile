@@ -10,7 +10,7 @@ export const signup = async (req, res, next) => {
   try {
     const existinguser = await User.findOne({ email: email });
     if (existinguser) {
-      res.status(404).json({ message: "user already registered, please log in" });
+      res.status(409).json({ message: "user already registered, please log in" });
     } else {
         var salt=bcrypt.genSaltSync(10)
         var hash=bcrypt.hashSync(req.body.password,salt)

@@ -1,18 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { loginStart,loginSuccess,loginFailed } from "../redux/authslice.js";
+import axios from "axios"
+import { useSelector, useDispatch } from 'react-redux'
 import img from "../../../public/images/shared/audiophile-logo.svg";
 const Login = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [email,setEmail]=React.useState("");
   const [password,setPassword]=React.useState("");
-  const handelevent= async( e)=>{
+  const handelevent= async(e)=>{
     e.preventDefault;
+    console.log(email,password)
     try{
-      const response = await("/api/auth/login",{email,password})
+      dispatch(loginStart());
+      
+      const response = await axios.post("/api/auth/signin",{email,password})
+      if(response)
+      {
+        dispatch(loginSuccess(response.data));
+        navigate('/')
+
+      }
+      
       
 
     }
     catch(err)
     {
+      dispatch(loginFailed())
+
       console.log(err);
     }
 
@@ -20,7 +38,7 @@ const Login = () => {
   return (
     <div className="w-full h-screen flex justify-center items-center">
      
-        <div className="w-[30%] my-auto mx-auto  text-left border-2 rounded-md border-black">
+        <div className="w-[70%] my-auto mx-auto  text-left border-2 rounded-md border-black">
           <div className=" mt-5  text-center w-full h-9 ">
           <h1 className="text-4xl font-semibold font-mono">audiophile</h1>
           </div>
@@ -42,8 +60,8 @@ const Login = () => {
                onChange={(e)=>setPassword(e.target.value)} />
             </form>
             <div className="w-full  pb-5 flex flex-col justify-center items-center">
-                <button className="bg-black w-[70%] h-8 rounded-xl text-white font-thin " >Login</button>
-                <Link onClick={handelevent} to="/signup" className="">First time user? <span className="text-violet-400 hover:text-yellow-500g">Cretae an Account</span></Link>
+                <button onClick={handelevent} className="bg-black w-[70%] h-8 rounded-xl text-white font-thin " >Login</button>
+                <Link  to="/signup" className="">First time user? <span className="text-violet-400 hover:text-yellow-500g">Cretae an Account</span></Link>
 
             </div>
        

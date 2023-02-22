@@ -3,11 +3,15 @@ import { Link } from "react-router-dom";
 import img from "../../../public/images/shared/audiophile-logo.svg";
 import axios from "axios"
 import { useState } from "react";
-
-
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import { loginStart,loginSuccess,loginFailed } from "../redux/authslice.js";
 
 
 const Signup = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
@@ -18,9 +22,20 @@ const handleSubmit = async (event) => {
     try {
       const response = await axios.post("/api/auth/signup", { name, email, password });
 
-      console.log(response.data);
+      dispatch(loginStart());
+ 
+      if(response)
+      {
+        dispatch(loginSuccess(response.data));
+        navigate('/')
+
+      }
+      
     } catch (err) {
-      console.error(err);
+      dispatch(loginFailed())
+      if (err.response.status === 409) {
+        alert('User already exists');
+      }
     }
   
 }

@@ -2,10 +2,13 @@ import React from "react";
 import cart from "../assets/images/cart.png"
 import { TfiMenu } from "react-icons/tfi";
 import { AiOutlineCloseCircle} from "react-icons/ai";
-
+import { useSelector, useDispatch } from 'react-redux'
+import { logOut } from "../redux/authslice.js";
 import { AiOutlineShoppingCart} from "react-icons/ai";
 export default function Navbar()
 {
+    const {currentUser}=useSelector((state)=>state.user)
+    console.log(currentUser)
 const [open,setopen]=React.useState(false)
     let Links =[
         {name:"Home" ,link:"/"},
