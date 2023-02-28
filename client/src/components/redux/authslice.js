@@ -27,7 +27,7 @@ state.loading=false;
     logOut:(state)=>{
         state.currentUser=null,
         state.loading=false,
-        state.error=alse
+        state.error=false
 
     }
  

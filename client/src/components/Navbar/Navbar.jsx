@@ -5,13 +5,25 @@ import { AiOutlineCloseCircle} from "react-icons/ai";
 import { useSelector, useDispatch } from 'react-redux'
 import { logOut } from "../redux/authslice.js";
 import { AiOutlineShoppingCart} from "react-icons/ai";
+
+
 export default function Navbar()
 {
+    const dispatch=useDispatch();
+    const log=async()=>{
+        console.log("clicled")
+        dispatch(logOut())
+        
+
+
+    }
     const {currentUser}=useSelector((state)=>state.user)
     console.log(currentUser)
-const [open,setopen]=React.useState(false)
+    const [open,setopen]=React.useState(false)
+
     let Links =[
         {name:"Home" ,link:"/"},
+
         {name:"Headphone" ,link:"/"},
         {name:"Speaker" ,link:"earphones"},
         {name:"Earphone"  ,link:"/"},
@@ -22,7 +34,8 @@ const [open,setopen]=React.useState(false)
 
     }
     return(
-    <>
+    < >
+   <div className="bg-red-500 h-12">
     <div className=" z-5000 fixed shadow-md w-full  top-0 left-0 ">
     <div className="  lg:flex  bg-black py-4 md:justify-around items-center">
    <div className=" text-2xl flex justify-between px-3 pt-2  text-white cursor-pointer font-[Poppins]">audiophile
@@ -42,9 +55,12 @@ const [open,setopen]=React.useState(false)
         
     }
    </ul>
+
    <div className = "text-white text-4xl">
+   { currentUser? <button  onClick={log} className=" bg-white w-9 h-10 text-yellow-300 text-xl">LOgout</button>:"" }
 <h1 className="absolute right-20   w-7 cursor- top-5 lg:flex items-center " ><AiOutlineShoppingCart /></h1>
 
+   </div>
    </div>
    </div>
    </div>

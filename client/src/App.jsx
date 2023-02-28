@@ -6,6 +6,7 @@ import Footer from './components/footer/Footer'
 import Signup from './components/authpages/Signup'
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Login from './components/authpages/Login'
+import Commondetail from './components/pages/Commondetail.jsx'
 
 
 
@@ -26,6 +27,10 @@ function AppWrapper() {
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login/>} />
+            <Route path="/head" element={<Commondetail propName="head"/>} />
+            <Route path="/head" element={<Commondetail propName="ear"/>} />
+            <Route path="/head" element={<Commondetail  propName="ear"/>} />
+
             
           </Routes>
 

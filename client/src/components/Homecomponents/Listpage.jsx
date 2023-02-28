@@ -10,9 +10,9 @@ export default function Listpage()
 
 <div className=" mt-14  flex flex-col lg:flex-row">
     
-<Earphone img={headphone}  name="Headphone"/>
-<Earphone img={earphone} name=" Earphone" />
-<Earphone img={speaker} name="Speaker" />
+<Earphone img={headphone}  name="Headphone" link="/head" />
+<Earphone img={earphone} name=" Earphone" link="/ear" />
+<Earphone img={speaker} name="Speaker" link="/speaker"/>
 </div>
 
 
