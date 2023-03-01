@@ -28,10 +28,13 @@ function AppWrapper() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login/>} />
             <Route path="/head" element={<Commondetail propName="head"/>} />
-            <Route path="/head" element={<Commondetail propName="ear"/>} />
-            <Route path="/head" element={<Commondetail  propName="ear"/>} />
+            <Route path="/ear" element={<Commondetail propName="ear"/>} />
+            <Route path="/speak" element={<Commondetail  propName="speak"/>} />
+            <Route path="/product"  >
+            <Route path=':id' element={<Login />} />
+            </Route>
 
-            
+          
           </Routes>
 
       </div>
