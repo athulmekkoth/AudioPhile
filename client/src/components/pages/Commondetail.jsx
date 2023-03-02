@@ -7,7 +7,7 @@ export default function Commondetail(props)
 {
 
     return(
-        <div className="mt-14 justify-items-center  bg-red-400  grid grid-cols-3 gap-4">
+        <div className="py-16 justify-items-center    grid grid-cols-3 gap-4">
         
         <Card className=""/>
 <Card />
