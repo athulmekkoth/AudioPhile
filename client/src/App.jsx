@@ -7,8 +7,7 @@ import Signup from './components/authpages/Signup'
 import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Login from './components/authpages/Login'
 import Commondetail from './components/pages/Commondetail.jsx'
-
-
+import Product from './components/pages/Product.jsx'
 
 import React from 'react';
 import { useLocation } from 'react-router-dom';
@@ -31,7 +30,7 @@ function AppWrapper() {
             <Route path="/ear" element={<Commondetail propName="ear"/>} />
             <Route path="/speak" element={<Commondetail  propName="speak"/>} />
             <Route path="/product"  >
-            <Route path=':id' element={<Login />} />
+            <Route path=':id' element={<Product />} />
             </Route>
 
           

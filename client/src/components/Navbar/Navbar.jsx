@@ -24,9 +24,9 @@ export default function Navbar()
     let Links =[
         {name:"Home" ,link:"/"},
 
-        {name:"Headphone" ,link:"/"},
-        {name:"Speaker" ,link:"earphones"},
-        {name:"Earphone"  ,link:"/"},
+        {name:"Headphone" ,link:"/head"},
+        {name:"Speaker" ,link:"/speak"},
+        {name:"Earphone"  ,link:"/ear"},
       
     ]
     const change=()=>{

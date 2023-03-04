@@ -22,9 +22,9 @@ catch(err)
 }
 export const deleteitem= async(req,res,next)=>{
  
-    const exist = await Product.findOne({ name: req.body.name, category: req.body.category });
+    const result = await Product.findById({ _id: productId });
     try{
-    if(exist){
+    if(result){
 
         await exist.deleteOne();
       
@@ -67,13 +67,14 @@ catch(err)
  }
  export const findbycat=async(req,res,next)=>
  {
-    console.log(req.query.tags) // 10
+    const tags=req.params.tags
+    console.log(tags)
    
 
 
     try{
         
-        const exist= await Product.find({category:req.query.tags})
+        const exist= await Product.find({category:tags})
         if(exist)
         {
             res.status(200).json(exist)
@@ -90,5 +91,8 @@ catch(err)
 
 
  
- 
+ export const add=  async(req,res,next)=>{
+    const exist = await Product.fi
+
+ }
 
