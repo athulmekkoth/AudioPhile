@@ -9,7 +9,9 @@ import cors from "cors"
 import productrouter from "./routers/items.js";
 import Cartrouter from "./routers/Cartrt.js"
 
-
+const upload = require('./Upload.js/Multer.js');
+import uploads from "./Cloudinary.js"
+import * as fs from 'fs'; 
 const app=express();
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -34,7 +36,31 @@ const connect=()=>{
 app.use(cookieParser())
 
 app.use("/api/auth",authrouter)
-
+app.use("/upload",upload.array('image'),async(req,res)=>{
+    const upload= async(path)=>await cloudinary.uploads(path,'Images')
+    if(req.method==="POST")
+    {
+        const urls=[]
+        const files=req.files 
+        for(const file of files)
+        {
+            const{path}=file
+            const newPath= await  UploadStream(path)
+            urls.push(newPath)
+            fs.unlinkSync(path)
+        }
+        res.status(200).json({
+            "message":"succesfullyuplaoded",
+            data:urls
+        })
+       
+    }
+    else{
+        res.status(500).json({
+            err:"not succes"
+        })
+    }
+})
 app.use("/api/product",productrouter)
 
 app.use("/api/cart",Cartrouter)

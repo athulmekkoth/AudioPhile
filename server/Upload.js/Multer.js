@@ -13,15 +13,16 @@ const storage=multer.diskStorage({
 
 //file valid
 
-const filefilter=(req,file,next)=>{
-    if(file.mimetype === 'image/jpeg' || 'image/png'){
-        cb(null,true)
-    }
-    else{
-        //prevent uplaod
-        cb({message:'Unsupported file format'},false)
+
+const fileFilter = (req, file, next) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        next(null, true)
+    } else {
+        // prevent upload
+        next({message: 'Unsupported file format'}, false)
     }
 }
+
 const upload=multer({
     storage:storage,
     limits:{fileSize:1024 *1024},
@@ -29,4 +30,4 @@ const upload=multer({
 
 
 })
-modules.export=upload 
+module.exports = upload; 
