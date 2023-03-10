@@ -9,8 +9,8 @@ import cors from "cors"
 import productrouter from "./routers/items.js";
 import Cartrouter from "./routers/Cartrt.js"
 
-const upload = require('./Upload.js/Multer.js');
-import uploads from "./Cloudinary.js"
+//const upload = require('./Upload.js/Multer.js');
+//import uploads from "./Cloudinary.js"
 import * as fs from 'fs'; 
 const app=express();
 // parse application/x-www-form-urlencoded
@@ -36,7 +36,7 @@ const connect=()=>{
 app.use(cookieParser())
 
 app.use("/api/auth",authrouter)
-app.use("/upload",upload.array('image'),async(req,res)=>{
+/*app.use("/upload",upload.array('image'),async(req,res)=>{
     const upload= async(path)=>await cloudinary.uploads(path,'Images')
     if(req.method==="POST")
     {
@@ -61,6 +61,7 @@ app.use("/upload",upload.array('image'),async(req,res)=>{
         })
     }
 })
+*/
 app.use("/api/product",productrouter)
 
 app.use("/api/cart",Cartrouter)

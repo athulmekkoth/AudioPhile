@@ -2,7 +2,7 @@ import React from "react";
 import img from "../../../public/images/home/desktop/headphone-hero-image.png"
 import { Link } from "react-router-dom";
 export default function Card(props) {
-  console.log(props.item._id)
+  
 
   return (
   
