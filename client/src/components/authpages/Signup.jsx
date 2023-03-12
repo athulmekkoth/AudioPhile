@@ -18,8 +18,13 @@ const [password, setPassword] = useState("");
 const handleSubmit = async (event) => {
   event.preventDefault();
 
-  
+  console.log(name.length)
     try {
+      if(password.length < 8)
+      {
+        alert("password should be atelast 8 characters")
+      }
+      else{
       const response = await axios.post("/api/auth/signup", { name, email, password });
 
       dispatch(loginStart());
@@ -30,6 +35,7 @@ const handleSubmit = async (event) => {
         navigate('/')
 
       }
+    }
       
     } catch (err) {
       dispatch(loginFailed())
@@ -37,6 +43,7 @@ const handleSubmit = async (event) => {
         alert('User already exists');
       }
     }
+  
   
 }
   return (

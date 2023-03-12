@@ -4,10 +4,9 @@ import { useParams } from 'react-router-dom';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import axios from "axios"
-import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 
-import Button from '@clayui/button';
-import DropDown from '@clayui/drop-down';
+import Dropdown from 'react-dropdown';
 export default function Product()
 {
   const handleDragStart = (e) => e.preventDefault();
@@ -41,7 +40,7 @@ getdata();
     return(
       <div className="">
      
-      <div className="  pt-28   flex ">
+      <div className="  pt-28   flex">
    <div className="w-[50%] -z-10  flex flex-col mx-auto">
    <h1 className="font-extrabold text-6xl" >{data.name}</h1>
       <AliceCarousel  mouseTracking items={items} />
@@ -56,13 +55,8 @@ getdata();
           {data.description}
         </p>
         
-        <DropDown trigger={<Button>Click Me</Button>}>
-	<DropDown.ItemList>
-		<DropDown.Item>one</DropDown.Item>
-		<DropDown.Item>two</DropDown.Item>
-		<DropDown.Item>three</DropDown.Item>
-	</DropDown.ItemList>
-</DropDown>
+        <Dropdown options={options} /*onChange={this._onSelect}*/ value={defaultOption} placeholder="Select an option" />;
+
         </div>
       
       </div>
