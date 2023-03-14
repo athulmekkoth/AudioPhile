@@ -7,17 +7,19 @@ export const verifyToken = (req, res, next) => {
     if (err) res.status(403).json({ message: "not valid token" });
     req.user = user;
     
+   
+    
     next();
   });
 };
-export const verifyTokenAdmin =(req,res,next)=>{
-  verifyToken(req,res,()=>{
-    if(req.user.isAdmin)
-    {
+
+export const verifyTokenAdmin = (req, res, next) => {
+  verifyToken(req, res, () => {
+    if (req.user.isAdmin) {
+      console.log(req.user.isAdmin)
       next();
+    } else {
+      res.status(403).json({ message: "you are not allowed to do that" });
     }
-    else{
-      res.status(403).json("you are not allowed to do that")
-    }
-  })
-}
+  });
+};

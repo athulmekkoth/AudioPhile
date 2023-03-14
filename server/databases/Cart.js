@@ -5,6 +5,12 @@ const Cartschema= new mongoose.Schema({
          required: true,
          ref: 'User'
        },
+       items:[{
+        type: mongoose.Types.ObjectId,
+        required:true,
+        ref:'Product'
+       }],
+
     name:{
         type:String,
         required:true
@@ -12,6 +18,13 @@ const Cartschema= new mongoose.Schema({
     quantity:{
         type:Number,
         required:true,
+        min:1,
+        default:1
+    },
+    total:{
+        required:true,
+        type:Number,
+        default:0
     }
 
 })

@@ -1,29 +1,43 @@
 
 import Cart from "../databases/Cart.js";
 import User from "../databases/Cart.js"
-export  const get=async(req,res,next)=>{
-    const owner = req.user._id;
+import jwt from 'jsonwebtoken';
+export const get = async (req, res, next) => {
     try {
-        const cart = await Cart.findOne({ owner });
-    if (cart && cart.items.length > 0) {
-         res.status(200).send(cart);
-    } else {
-          res.status(400).json(null);
-    }
+      console.log(req.user.id)
+      const cart = await Cart.findOne({owner: req.user.id });
+  
+      if (cart && cart.length>0) {
+        res.status(200).send(cart);
+      } if(cart && cart.length ===0) {
+        res.status(400).json({message:"nothing here"});
+
+      }
+      else{
+        res.status(404).json({message:"no cart found"})
+      }
     } catch (error) {
-        res.status(500).send();
+      res.status(500).json({message:"error found"})
     }
-}
+  };
+  
 export  const add =async(req,res,next)=>{
-    const owner = req.user._id;
-    try {
-        const cart = await Cart.findOne({ owner });
-    if (cart && cart.items.length > 0) {
-         res.status(200).send(cart);
+  try {
+    console.log(req.user)
+    const cart = await Cart.findOne({owner: req.user.id });
+
+    if (cart) {
+      const addit=Cart.updateOne(req.body)
+      await addit.save();
+      res.status(200).send(cart);
+
     } else {
-          res.status(400).json(null);
+      const newcart= await new Cart(req.body)
+      await newcart.save();
+      res.status(200).json({message:"adeded succesfully"})
     }
-    } catch (error) {
-        res.status(500).send();
-    }
-}
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({message:"error found"})
+  }
+};

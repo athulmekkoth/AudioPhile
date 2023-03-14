@@ -39,8 +39,9 @@ res.status(500).json("check password")
 
 //jwt sert kry
 
+
 const token= jwt.sign({
-  
+ 
   id:user._id,
   isAdmin:user.isadmin
 

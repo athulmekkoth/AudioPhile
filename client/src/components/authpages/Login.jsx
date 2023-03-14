@@ -29,6 +29,10 @@ const Login = () => {
     }
     catch(err)
     {
+      if(err.response.status=500)
+      {
+        alert("wrong password please check")
+      }
       dispatch(loginFailed())
 
       console.log(err);

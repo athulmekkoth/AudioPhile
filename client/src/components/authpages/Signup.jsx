@@ -26,6 +26,7 @@ const handleSubmit = async (event) => {
       }
       else{
       const response = await axios.post("/api/auth/signup", { name, email, password });
+  
 
       dispatch(loginStart());
  
