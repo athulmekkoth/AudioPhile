@@ -58,22 +58,23 @@ return(
 
 
 </div>
-<div className="" >
-<div className="flex flex-row justify-evenly items-center mx-3 my-5 py-4 flex-wrap ">
-<p>Select qty:</p>
-<Dropdown options={options} onChange={(value) => setvalue(value)} value={defaultOption} placeholder="Select an option" />
+<div className="">
+  <div className="flex  flex-row  justify-evenly items-center mx-3 my-5 py-4 flex-wrap ">
+    <p>Select qty:</p>
+    <Dropdown
+      options={options}
+      /*onChange={this._onSelect}*/ value={defaultOption}
+      placeholder="Select an option"
+    />
 
-<button className=" w-[80%] mt-3 py-2 bg-orange-500 rounded-lg lg:w-[40%]">Add to cart</button>
-
-</div>
-<div className=" mx-auto w-[80%] overflow-auto">
-<p className="break-words font-extralight ">
-{data.description}
-</p>
-
-</div>
-
-</div>
+    <button className=" w-[80%] mt-3 py-2 bg-orange-500 rounded-lg">
+      Add to cart
+    </button>
+  </div>
+  <div className=" mx-auto w-[80%]  overflow-auto">
+    <p className="break-words font-extralight ">{data.description}</p>
+  </div>
+</div>;
 </div>
 )
 }

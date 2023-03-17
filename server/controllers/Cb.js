@@ -2,6 +2,7 @@
 import Cart from "../databases/Cart.js";
 import User from "../databases/Cart.js"
 import jwt from 'jsonwebtoken';
+import mongoose from "mongoose";
 
 export const get = async (req, res, next) => {
   try {
@@ -23,9 +24,16 @@ console.log(cart)
 export const add = async (req, res, next) => {
   try {
     const filter = { owner: req.user.id };
-    const update = { $push: { items: req.body.itemId ,quantity:req.body.quantity} };
+    const update = { $push: { items:{ product:req.body.itemId ,quantity:req.body.quantity}} };
     const options = { upsert: true, new: true, setDefaultsOnInsert: true };
-    const cart = await Cart.findOneAndUpdate(filter, update, options);
+    const find = await Cart.findOne({product:req.body.itemId})
+    if(find)
+    {
+      res.send(500).json({messgae:"items already there"})
+    }
+    else
+
+{    const cart = await Cart.findOneAndUpdate(filter, update, options);
 
 
 /*upsert": if set to true, creates a new document if no document matches the filter.
@@ -33,6 +41,7 @@ export const add = async (req, res, next) => {
 "setDefaultsOnInsert": if set to true, sets default values for fields that are not specified in the update object.
 */
     res.status(200).send(cart);
+}
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error found" });
@@ -40,11 +49,33 @@ export const add = async (req, res, next) => {
 };
 
 export const remove = async (req, res, next) => {
+  
+ 
   try {
+  
     const filter = { owner: req.user.id };
-    const update = { $pop: { items: req.body.itemId } };
-    const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+    const update = { $pull:{items:{ _id:req.body.id} }};
+    const option={new:true}
+    const cart = await Cart.findOneAndUpdate(filter, update,option);
+
+    res.status(200).send(cart);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "error found" });
+  }
+};
+export const update = async (req, res, next) => {
+  
+ 
+  try {
+  
+    const itemId = req.body.itemId;
+    const filter = { owner: req.user.id, "items._id": itemId };
+    const update = { $set: { "items.$.quantity": req.body.quantity } };
+    const options = { new: true };
     const cart = await Cart.findOneAndUpdate(filter, update, options);
+    
+    
 
     res.status(200).send(cart);
   } catch (error) {
