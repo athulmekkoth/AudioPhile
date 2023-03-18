@@ -16,9 +16,7 @@ useEffect(() => {
   fetchData();
 }, []);
 
-state.map((item)=>{
-  console.log(item)
-})
+
     return(
         <div className="grid lg:grid-cols-3 gap-4 py-16 justify-items-center    ">
  {state.map((item)=>{

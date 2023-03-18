@@ -6,9 +6,9 @@ import mongoose from "mongoose";
 
 export const get = async (req, res, next) => {
   try {
-    console.log(req.user.id)
+  
     const cart = await Cart.findOne({ owner: req.user.id }).populate('items');
-console.log(cart)
+
     if (cart) {
       res.status(200).send(cart);
     } else {
@@ -29,7 +29,7 @@ export const add = async (req, res, next) => {
     const find = await Cart.findOne({product:req.body.itemId})
     if(find)
     {
-      res.send(500).json({messgae:"items already there"})
+      return res.status(100).json({messgae:"items already there"})
     }
     else
 
@@ -68,9 +68,11 @@ export const update = async (req, res, next) => {
   
  
   try {
+    //positional aprmaeter specific
   
     const itemId = req.body.itemId;
-    const filter = { owner: req.user.id, "items._id": itemId };
+    const filter = { owner: req.user.id, "items._id": req.body.id};
+    
     const update = { $set: { "items.$.quantity": req.body.quantity } };
     const options = { new: true };
     const cart = await Cart.findOneAndUpdate(filter, update, options);

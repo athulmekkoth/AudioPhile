@@ -8,6 +8,7 @@ import {BrowserRouter,Routes,Route} from "react-router-dom"
 import Login from './components/authpages/Login'
 import Commondetail from './components/pages/Commondetail.jsx'
 import Product from './components/pages/Product.jsx'
+import Cartlist from './components/pages/cartpage/Cartlist.jsx'
 
 import React from 'react';
 import { useLocation } from 'react-router-dom';
@@ -17,13 +18,14 @@ function AppWrapper() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {location.pathname !== "/login" && location.pathname !== "/signup" && (
+      {location.pathname !== "/login" && location.pathname !== "/signup" &&  (
         <Navbar />
       )}
 
       <div className="flex-1">
       <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cartlist />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login/>} />
             <Route path="/head" element={<Commondetail propName="head"/>} />
@@ -31,6 +33,7 @@ function AppWrapper() {
             <Route path="/speak" element={<Commondetail  propName="speak"/>} />
             <Route path="/product"  >
             <Route path=':id' element={<Product />} />
+
             </Route>
 
           
@@ -38,7 +41,7 @@ function AppWrapper() {
 
       </div>
 
-      {location.pathname !== "/login" && location.pathname !== "/signup" && (
+      {location.pathname !== "/login" && location.pathname !== "/signup" &&  location.pathname !== "/cart" &&(
         <Footer />
       )}
     </div>
