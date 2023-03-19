@@ -17,12 +17,13 @@ const Cartschema= new mongoose.Schema({
           required: true,
           min: 1,
           default: 1
-        }
+        },
+        name:{
+          type:String,
+          required:true
+      },
       }],
-    name:{
-        type:String,
-        required:true
-    },
+   
   
     total:{
         required:true,

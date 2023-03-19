@@ -1,6 +1,7 @@
 
 import Cart from "../databases/Cart.js";
 import User from "../databases/Cart.js"
+import Product from "../databases/Product.js"
 import jwt from 'jsonwebtoken';
 import mongoose from "mongoose";
 
@@ -24,12 +25,19 @@ export const get = async (req, res, next) => {
 export const add = async (req, res, next) => {
   try {
     const filter = { owner: req.user.id };
-    const update = { $push: { items:{ product:req.body.itemId ,quantity:req.body.quantity}} };
+
+    const data= await Product.findById({_id:req.body.itemId})
+    console.log(data)
+ 
+  
+    const update = { $push: { items:{ name:data.name,product:req.body.itemId ,quantity:req.body.quantity}} };
     const options = { upsert: true, new: true, setDefaultsOnInsert: true };
-    const find = await Cart.findOne({product:req.body.itemId})
+    const find = await Cart.findOne({"items.product":req.body.itemId})
+    console.log(find)
     if(find)
     {
-      return res.status(100).json({messgae:"items already there"})
+      return res.status(300).json({messgae:"items already there"})
+      console.log("nothinf added")
     }
     else
 

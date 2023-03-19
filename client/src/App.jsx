@@ -41,7 +41,7 @@ function AppWrapper() {
 
       </div>
 
-      {location.pathname !== "/login" && location.pathname !== "/signup" &&  location.pathname !== "/cart" &&(
+      {location.pathname !== "/login" && location.pathname !== "/signup" &&(
         <Footer />
       )}
     </div>
