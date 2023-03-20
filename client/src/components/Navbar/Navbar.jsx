@@ -5,7 +5,7 @@ import { AiOutlineCloseCircle} from "react-icons/ai";
 import { useSelector, useDispatch } from 'react-redux'
 import { logOut } from "../redux/authslice.js";
 import { AiOutlineShoppingCart} from "react-icons/ai";
-
+import { Link } from "react-router-dom";
 
 export default function Navbar()
 {
@@ -58,7 +58,7 @@ export default function Navbar()
 
    <div className = "text-white text-4xl">
    { currentUser? <button  onClick={log} className=" bg-white w-9 h-10 text-yellow-300 text-xl">LOgout</button>:"" }
-<h1 className="absolute right-20   w-7 cursor- top-5 lg:flex items-center " ><AiOutlineShoppingCart /></h1>
+<button onClick={()=>{ <Link to="/cart" ></Link>  }} className="absolute right-20   w-7 cursor- top-5 lg:flex items-center " ><AiOutlineShoppingCart /></button>
 
    </div>
    </div>

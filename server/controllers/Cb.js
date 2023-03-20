@@ -27,13 +27,18 @@ export const add = async (req, res, next) => {
     const filter = { owner: req.user.id };
 
     const data= await Product.findById({_id:req.body.itemId})
-    console.log(data)
+    const cart = await Cart.findOne({ owner: req.user.id }).populate('items');
  
-  
-    const update = { $push: { items:{ name:data.name,product:req.body.itemId ,quantity:req.body.quantity}} };
+  const {price}=data
+ const  itemprices=req.body.quantity*price
+
+
+    const update = { $push: { items:{ name:data.name,product:req.body.itemId ,quantity:req.body.quantity,itemprice:itemprices}} ,
+  $set:{total:cart.total+itemprices }
+};
     const options = { upsert: true, new: true, setDefaultsOnInsert: true };
     const find = await Cart.findOne({"items.product":req.body.itemId})
-    console.log(find)
+   
     if(find)
     {
       return res.status(300).json({messgae:"items already there"})

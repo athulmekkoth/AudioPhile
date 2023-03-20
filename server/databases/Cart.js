@@ -22,10 +22,14 @@ const Cartschema= new mongoose.Schema({
           type:String,
           required:true
       },
+      itemprice:{
+        type:Number,
+        required:true
+      }
       }],
    
   
-    total:{
+      total:{
         required:true,
         type:Number,
         default:0

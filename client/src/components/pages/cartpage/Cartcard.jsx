@@ -35,7 +35,7 @@ export default function Cartcard(props)
            
             </div>
             <div className="flex  lg:flex-row justify-between lg:justify-between  w-[88%] mx-auto">
-                <h2>price</h2>
+                <h2 className="text-gray-400 text-2xl">price:{props.item.itemprice}</h2>
                 <div className="flex  lg:flex-row gap-6 items-center">
                 <h2 onClick={dele}className="cursor-pointer"><RiDeleteBin6Line /></h2>
                 <Dropdown
