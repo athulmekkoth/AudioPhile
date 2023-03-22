@@ -58,7 +58,7 @@ const Footer=()=>{
                 </div>
                 </div>
         <div className="text-white  text-center py-7 lg:py-10">
-            <h1>Copyright 2022. All Rights Reserved</h1>
+            <h1>Copyright 2023. All Rights Reserved</h1>
         </div>
             </div>
    

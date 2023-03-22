@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { loginStart,loginSuccess,loginFailed } from "../redux/authslice.js";
 import axios from "axios"
+
 import { useSelector, useDispatch } from 'react-redux'
 import img from "../../../public/images/shared/audiophile-logo.svg";
 const Login = () => {
@@ -10,10 +11,19 @@ const Login = () => {
   const dispatch = useDispatch()
   const [email,setEmail]=React.useState("");
   const [password,setPassword]=React.useState("");
+//Errors, setEmailErrors] = useState<string[] | null>(null);
   const handelevent= async(e)=>{
     e.preventDefault;
     console.log(email,password)
     try{
+      setEmailErrors(null);
+      const { errors } = validate(email, { isEmail: true, required: true });
+      if (errors) {
+        setEmailErrors(errors);
+        return;
+      }
+
+
       dispatch(loginStart());
       
       const response = await axios.post("/api/auth/signin",{email,password})
