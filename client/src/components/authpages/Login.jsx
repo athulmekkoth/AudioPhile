@@ -16,12 +16,7 @@ const Login = () => {
     e.preventDefault;
     console.log(email,password)
     try{
-      setEmailErrors(null);
-      const { errors } = validate(email, { isEmail: true, required: true });
-      if (errors) {
-        setEmailErrors(errors);
-        return;
-      }
+      
 
 
       dispatch(loginStart());
