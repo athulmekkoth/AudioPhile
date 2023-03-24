@@ -67,6 +67,25 @@ catch(err)
  }
  export const findbycat=async(req,res,next)=>
  {
+    
+    try{
+
+        console.log(req.params.cat)
+       
+       
+        
+        const exist= await Product.find({category: req.params.cat});
+        if(exist)
+        {
+            res.status(200).json(exist)
+        }
+    } catch(err) {
+        console.log(err);
+    }
+ }
+
+ export const findbysearch=async(req,res,next)=>
+ {
     console.log(req.query.page)
     try{
         const regex = new RegExp(req.query.page, "i");

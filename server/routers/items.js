@@ -6,6 +6,6 @@ const productrouter=express.Router();
 productrouter.post("/add",verifyTokenAdmin,additem)
 productrouter.delete("/del",verifyTokenAdmin,deleteitem)
 productrouter.get("/find/:id",verifyToken,find)
-productrouter.get('/all',verifyToken, findbycat)
+productrouter.get("/all/:cat",verifyToken, findbycat)
 //productrouter.get("/findcat",findbycat)
 export default productrouter;

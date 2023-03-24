@@ -32,7 +32,8 @@ const Cartschema= new mongoose.Schema({
       total:{
         required:true,
         type:Number,
-        default:0
+        default:0,
+        min:0
     }
 
 })

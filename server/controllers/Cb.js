@@ -62,21 +62,23 @@ export const add = async (req, res, next) => {
 };
 
 export const remove = async (req, res, next) => {
-  
- 
   try {
-  
-    const filter = { owner: req.user.id };
-    const update = { $pull:{items:{ _id:req.body.id} }};
-    const option={new:true}
-    const cart = await Cart.findOneAndUpdate(filter, update,option);
+    const cart = await Cart.findOne({ owner: req.user.id });
+    const item = cart.items.find((item) => item._id.equals(req.body.id));
+    const price = item.itemprice;
 
-    res.status(200).send(cart);
+    const filter = { owner: req.user.id };
+    const update = { $pull:{ items: { _id: req.body.id } }, $inc:{ total: -price }};
+    const option = { new: true }
+    const updatedCart = await Cart.findOneAndUpdate(filter, update, option);
+
+    res.status(200).send(updatedCart);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error found" });
   }
 };
+
 export const update = async (req, res, next) => {
   
  
