@@ -1,10 +1,11 @@
 import React from "react";
 import img from "../../../public/images/home/desktop/headphone-hero-image.png"
 import { Link } from "react-router-dom";
-export default function Card(props) {
-  
 
+export default function Card(props) {
+ 
   return (
+    
   
     <div className="w-1/2  bg-white rounded-2xl overflow-hidden shadow-2xl">
   

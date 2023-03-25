@@ -14,7 +14,7 @@ const Login = () => {
 //Errors, setEmailErrors] = useState<string[] | null>(null);
   const handelevent= async(e)=>{
     e.preventDefault;
-    console.log(email,password)
+
     try{
       
 
@@ -25,6 +25,7 @@ const Login = () => {
       if(response)
       {
         dispatch(loginSuccess(response.data));
+      
         navigate('/')
 
       }

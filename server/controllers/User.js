@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 
 export const signup = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { name,email, password } = req.body;
 
 
   try {
@@ -25,6 +25,43 @@ export const signup = async (req, res, next) => {
     res.status(500).json({ message: "something went wrong" });
   }
 };
+export const resetpassword = async (req, res) => {
+  
+  const { email} = req.body;
+  try{
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(500).json("Please create an account first.");
+    }
+
+    const matchpass = await bcrypt.compare(req.body.password, user.password)
+    if (!matchpass) {
+      return res.status(500).json("Incorrect password.");
+    } else {
+      const { newpassword, confirmnewpassword } = req.body;
+      if (newpassword !== confirmnewpassword) {
+        return res.status(400).json({ message: "Passwords do not match." });
+      }
+      else if (await bcrypt.compare(newpassword, user.password)) {
+        return res.status(501).json({message:"Old password and new should not be the same."});
+      }
+      else {
+        const filter = { email };
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(newpassword, salt);
+        const update = { password: hash };
+        const doc = await User.findOneAndUpdate(filter, update, {
+          new: true
+        });
+        return res.status(200).json({ message: "Password updated." });
+      }
+    }
+  } catch(error) {
+    console.log(error);
+    return res.status(500).json({ message: "An error occurred." });
+  }
+}
+
 
 export const signin=async (req,res,next)=>{
     const { email} = req.body;

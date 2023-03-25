@@ -3,12 +3,17 @@ import axios from "axios";
 import  {RiDeleteBin6Line} from "react-icons/ri";
 import img from "../../../../public/images//home/desktop/headphone-hero-image.png"
 import Dropdown from 'react-dropdown'
+import { useSelector,useDispatch } from "react-redux";
+import { remove,reset } from "../../redux/cartslice";
 export default function Cartcard(props)
 {
+    const dispatch=useDispatch();
    
     const dele=async()=>{
+        dispatch(remove(props._id))
         console.log(props.item._id)
         const response = await axios.delete("/api/cart/rem", { data: { id: props.item._id } });
+ 
         if(response.status===200)
         {
             console.log("ok")
@@ -18,11 +23,8 @@ export default function Cartcard(props)
     const[values,setvalue]=useState(1)
 
 
-    const options = [
-        '1', '2', '3'
-        ];
-      
-        const defaultOption = options[0];
+    
+        
 
     return(
         <div className="w-[100%]   ">
@@ -38,12 +40,7 @@ export default function Cartcard(props)
                 <h2 className="text-gray-400 text-2xl">price:{props.item.itemprice}</h2>
                 <div className="flex  lg:flex-row gap-6 items-center">
                 <h2 onClick={dele}className="cursor-pointer"><RiDeleteBin6Line /></h2>
-                <Dropdown
-  options={options}
-  onChange={(selectedOption) => setvalue(selectedOption)}
-  value={defaultOption}
-  placeholder="Select an option"
-/>
+         
 </div>
             </div>
         

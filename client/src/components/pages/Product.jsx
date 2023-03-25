@@ -1,32 +1,34 @@
 
-            import React, { useEffect, useState,CSSProperties } from "react";
+import React, { useEffect, useState,CSSProperties } from "react";
   import img from "../../../public/images/home/desktop/headphone-hero-image.png"
   import { useParams } from 'react-router-dom';
   import AliceCarousel from 'react-alice-carousel';
   import 'react-alice-carousel/lib/alice-carousel.css';
   import axios from "axios"
   import 'react-dropdown/style.css';
-
+  import {useSelector,useDispatch} from "react-redux"
   import Dropdown from 'react-dropdown';
+  import { addtocart } from "../redux/cartslice";
   export default function Product()
 
   {
+//redux
 
-  ///
-  const[values,setvalue]=useState(1)
+const dispatch=useDispatch();
+  
+
+  /// for the selector dropdoen
+  const[values,setvalue]=useState(2)
   
 
   const handleDragStart = (e) => e.preventDefault();
-  const options = [
-  '1', '2', '3'
-  ];
-
-  const defaultOption = options[0];
+  
+  
 
   const onselect=()=>{
-    console.log(values.value)
+    console.log(values)
   }
-  //
+  //carousel
   const items = [
   <img src={img} onDragStart={handleDragStart} role="presentation" />,
   <img src={img} onDragStart={handleDragStart} role="presentation" />,
@@ -34,29 +36,48 @@
   ];
 
 
-  ///////
-  const[data,setdata]=useState({})
+  ///////for id
+
   const { id } = useParams();
+  console.log(id)
+//gettinfg data
+const [data, setData] = useState({});
 
-  useEffect(()=>{
-  const getdata=async ()=>{
-  const response = await axios.get(`/api/product/find/${id}`)
-  setdata(response.data.exist)
+useEffect(() => {
  
+}, [data]);
 
-  }
-  getdata();
-  },[id])
+useEffect(() => {
+  const getData = async () => {
+    const response = await axios.get(`/api/product/find/${id}`);
+    setData(response.data.exist);
+  };
+  getData();
+}, [id]);
 
-  const add = async () => {
-    try {
-      const response = await axios.post("/api/cart/add", { itemId: data._id, quantity: values.value })
-      console.log(response)
+const add = async () => {
+  try {
+    if(data){
+     
+    dispatch(
+      addtocart({
+        
+        data,
+        values,
+      })
+    );
     }
-    catch (err) {
-      console.log(err.response.data)
-    }
+
+    const response = await axios.post("/api/cart/add", {
+      itemId: id,
+      quantity: values,
+    });
+    console.log(response);
+    console.log(data);
+  } catch (err) {
+    console.log(err.response.data);
   }
+};
   return(
   <div className="">
 
@@ -73,19 +94,13 @@
 <div className="">
   <div className="flex  flex-row  justify-evenly items-center mx-3 my-5 py-4 flex-wrap ">
     <p>Select qty:</p>
-    <Dropdown
-  options={options}
-  onChange={(selectedOption) => setvalue(selectedOption)}
-  value={defaultOption}
-  placeholder="Select an option"
-/>
-
+   
     <button  onClick={add} className=" w-[80%] mt-3 py-2 bg-orange-500 rounded-lg">
       Add to cart
     </button>
   </div>
   <div className=" mx-auto w-[80%]  overflow-auto">
-    <p className="break-words font-extralight ">{data.description}</p>
+    <p className="break-words font-extralight ">{data.description}{data.price}</p>
   </div>
 </div>;
 </div>

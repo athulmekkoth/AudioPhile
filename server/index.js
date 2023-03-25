@@ -8,12 +8,12 @@ import authrouter from "./routers/Auth.js";
 import cors from "cors"
 import productrouter from "./routers/items.js";
 import Cartrouter from "./routers/Cartrt.js"
-import Paymentrouter "./controllers/Payment.js";
+
 
 //const upload = require('./Upload.js/Multer.js');
 //import uploads from "./Cloudinary.js"
 import * as fs from 'fs'; 
-import Stripe from "stripe";
+//import Stripe from "stripe";
 const app=express();
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -65,7 +65,7 @@ app.use("/api/auth",authrouter)
 })
 */
 app.use("/api/product",productrouter)
-app.use("/api/stripe",stripe)
+//app.use("/api/stripe",stripe)
 app.use("/api/cart",Cartrouter)
 app.listen(5000,()=>{
   connect();

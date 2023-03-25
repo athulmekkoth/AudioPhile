@@ -28,13 +28,21 @@ export const add = async (req, res, next) => {
 
     const data= await Product.findById({_id:req.body.itemId})
     const cart = await Cart.findOne({ owner: req.user.id }).populate('items');
- 
-  const {price}=data
+let totals = 0; // default value
+if (cart) {
+  totals = cart.total;
+  console.log(cart.total);
+} else {
+  console.log(totals);
+}
+
+ const {price}=data
  const  itemprices=req.body.quantity*price
 
 
+
     const update = { $push: { items:{ name:data.name,product:req.body.itemId ,quantity:req.body.quantity,itemprice:itemprices}} ,
-  $set:{total:cart.total+itemprices }
+  $set:{total:totals+itemprices }
 };
     const options = { upsert: true, new: true, setDefaultsOnInsert: true };
     const find = await Cart.findOne({"items.product":req.body.itemId})

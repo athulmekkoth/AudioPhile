@@ -33,7 +33,7 @@ const Cartschema= new mongoose.Schema({
         required:true,
         type:Number,
         default:0,
-        min:0
+        min: 1
     }
 
 })

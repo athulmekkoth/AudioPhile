@@ -1,6 +1,6 @@
 
 import Home from './components/Home/Home.jsx'
-import Earphones from './components/Earphones/Earphones'
+import Userpage from "./components/user/Userpage.jsx"
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/footer/Footer'
 import Signup from './components/authpages/Signup'
@@ -27,6 +27,7 @@ function AppWrapper() {
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cartlist />} />
             <Route path="/checkout" element={<Checkout/>}/>
+            <Route path="/user" element={<Userpage />}/>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login/>} />
             <Route path="/head" element={<Commondetail propName="head"/>} />
