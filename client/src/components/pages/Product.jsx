@@ -95,7 +95,7 @@ const add = async () => {
   <div className="flex  flex-row  justify-evenly items-center mx-3 my-5 py-4 flex-wrap ">
     <p>Select qty:</p>
    
-    <button  onClick={add} className=" w-[80%] mt-3 py-2 bg-orange-500 rounded-lg">
+    <button onClick={() => add(data)}className=" w-[80%] mt-3 py-2 bg-orange-500 rounded-lg">
       Add to cart
     </button>
   </div>

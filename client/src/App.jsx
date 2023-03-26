@@ -10,6 +10,7 @@ import Commondetail from './components/pages/Commondetail.jsx'
 import Product from './components/pages/Product.jsx'
 import Cartlist from './components/pages/cartpage/Cartlist.jsx'
 import Checkout from './components/pages/Checkout.jsx'
+import Updatepassword from './components/user/Updatepassword.jsx'
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -27,7 +28,7 @@ function AppWrapper() {
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cartlist />} />
             <Route path="/checkout" element={<Checkout/>}/>
-            <Route path="/user" element={<Userpage />}/>
+          
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login/>} />
             <Route path="/head" element={<Commondetail propName="head"/>} />
@@ -37,7 +38,9 @@ function AppWrapper() {
             <Route path=':id' element={<Product />} />
 
             </Route>
-
+            <Route path="/user/*" element={<Userpage />}>
+  <Route path="updatepassword" element={<Updatepassword />} />
+</Route>
           
           </Routes>
 

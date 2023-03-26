@@ -57,6 +57,7 @@ const Login = () => {
                 
               <label>Email</label>
               <input name="email"
+           
                        className="border-2 h-9  border-slate-700 rounded-xl"
                         placeholder="email"
                          type="email"

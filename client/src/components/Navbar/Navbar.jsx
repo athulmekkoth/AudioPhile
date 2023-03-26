@@ -86,7 +86,7 @@ export default function Navbar()
         <button  onClick={log}>Logout</button>
       </li>
       <li className="my-2 ml-2 text-white">
-        <a href="#">My-Account</a>
+        <a href="/user">My-Account</a>
       </li>
     </ul>
   </li>
