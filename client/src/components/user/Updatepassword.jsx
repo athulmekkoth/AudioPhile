@@ -2,21 +2,56 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Updatepassword()
 {
 
-    const handleUpdate = (e) => {
+    const handleUpdate = async(e) => {
         e.preventDefault();
         try{
-        const response =axios.post("/api/auth/signup",(email,password,newpassword,confirmpassword))
-        }
+        const response = await axios.post("/api/auth/resetpass", {
+          email,
+          password,
+          newpassword,
+          confirmpassword
+        });
+        if(response.status===200)
+        {
+          console.log("success")
+          toast.success('Succesfully changed!', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
+        } // log the response
+          
+      }
+   
+       
         catch(error)
         {
-            console.log(error)
-        }  
+         
+            console.log(error.response.data); 
+         toast.warn(`${error.response.data.message}`, {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              })
     };
     
-     
+  }     
       const [password,setPassword] = useState();
       const [email, setEmail] = useState();
       const [newpassword, setnewPassword] = useState();
