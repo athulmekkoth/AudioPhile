@@ -11,24 +11,46 @@ import Product from './components/pages/Product.jsx'
 import Cartlist from './components/pages/cartpage/Cartlist.jsx'
 import Checkout from './components/pages/Checkout.jsx'
 import Updatepassword from './components/user/Updatepassword.jsx'
-import React from 'react';
+import Adminscreen from './components/admin/Adminscreen.jsx'
+import React, { useState,useEffect } from 'react';
+import Protected from './components/admin/Protected.jsx'
+import Productpage from './components/admin/Productpage.jsx'
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 
 function AppWrapper() {
-  const location = useLocation();
+  const isAdmin = useSelector((state) => state.user.isAdmin);
+  const [admin, setAdmin] = useState(isAdmin);
+  console.log(admin)
+
+  useEffect(() => {
+    setAdmin(isAdmin);
+  }, [isAdmin]);
 
   return (
     <div className="min-h-screen flex flex-col">
-      {location.pathname !== "/login" && location.pathname !== "/signup" &&  (
+     
         <Navbar />
-      )}
+      
 
       <div className="flex-1">
       <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cartlist />} />
             <Route path="/checkout" element={<Checkout/>}/>
-          
+            <Route
+            path="/admin/*"
+            element={
+              <Protected isSignedIn={admin}>
+                <Adminscreen />
+              </Protected>
+            } >
+                <Route path="addproduct" element={<Productpage />} />
+                <Route path="updateproduct" element={<Productpage />} />
+                <Route path="deleteproduct" element={<Productpage />} />
+                <Route path="dashboard" element={<Productpage />} />
+</Route>
+
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login/>} />
             <Route path="/head" element={<Commondetail propName="head"/>} />
@@ -46,9 +68,9 @@ function AppWrapper() {
 
       </div>
 
-      {location.pathname !== "/login" && location.pathname !== "/signup" &&(
+     
         <Footer />
-      )}
+      
     </div>
   );
 }

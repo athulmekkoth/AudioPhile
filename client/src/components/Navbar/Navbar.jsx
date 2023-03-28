@@ -2,13 +2,15 @@ import React, { useEffect, useState ,useRef} from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from "../redux/authslice.js";
 import { AiOutlineCloseCircle, AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import cart from "../assets/images/cart.png";
 import { TfiMenu } from "react-icons/tfi";
-;
+import { useNavigate } from 'react-router-dom'
+
 export default function Navbar()
 {
+  const navigate = useNavigate()
   
 
   const handleOpen = () => {
@@ -19,13 +21,15 @@ export default function Navbar()
       
     const dispatch=useDispatch();
     const log=async()=>{
-        console.log("clicled")
+      navigate('/')
         dispatch(logOut())
         
 
 
+
     }
     const {currentUser}=useSelector((state)=>state.user)
+    
    
     const [open,setopen]=React.useState(false)
 
@@ -41,6 +45,7 @@ export default function Navbar()
         {name:"Headphone" ,link:"/head"},
         {name:"Speaker" ,link:"/speak"},
         {name:"Earphone"  ,link:"/ear"},
+        
         
   
      
@@ -81,17 +86,20 @@ export default function Navbar()
     <button onClick={toggleDropdown} className="text-white hover:text-yellow-500 duration-1000">
  Account
     </button>
-    <ul className={`absolute top-full left-0 bg-black ${on ? "" : "hidden"}`}>
-      <li className="my-2 ml-2 text-white">
+    <ul className={`absolute top-full left-0 w-28 rounded-xl bg-black ${on ? "" : "hidden"}`}>
+      <li className="my-2 ml-2 text-white  hover:text-yellow-500 duration-100">
         <button  onClick={log}>Logout</button>
       </li>
-      <li className="my-2 ml-2 text-white">
+      <li className="my-2 ml-2 text-white hover:text-yellow-500 duration-100">
         <a href="/user">My-Account</a>
       </li>
+      {currentUser.isadmin ? <li className="my-2 ml-2 text-white hover:text-yellow-500 duration-100">
+        <a href="/admin">Admin page</a>
+      </li> :null}
     </ul>
   </li>
 ) : (
-  <li className="text-xl my-7 ml-8 text-white">
+  <li className="text-xl my-7 ml-8 text-white hover:text-yellow-500 duration-100">
     <a href="/login">Login</a>
   </li>
 )}

@@ -25,6 +25,7 @@ const Login = () => {
       if(response)
       {
         dispatch(loginSuccess(response.data));
+       
       
         navigate('/')
 
