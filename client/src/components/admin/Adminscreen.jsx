@@ -25,21 +25,17 @@ export default function Adminscreen()
     >
  Add Product
     </button>
-    </Link>
+    </Link >
+    <Link to="getproduct">
     <button
       
       type="submit"
       className="bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
     >
-  Update product
+ Add Product
     </button>
-    <button
-      
-      type="submit"
-      className="bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-    >
-  Delete Products
-    </button>
+    </Link >
+ 
     </div>
     <Outlet />
       </div>

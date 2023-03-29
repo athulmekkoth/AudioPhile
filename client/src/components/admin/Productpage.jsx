@@ -6,7 +6,14 @@ export default function Productpage()
     ]
     return(
         <div className="mt-10">
-           <h1 className="text-9xl bg-red-500 ">ejdnjne</h1>
+          <form>
+            <label className="text-black text-2xl border-gray-500-di">Name</label>
+            <input type="text" 
+            className="w-_12  rounded-xl"
+            id="name"
+            />
+           
+            </form>
         </div>
 
 )
