@@ -98,11 +98,18 @@ catch(err)
         console.log(err);
     }
  }
+ export const getall = async (req, res, next) => {
+ 
+    try {
+        const data= await Product.find();
+    
+      res.status(201).json({ data }); // return data as JSON response
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: 'Error fetching data' });
+    }
+  };
+
 
 
  
- export const add=  async(req,res,next)=>{
-    const exist = await Product.fi
-
- }
-

@@ -48,7 +48,6 @@ function AppWrapper() {
             } >
                 <Route path="addproduct" element={<Productpage />} />
                 <Route path="updateproduct" element={<Productpage />} />
-                <Route path="deleteproduct" element={<Productpage />} />
                 <Route path="getproduct" element={<Getproduct />} />
                 <Route path="dashboard" element={<Productpage />} />
 </Route>
