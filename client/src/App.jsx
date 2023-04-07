@@ -16,6 +16,7 @@ import React, { useState,useEffect } from 'react';
 import Protected from './components/admin/Protected.jsx'
 import Productpage from './components/admin/Productpage.jsx'
 import Getproduct from './components/admin/Getproduct.jsx'
+import Updateproduct from './components/admin/Updateproduct.jsx'
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 
@@ -40,17 +41,20 @@ function AppWrapper() {
             <Route path="/cart" element={<Cartlist />} />
             <Route path="/checkout" element={<Checkout/>}/>
             <Route
-            path="/admin/*"
-            element={
-              <Protected isSignedIn={admin}>
-                <Adminscreen />
-              </Protected>
-            } >
-                <Route path="addproduct" element={<Productpage />} />
-                <Route path="updateproduct" element={<Productpage />} />
-                <Route path="getproduct" element={<Getproduct />} />
-                <Route path="dashboard" element={<Productpage />} />
+  path="/admin/*"
+  element={
+    <Protected isSignedIn={admin}>
+      <Adminscreen />
+    </Protected>
+  }
+>
+  <Route path="addproduct" element={<Productpage />} />
+  <Route path="getproduct" element={<Getproduct />} />
+    <Route path="updateproduct" element={<Updateproduct />} />
+
+  <Route path="dashboard" element={<Productpage />} />
 </Route>
+
 
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login/>} />

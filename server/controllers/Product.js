@@ -113,3 +113,26 @@ catch(err)
 
 
  
+  export const del = async (req, res, next) => {
+ 
+    try {
+        const data= await Product.findById(req.body.id)
+        if(data)
+        {
+           await Product.findByIdAndDelete(req.body.id)
+
+
+           console.log(`Deleted product with ID: ${req.body.id}`);
+            res.status(201).json({message:"deleted successsfully"})
+        }
+    else{
+        res.status(401).json({message:"item is not found"})
+    }
+   
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: 'Error fetching data' });
+    }
+  };
+
+
