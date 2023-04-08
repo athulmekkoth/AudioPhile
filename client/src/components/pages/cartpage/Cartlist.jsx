@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 export default function Cartlist()
 
 {
-  const user= useSelector((state)=>state.user)
+  const user= useSelector((state)=>state.cart)
   console.log(user)
 
   

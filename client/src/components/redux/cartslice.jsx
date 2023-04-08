@@ -10,16 +10,20 @@ export const cartSlice = createSlice({
     addtocart: (state, action) => {
       const newItem = action.payload?.data;
       const { values } = action.payload;
-      const existingItem = state.items.find((item) => item.id === newItem.id);
+      const existingItem = state.items?.filter((item) => item.id === newItem.id);
       if (!existingItem) {
+        // Add a default empty array if state.items is undefined
+        state.items = state.items || [];
+    
         state.items.push({
           id: newItem._id,
           name: newItem.name,
           price: newItem.price,
           quantity: values,
         });
+      }
 
-      } 
+    
 
         
       

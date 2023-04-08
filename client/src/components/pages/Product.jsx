@@ -15,15 +15,14 @@ import React, { useEffect, useState,CSSProperties } from "react";
 //redux
 
 const dispatch=useDispatch();
-  
+  const res=useSelector((state)=>state.cart)
 
   /// for the selector dropdoen
   const[values,setvalue]=useState(2)
   
 
   const handleDragStart = (e) => e.preventDefault();
-  
-  
+ 
 
   const onselect=()=>{
     console.log(values)
@@ -55,29 +54,26 @@ useEffect(() => {
   getData();
 }, [id]);
 
-const add = async () => {
+const add = async (product, quantity) => {
   try {
-    if(data){
-     
+    console.log(product, quantity);
     dispatch(
       addtocart({
-        
-        data,
-        values,
+        data: product,
+        values: quantity,
       })
     );
-    }
-
+    console.log(res)
     const response = await axios.post("/api/cart/add", {
-      itemId: id,
-      quantity: values,
+      itemId: product._id,
+      quantity: quantity,
     });
     console.log(response);
-    console.log(data);
   } catch (err) {
-    console.log(err.response.data);
+    console.log(err);
   }
 };
+
   return(
   <div className="">
 
@@ -95,9 +91,10 @@ const add = async () => {
   <div className="flex  flex-row  justify-evenly items-center mx-3 my-5 py-4 flex-wrap ">
     <p>Select qty:</p>
    
-    <button onClick={() => add(data)}className=" w-[80%] mt-3 py-2 bg-orange-500 rounded-lg">
-      Add to cart
-    </button>
+    <button onClick={() => add(data, values)} className=" w-[80%] mt-3 py-2 bg-orange-500 rounded-lg">
+  Add to cart
+</button>
+
   </div>
   <div className=" mx-auto w-[80%]  overflow-auto">
     <p className="break-words font-extralight ">{data.description}{data.price}</p>

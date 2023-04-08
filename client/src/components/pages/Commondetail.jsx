@@ -10,7 +10,7 @@ export default function Commondetail(props)
 
 useEffect(() => {
   const fetchData = async () => {
-    const response = await axios.get(`/api/product/all/${props.propName}`);
+    const response = await axios.get(`/api/product/getall/${props.propName}`);
     setState(response.data);
   };
   fetchData();
