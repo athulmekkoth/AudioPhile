@@ -7,18 +7,26 @@ import React, { useEffect, useState,CSSProperties } from "react";
   import axios from "axios"
   import 'react-dropdown/style.css';
   import {useSelector,useDispatch} from "react-redux"
-  import Dropdown from 'react-dropdown';
   import { addtocart } from "../redux/cartslice";
+  import { FaPlus,FaMinus } from 'react-icons/fa'
+
+  import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
   export default function Product()
 
+  
   {
 //redux
 
 const dispatch=useDispatch();
   const res=useSelector((state)=>state.cart)
 
+const adde=()=>{
+  setvalue(values=>values+1)
+}
   /// for the selector dropdoen
-  const[values,setvalue]=useState(2)
+  const[values,setvalue]=useState(1)
   
 
   const handleDragStart = (e) => e.preventDefault();
@@ -47,8 +55,10 @@ useEffect(() => {
 }, [data]);
 
 useEffect(() => {
+
   const getData = async () => {
     const response = await axios.get(`/api/product/find/${id}`);
+    console.log
     setData(response.data.exist);
   };
   getData();
@@ -56,21 +66,36 @@ useEffect(() => {
 
 const add = async (product, quantity) => {
   try {
-    console.log(product, quantity);
+  
     dispatch(
       addtocart({
         data: product,
         values: quantity,
       })
     );
-    console.log(res)
+
     const response = await axios.post("/api/cart/add", {
       itemId: product._id,
       quantity: quantity,
     });
-    console.log(response);
+
+    
   } catch (err) {
-    console.log(err);
+    console.log(err)
+    if(err.response.status===300){
+    
+      toast.success('Already addded in cart!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+
+    }
   }
 };
 
@@ -90,8 +115,10 @@ const add = async (product, quantity) => {
 <div className="">
   <div className="flex  flex-row  justify-evenly items-center mx-3 my-5 py-4 flex-wrap ">
     <p>Select qty:</p>
-   
-    <button onClick={() => add(data, values)} className=" w-[80%] mt-3 py-2 bg-orange-500 rounded-lg">
+   <span onClick={()=>setvalue(values=>values+1)}><FaPlus /></span>
+<p className="">{values}</p>
+   <span  onClick={()=>setvalue(values=>values-1)}><FaMinus /></span>
+    <button onClick={() => add(data, values)} className=" w-[70%] mt-3 py-2 bg-orange-500 rounded-lg">
   Add to cart
 </button>
 

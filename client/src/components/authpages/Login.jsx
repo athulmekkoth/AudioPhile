@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { loginStart,loginSuccess,loginFailed } from "../redux/authslice.js";
 import axios from "axios"
-
+import {  fetchCartData } from "../redux/cartslice.jsx";
 import { useSelector, useDispatch } from 'react-redux'
 import img from "../../../public/images/shared/audiophile-logo.svg";
 const Login = () => {
@@ -25,8 +25,8 @@ const Login = () => {
       if(response)
       {
         dispatch(loginSuccess(response.data));
-       
-      
+        const responsed = await dispatch(fetchCartData());
+        console.log(responsed); 
         navigate('/')
 
       }
@@ -36,6 +36,7 @@ const Login = () => {
     }
     catch(err)
     {
+      console.log(err)
       if(err.response.status=500)
       {
         alert("wrong password please check")

@@ -4,23 +4,49 @@ import  {RiDeleteBin6Line} from "react-icons/ri";
 import img from "../../../../public/images//home/desktop/headphone-hero-image.png"
 import Dropdown from 'react-dropdown'
 import { useSelector,useDispatch } from "react-redux";
+import { FaPlus,FaMinus } from 'react-icons/fa'
 import { remove,reset } from "../../redux/cartslice";
+import { increment ,decrement} from "../../redux/cartslice";
 export default function Cartcard(props)
 {
+
+ console.log(props.item)
+ const quantity=props.item.itemprice / props.item.price
+ console.log(quantity)
     const dispatch=useDispatch();
+    const add=()=>{
+        dispatch(increment(props.item.id))
+        setvalue(values=>values+1)
+
+    }
+    const sub=()=>{
+       ( values>1 ?  setvalue(values=>values-1)
+       :null)
+       dispatch(decrement(props.item.id))
+       
+    }       
+    console.log(props.item.id)
+   
    
     const dele=async()=>{
-        dispatch(remove(props._id))
-        console.log(props.item._id)
-        const response = await axios.delete("/api/cart/rem", { data: { id: props.item._id } });
+        console.log("remove")
+        console.log(props.item.id)
+        try{
+        dispatch(reset())
+        
+        const response = await axios.delete("/api/cart/rem", { data: { id: props.item.id } });
  
         if(response.status===200)
         {
             console.log("ok")
+        }}
+        catch(err)
+        {
+            console.log(err)
         }
        
     }
-    const[values,setvalue]=useState(1)
+    const[values,setvalue]=useState(0)
 
 
     
@@ -38,6 +64,9 @@ export default function Cartcard(props)
             </div>
             <div className="flex  lg:flex-row justify-between lg:justify-between  w-[88%] mx-auto">
                 <h2 className="text-gray-400 text-2xl">price:{props.item.itemprice}</h2>
+                <span onClick={add}><FaPlus /></span>
+<p>{quantity}</p>
+   <span  onClick={sub}><FaMinus /></span>
                 <div className="flex  lg:flex-row gap-6 items-center">
                 <h2 onClick={dele}className="cursor-pointer"><RiDeleteBin6Line /></h2>
          

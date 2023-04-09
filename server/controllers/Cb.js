@@ -72,11 +72,11 @@ if (cart) {
 export const remove = async (req, res, next) => {
   try {
     const cart = await Cart.findOne({ owner: req.user.id });
-    const item = cart.items.find((item) => item._id.equals(req.body.id));
+    const item = cart.items.find((item) => item.product.equals(req.body.id));
     const price = item.itemprice;
 
     const filter = { owner: req.user.id };
-    const update = { $pull:{ items: { _id: req.body.id } }, $inc:{ total: -price }};
+    const update = { $pull:{ items: {product: req.body.id } }, $inc:{ total: -price }};
     const option = { new: true }
     const updatedCart = await Cart.findOneAndUpdate(filter, update, option);
 

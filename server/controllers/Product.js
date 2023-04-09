@@ -1,7 +1,20 @@
 import Product from "../databases/Product.js";
+import cloudinary from "cloudinary"
+import dotenv from "dotenv"
+dotenv.config()
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+  });
+  
+  
 export const additem= async(req,res,next)=>{
- 
-    const exist = await Product.findOne({ name: req.body.name, category: req.body.category });
+ const file=req.files.photo;
+ cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
+    console.log(result)
+})
+  /*  const exist = await Product.findOne({ name: req.body.name, category: req.body.category });
     try{
     if(exist){
       
@@ -14,11 +27,11 @@ export const additem= async(req,res,next)=>{
     res.status(200).json({ message: "item saved" });
     }
 }
-catch(err)
+catch(err)  
 {
     console.log(err)
 
-}
+}*/
 }
 export const deleteitem= async(req,res,next)=>{
  
