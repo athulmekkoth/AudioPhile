@@ -9,7 +9,7 @@ import cors from "cors"
 import productrouter from "./routers/items.js";
 import Cartrouter from "./routers/Cartrt.js"
 import  fileUpload from 'express-fileupload';
-
+import  multerUploads  from "./controllers/multer.js";
 import * as fs from 'fs'; 
 //import Stripe from "stripe";
 const app=express();
@@ -18,10 +18,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(cors()); // Enable CORS for all routes
 
+app.post('/upload', multerUploads, (req, res) => {
+    console.log('req.body :', req.body);
+    });
 
+    ////
 mongoose.set('strictQuery', false);
 
-
+  
 app.use(express.json());
 dotenv.config()
 
@@ -32,6 +36,7 @@ const connect=()=>{
     .catch((err)=>{
         console.log("not connected to db")
     })
+
 }
 app.use(cookieParser())
 

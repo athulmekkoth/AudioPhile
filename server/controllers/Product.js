@@ -1,5 +1,6 @@
 import Product from "../databases/Product.js";
 import cloudinary from "cloudinary"
+import  multerUploads  from "./controllers/multer.js";
 import dotenv from "dotenv"
 dotenv.config()
 cloudinary.config({
@@ -9,12 +10,21 @@ cloudinary.config({
   });
   
   
-export const additem= async(req,res,next)=>{
- const file=req.files.photo;
+  export const addpic=async(req,res,next)=>{
+    try{
+     const file=req.files.photo;
  cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
-    console.log(result)
-})
-  /*  const exist = await Product.findOne({ name: req.body.name, category: req.body.category });
+    console.log(result)})
+ }
+ catch(err)
+ {
+    console.log(err)
+ }
+
+  }
+export const additem= async(req,res,next)=>{
+
+ const exist = await Product.findOne({ name: req.body.name, category: req.body.category });
     try{
     if(exist){
       
@@ -31,13 +41,13 @@ catch(err)
 {
     console.log(err)
 
-}*/
+}
 }
 export const deleteitem= async(req,res,next)=>{
  
     const result = await Product.findById({ _id: productId });
     try{
-    if(result){
+    if(result){  
 
         await exist.deleteOne();
       

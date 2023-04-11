@@ -9,21 +9,39 @@ import { remove,reset } from "../../redux/cartslice";
 import { increment ,decrement} from "../../redux/cartslice";
 export default function Cartcard(props)
 {
+    console.log(props.item)
+    const quantity=props.item.itemprice / props.item.price
+    console.log(quantity)
+    useEffect(()=>{
+        try{
+            console.log('called')
+        const resposnes=axios.post("api/cart/update",{id:props.item.id,quantity:quantity})
+        console.log(resposnes)
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
+    },[quantity])
 
- console.log(props.item)
- const quantity=props.item.itemprice / props.item.price
- console.log(quantity)
+
     const dispatch=useDispatch();
     const add=()=>{
         dispatch(increment(props.item.id))
         setvalue(values=>values+1)
+     
 
     }
-    const sub=()=>{
+    const sub=()=>{try{
        ( values>1 ?  setvalue(values=>values-1)
        :null)
        dispatch(decrement(props.item.id))
-       
+
+    }
+    catch(err)
+    {
+        console.log(err)
+    }
     }       
     console.log(props.item.id)
    

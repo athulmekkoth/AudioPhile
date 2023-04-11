@@ -94,9 +94,12 @@ export const update = async (req, res, next) => {
     //positional aprmaeter specific
   
     const itemId = req.body.itemId;
-    const filter = { owner: req.user.id, "items._id": req.body.id};
+    const filter = { owner: req.user.id, "items.product": req.body.id};
     
-    const update = { $set: { "items.$.quantity": req.body.quantity } };
+    const update = { $set: { "items.$.quantity": req.body.quantity } ,
+
+    
+  };
     const options = { new: true };
     const cart = await Cart.findOneAndUpdate(filter, update, options);
     
@@ -107,4 +110,4 @@ export const update = async (req, res, next) => {
     console.log(error);
     res.status(500).json({ message: "error found" });
   }
-};
+}; 
