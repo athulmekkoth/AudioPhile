@@ -8,9 +8,7 @@ import authrouter from "./routers/Auth.js";
 import cors from "cors"
 import productrouter from "./routers/items.js";
 import Cartrouter from "./routers/Cartrt.js"
-import  fileUpload from 'express-fileupload';
-import  multerUploads  from "./controllers/multer.js";
-import * as fs from 'fs'; 
+import cloudinary from "cloudinary"
 //import Stripe from "stripe";
 const app=express();
 // parse application/x-www-form-urlencoded
@@ -18,11 +16,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(cors()); // Enable CORS for all routes
 
-app.post('/upload', multerUploads, (req, res) => {
-    console.log('req.body :', req.body);
-    });
 
-    ////
+cloudinary.v2.config({
+    cloud_name:process.env.CLOUD_NAME,
+    api_key:process.env.API_KEY,
+    api_secret:process.env.API_SECRET
+})
 mongoose.set('strictQuery', false);
 
   
@@ -41,10 +40,9 @@ const connect=()=>{
 app.use(cookieParser())
 
 app.use("/api/auth",authrouter)
-app.use(fileUpload({
-    useTempFiles : true,
+
     
-}));
+
 app.use("/api/product",productrouter)
 //app.use("/api/stripe",stripe)
 app.use("/api/cart",Cartrouter)

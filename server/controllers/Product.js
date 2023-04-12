@@ -1,7 +1,8 @@
 import Product from "../databases/Product.js";
 import cloudinary from "cloudinary"
-import  multerUploads  from "./controllers/multer.js";
+import  multerUploads  from "../controllers/multer.js";
 import dotenv from "dotenv"
+import getDataUri from "../utils/dataUri.js";
 dotenv.config()
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -10,18 +11,18 @@ cloudinary.config({
   });
   
   
-  export const addpic=async(req,res,next)=>{
-    try{
-     const file=req.files.photo;
- cloudinary.uploader.upload(file.tempFilePath,(err,result)=>{
-    console.log(result)})
- }
- catch(err)
- {
-    console.log(err)
- }
-
-  }
+  export const addpic = async (req, res, next) => {
+    try {
+      console.log('success');
+      const files = req.files;
+ 
+      const dataUri = files.map((file)=>getDataUri(file))
+   const myvloud=await cloudinary.v2.uploader.upload(dataUri.content)
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
 export const additem= async(req,res,next)=>{
 
  const exist = await Product.findOne({ name: req.body.name, category: req.body.category });
