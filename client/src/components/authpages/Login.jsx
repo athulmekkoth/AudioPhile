@@ -11,7 +11,7 @@ const Login = () => {
   const dispatch = useDispatch()
   const [email,setEmail]=React.useState("");
   const [password,setPassword]=React.useState("");
-//Errors, setEmailErrors] = useState<string[] | null>(null);
+
   const handelevent= async(e)=>{
     e.preventDefault;
 
@@ -24,6 +24,7 @@ const Login = () => {
       const response = await axios.post("/api/auth/signin",{email,password})
       if(response)
       {
+      
         dispatch(loginSuccess(response.data));
         const responsed = await dispatch(fetchCartData());
         console.log(responsed); 

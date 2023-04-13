@@ -25,6 +25,10 @@ const Cartschema= new mongoose.Schema({
       itemprice:{
         type:Number,
         required:true
+      },
+     value:{
+        type:Number,
+        required:true
       }
       }],
    

@@ -9,28 +9,29 @@ import { remove,reset } from "../../redux/cartslice";
 import { increment ,decrement} from "../../redux/cartslice";
 export default function Cartcard(props)
 {
-    console.log(props.item)
+
+        const[values,setvalue]=useState(0)
+
     const quantity=props.item.itemprice / props.item.price
-    console.log(quantity)
+   
     useEffect(()=>{
         try{
             console.log('called')
-        const resposnes=axios.post("api/cart/update",{id:props.item.id,quantity:quantity})
-        console.log(resposnes)
+        const resposnes=axios.post("api/cart/update",{id:props.item.product})
+   
         }
         catch(err)
         {
             console.log(err)
         }
-    },[quantity])
+    },[values])
 
 
     const dispatch=useDispatch();
     const add=()=>{
         dispatch(increment(props.item.id))
         setvalue(values=>values+1)
-     
-
+    
     }
     const sub=()=>{try{
        ( values>1 ?  setvalue(values=>values-1)
@@ -43,7 +44,7 @@ export default function Cartcard(props)
         console.log(err)
     }
     }       
-    console.log(props.item.id)
+  
    
    
     const dele=async()=>{
@@ -52,7 +53,7 @@ export default function Cartcard(props)
         try{
         dispatch(reset())
         
-        const response = await axios.delete("/api/cart/rem", { data: { id: props.item.id } });
+        const response = await axios.delete("/api/cart/rem", { data: { id: props.item.product} });
  
         if(response.status===200)
         {
@@ -64,7 +65,7 @@ export default function Cartcard(props)
         }
        
     }
-    const[values,setvalue]=useState(0)
+
 
 
     
@@ -78,12 +79,11 @@ export default function Cartcard(props)
             <img   className="w-[40%] lg:w-[10%]" src={img} />
             <h1 className=" text-3xl">{props.item.name}</h1>
          
-           
             </div>
             <div className="flex  lg:flex-row justify-between lg:justify-between  w-[88%] mx-auto">
                 <h2 className="text-gray-400 text-2xl">price:{props.item.itemprice}</h2>
                 <span onClick={add}><FaPlus /></span>
-<p>{quantity}</p>
+<p>{props.item.quantity}</p>
    <span  onClick={sub}><FaMinus /></span>
                 <div className="flex  lg:flex-row gap-6 items-center">
                 <h2 onClick={dele}className="cursor-pointer"><RiDeleteBin6Line /></h2>

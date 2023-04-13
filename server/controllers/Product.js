@@ -13,15 +13,26 @@ cloudinary.config({
   
   export const addpic = async (req, res, next) => {
     try {
-      console.log('success');
       const files = req.files;
- 
-      const dataUri = files.map((file)=>getDataUri(file))
-   const myvloud=await cloudinary.v2.uploader.upload(dataUri.content)
+      const dataUris = [];
+  
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const dataUri = getDataUri(file);
+        dataUris.push(dataUri);
+      }
+  
+      const results = await Promise.all(
+        dataUris.map((dataUri) => cloudinary.v2.uploader.upload(dataUri.content))
+      );
+  
+      res.json({ results });
     } catch (err) {
       console.log(err);
+      res.status(500).json({ message: 'Internal Server Error' });
     }
   };
+  
   
 export const additem= async(req,res,next)=>{
 

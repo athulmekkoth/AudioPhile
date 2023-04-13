@@ -13,7 +13,7 @@ export const get = async (req, res, next) => {
     if (cart) {
       res.status(200).send(cart);
     } else {
-      res.status(400).json({message:"nothing here"});
+      res.status(500).json({message:"nothing here"});
 
     }
     
@@ -37,11 +37,12 @@ if (cart) {
 }
 
  const {price}=data
+
  const  itemprices=req.body.quantity*price
 
 
 
-    const update = { $push: { items:{ name:data.name,product:req.body.itemId ,quantity:req.body.quantity,itemprice:itemprices}} ,
+    const update = { $push: { items:{ name:data.name,product:req.body.itemId ,quantity:req.body.quantity,itemprice:itemprices,value:price}} ,
   $set:{total:totals+itemprices }
 };
     const options = { upsert: true, new: true, setDefaultsOnInsert: true };
@@ -73,7 +74,9 @@ export const remove = async (req, res, next) => {
   try {
     const cart = await Cart.findOne({ owner: req.user.id });
     const item = cart.items.find((item) => item.product.equals(req.body.id));
-    const price = item.itemprice;
+    console.log(item)
+  
+  const price=item.itemprice*item.quantity
 
     const filter = { owner: req.user.id };
     const update = { $pull:{ items: {product: req.body.id } }, $inc:{ total: -price }};
@@ -97,7 +100,7 @@ export const update = async (req, res, next) => {
     const filter = { owner: req.user.id, "items.product": req.body.id};
     
     const update = { $set: { "items.$.quantity": req.body.quantity } ,
-
+    $set:{}
     
   };
     const options = { new: true };

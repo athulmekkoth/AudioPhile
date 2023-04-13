@@ -7,9 +7,9 @@ import { useSelector } from "react-redux";
 export default function Cartlist()
 
 {
-  const user= useSelector((state)=>state.cart.items)
+  const values= useSelector((state)=>state.cart.items)
+  const user= useSelector((state)=>state.user.currentUser)
   const total= useSelector((state)=>state.cart.subtotal)
-  console.log(total)
 
   
     const[data,setdata]=useState([])
@@ -30,10 +30,10 @@ export default function Cartlist()
  
    
     return (
-        (user ?
+        (values  && user!=null ?
             <div className="flex  flex-col lg:flex-row  mx-2 lg:mx-10">
             <div className="mt-20 gap-4 flex flex-col  lg:w-[80%]">
-            {user && user.map((item) => (
+            {values && values.map((item) => (
         <Cartcard key={item.id} item={item} />
     ))}
     </div>
