@@ -9,47 +9,64 @@ import { remove,reset } from "../../redux/cartslice";
 import { increment ,decrement} from "../../redux/cartslice";
 export default function Cartcard(props)
 {
+    const it=useSelector((state)=>state.cart)
+    console.log(it)
 
         const[values,setvalue]=useState(0)
 
     const quantity=props.item.itemprice / props.item.price
    
-    useEffect(()=>{
-        try{
-            console.log('called')
-        const resposnes=axios.post("api/cart/update",{id:props.item.product})
-   
-        }
-        catch(err)
-        {
-            console.log(err)
-        }
-    },[values])
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            console.log('called');
+        
+            
+          } catch (err) {
+            console.log(err);
+          }
+        };
+        fetchData();
+      }, [values]);
+      
 
-
+console.log(props.item)
     const dispatch=useDispatch();
-    const add=()=>{
-        dispatch(increment(props.item.id))
-        setvalue(values=>values+1)
-    
-    }
-    const sub=()=>{try{
-       ( values>1 ?  setvalue(values=>values-1)
-       :null)
-       dispatch(decrement(props.item.id))
+    const add=async ()=>{try{
 
-    }
-    catch(err)
-    {
-        console.log(err)
-    }
-    }       
-  
-   
+          setvalue(values=>values+1)
+          dispatch(increment(props.item.product))
+
+       let response = await axios.post("api/cart/update", { id: props.item.product,quantity:values });
+       console.log(response)
+        
+ 
+     }
+     catch(err)
+     {
+         console.log(err)
+     }
+     }
+
+     const sub=async ()=>{
+        try {
+          if (values >= 1) { 
+            setvalue(values => values-1);
+            dispatch(decrement(props.item.product));
+            let response = await axios.post("api/cart/update", { id: props.item.product, quantity: values });
+            console.log(response);
+          } else {
+            console.log("quantity cannot be negative");
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      }
+      
    
     const dele=async()=>{
         console.log("remove")
-        console.log(props.item.id)
+        console.log(props.item.product)
         try{
         dispatch(reset())
         
@@ -78,7 +95,9 @@ export default function Cartcard(props)
             <div className=" flex flex-row justify-between items-center mx-11">
             <img   className="w-[40%] lg:w-[10%]" src={img} />
             <h1 className=" text-3xl">{props.item.name}</h1>
+            <h1 className=" text-3xl">{props.item.id}</h1>
          
+        
             </div>
             <div className="flex  lg:flex-row justify-between lg:justify-between  w-[88%] mx-auto">
                 <h2 className="text-gray-400 text-2xl">price:{props.item.itemprice}</h2>

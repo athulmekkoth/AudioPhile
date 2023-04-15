@@ -19,7 +19,7 @@ const Login = () => {
       
 
 
-      dispatch(loginStart());
+
       
       const response = await axios.post("/api/auth/signin",{email,password})
       if(response)

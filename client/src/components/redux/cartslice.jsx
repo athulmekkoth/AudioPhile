@@ -31,15 +31,14 @@ export const cartSlice = createSlice({
     addtocart: (state, action) => {
       const newItem = action.payload?.data;
       const { values } = action.payload;
-      const existingItem = state.items?.find((item) => item.id === newItem._id);
+      const existingItem = state.items?.find((item) => item.product === newItem._id);
       if (!existingItem) {
         state.items.push({
-          id: newItem._id,
+          product: newItem._id,
           name: newItem.name,
           price: newItem.price,
-          value:newItem.value,
           quantity: values,
-          itemprice: newItem.value * values, // calculate total based on price and quantity
+          itemprice: newItem.price * values, // calculate total based on price and quantity
  
         });
         state.subtotal= state.subtotal + newItem.price * values
@@ -50,35 +49,36 @@ export const cartSlice = createSlice({
    
     increment:(state,action)=>{
       const data = action.payload
-      const existingItem = state.items.find((item) => item.id === data);
+      const existingItem = state.items.find((item) => item.product === data);
       if(existingItem)
       {
         state.subtotal= state.subtotal - existingItem.quantity * existingItem.price
         existingItem.quantity++;
        
-        existingItem.itemprice = existingItem.quantity * existingItem.value // calculate the updated total price based on the updated quantity
-        state.subtotal= state.subtotal + existingItem.quantity * existingItem.value
+        existingItem.itemprice = existingItem.quantity * existingItem.price // calculate the updated total price based on the updated quantity
+        state.subtotal= state.subtotal + existingItem.quantity * existingItem.price
       }
 },
     decrement:(state,action)=>{
       const data = action.payload
-      const existingItem = state.items.find((item) => item.id === data);
-      if(existingItem && existingItem.quantity>0)
-      { state.subtotal= state.subtotal - existingItem.quantity * existingItem.value
-
+      const existingItem = state.items.find((item) => item.product === data);
+      if(existingItem)
+      {
+        state.subtotal= state.subtotal - existingItem.quantity * existingItem.price
         existingItem.quantity--;
-        existingItem.itemprice-=existingItem.value
-        state.subtotal= state.subtotal + existingItem.quantity *existingItem.value 
+       
+        existingItem.itemprice = existingItem.quantity * existingItem.price // calculate the updated total price based on the updated quantity
+        state.subtotal= state.subtotal + existingItem.quantity * existingItem.price
       }
     },
     
     remove:(state,action)=>
     {
       const data=action.payload
-      const existingcart=state.items.find((item)=>item.id===data);
+      const existingcart=state.items.find((item)=>item.product===data);
       if(existingcart)
       {
-        state.items=state.items.filter(item=>item.id!==data);
+        state.items=state.items.filter(item=>item.product!==data);
         state.subtotal=state.subtotal-existingcart.itemprice;
        
       }

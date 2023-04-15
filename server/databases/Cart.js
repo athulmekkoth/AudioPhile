@@ -26,7 +26,7 @@ const Cartschema= new mongoose.Schema({
         type:Number,
         required:true
       },
-     value:{
+     price:{
         type:Number,
         required:true
       }

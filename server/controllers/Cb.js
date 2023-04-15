@@ -76,7 +76,7 @@ export const remove = async (req, res, next) => {
     const item = cart.items.find((item) => item.product.equals(req.body.id));
     console.log(item)
   
-  const price=item.itemprice*item.quantity
+  const price=item.itemprice
 
     const filter = { owner: req.user.id };
     const update = { $pull:{ items: {product: req.body.id } }, $inc:{ total: -price }};
