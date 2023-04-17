@@ -9,7 +9,7 @@ export const get = async (req, res, next) => {
   try {
   
     const cart = await Cart.findOne({ owner: req.user.id }).populate('items');
-
+console.log(cart)
     if (cart) {
       res.status(200).send(cart);
     } else {
@@ -41,8 +41,9 @@ if (cart) {
  const  itemprices=req.body.quantity*price
 
 
-
-    const update = { $push: { items:{ name:data.name,product:req.body.itemId ,quantity:req.body.quantity,itemprice:itemprices,value:price}} ,
+ console.log(data.price)
+    const update = { $push: { items:{ name:data.name,product:req.body.itemId ,quantity:req.body.quantity,itemprice:itemprices,price:data.price}} ,
+   
   $set:{total:totals+itemprices }
 };
     const options = { upsert: true, new: true, setDefaultsOnInsert: true };
@@ -95,14 +96,12 @@ export const update = async (req, res, next) => {
  
   try {
     //positional aprmaeter specific
-  
-    const itemId = req.body.itemId;
-    const filter = { owner: req.user.id, "items.product": req.body.id};
-    
-    const update = { $set: { "items.$.quantity": req.body.quantity } ,
-    $set:{}
-    
-  };
+  const items=await Cart.find({owner:req.user.id})
+ 
+    const filter = { owner: req.user.id, "items.product": req.body.itemId};
+console.log(filter)
+    const update = { $set: { "items.$.quantity": req.body.quantity }} 
+  console.log(update)
     const options = { new: true };
     const cart = await Cart.findOneAndUpdate(filter, update, options);
     

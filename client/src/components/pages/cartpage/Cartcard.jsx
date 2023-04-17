@@ -50,14 +50,13 @@ console.log(props.item)
 
      const sub=async ()=>{
         try {
-          if (values >= 1) { 
+       
+            console.log(values)
             setvalue(values => values-1);
             dispatch(decrement(props.item.product));
             let response = await axios.post("api/cart/update", { id: props.item.product, quantity: values });
             console.log(response);
-          } else {
-            console.log("quantity cannot be negative");
-          }
+          
         } catch (err) {
           console.log(err);
         }
