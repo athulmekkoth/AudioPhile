@@ -12,14 +12,15 @@ export default function Cartcard(props)
     const it=useSelector((state)=>state.cart)
     console.log(it)
 
-        const[values,setvalue]=useState(0)
+        const[values,setvalue]=useState(props.item.quantity)
+        console.log
 
     const quantity=props.item.itemprice / props.item.price
    
     useEffect(() => {
         const fetchData = async () => {
           try {
-            console.log('called');
+          
         
             
           } catch (err) {
@@ -33,11 +34,11 @@ export default function Cartcard(props)
 console.log(props.item)
     const dispatch=useDispatch();
     const add=async ()=>{try{
-
+      console.log(values);
           setvalue(values=>values+1)
           dispatch(increment(props.item.product))
 
-       let response = await axios.post("api/cart/update", { id: props.item.product,quantity:values });
+       let response = await axios.post("api/cart/update", { itemId: props.item.product,quantity:values });
        console.log(response)
         
  
@@ -50,12 +51,16 @@ console.log(props.item)
 
      const sub=async ()=>{
         try {
-       
+       if(values>1){
             console.log(values)
             setvalue(values => values-1);
             dispatch(decrement(props.item.product));
-            let response = await axios.post("api/cart/update", { id: props.item.product, quantity: values });
+            let response = await axios.post("api/cart/update", { itemId: props.item.product, quantity: values });
             console.log(response);
+       }
+       else{
+        console.warn("sorry")
+       }
           
         } catch (err) {
           console.log(err);

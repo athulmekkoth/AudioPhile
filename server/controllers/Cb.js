@@ -96,18 +96,40 @@ export const update = async (req, res, next) => {
  
   try {
     //positional aprmaeter specific
-  const items=await Cart.find({owner:req.user.id})
+  const carts=await Cart.find({owner:req.user.id})
  
-    const filter = { owner: req.user.id, "items.product": req.body.itemId};
-console.log(filter)
-    const update = { $set: { "items.$.quantity": req.body.quantity }} 
-  console.log(update)
-    const options = { new: true };
-    const cart = await Cart.findOneAndUpdate(filter, update, options);
+  
+  for (let cart of carts) {
+    let item = cart.items.find(item => item.product.equals(req.body.itemId));
     
+    if (item) {
+    
+      //0 since find in carts return a array of docuemnt so ebven if one we shoudl do
+      const newTotal = carts[0].total -item.itemprice
+      const final=req.body.quantity*item.price
+
+  
+
+      const filter = { owner: req.user.id, "items.product": req.body.itemId };
+      const update = {
+       
+        $set: {
+          "items.$.quantity": req.body.quantity,
+          "items.$.itemprice": req.body.quantity * item.price,
+         total:newTotal+final
+       
+        },
+    
+     
+      };
+      const options = { new: true };
+      const updatedCart = await Cart.findOneAndUpdate(filter, update, options);
+      res.status(200).send(updatedCart);
+      return;
+    }
+  }
     
 
-    res.status(200).send(cart);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error found" });
