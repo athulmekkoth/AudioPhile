@@ -34,27 +34,34 @@ cloudinary.config({
   };
   
   
-export const additem= async(req,res,next)=>{
+export const additem = async (req, res, next) => {
+  const { name, category, count, price, description } = req.body;
 
- const exist = await Product.findOne({ name: req.body.name, category: req.body.category });
-    try{
-    if(exist){
-      
-        res.status(500).json({ message: "item already present" });
-    }
-    else{
- 
-    const product = new Product(req.body);
-    product.save();
-    res.status(200).json({ message: "item saved" });
-    }
-}
-catch(err)  
-{
-    console.log(err)
+  // Validate the input data
+  if (typeof name !== "string" || typeof category !== "string") {
+    return res.status(400).json({ message: "name and category must be strings" });
+  }
+  
+  if (typeof count !== "number" || typeof price !== "number") {
+    return res.status(410).json({ message: "count and price must be numbers" });
+  }
 
-}
-}
+  // Check if the product already exists
+  const exist = await Product.findOne({ name, category });
+  if (exist) {
+    return res.status(500).json({ message: "item already present" });
+  }
+
+  // Create and save the new product
+  const product = new Product({ name, category, count, price, description });
+  product.save((err) => {
+    if (err) {
+      return res.status(500).json({ message: "error saving item" });
+    }
+    return res.status(200).json({ message: "item saved" });
+  });
+};
+
 export const deleteitem= async(req,res,next)=>{
  
     const result = await Product.findById({ _id: productId });
@@ -63,11 +70,11 @@ export const deleteitem= async(req,res,next)=>{
 
         await exist.deleteOne();
       
-        res.status(200).json({ message: "item deleted" });
+       return res.status(200).json({ message: "item deleted" });
     }
     else{
 
-    res.status(500).json({ message: "item noy prdent " });
+   return res.status(500).json({ message: "item noy prdent " });
     }
 }
 catch(err)

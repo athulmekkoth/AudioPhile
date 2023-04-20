@@ -1,18 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 export default function Productpage()
 {
-    const handlesumit =async()=>[
 
-    ]
+  const [name,Setname]=useState("")
+  const [category, setCategory] = useState("");
+  const [count,Setcount]=useState()
+  const [price,Setprice]=useState()
+  const [description,Setdesc]=useState("")
+    const handlesumit =async(event)=>{
+      event.preventDefault();
+  try{
+      const response = await axios.post("/api/product/add",{name:name,category:category,  count: Number(count),
+ price: Number(price),description:description})
+ console.log(response.status);
+  }
+  catch(err)
+  {
+    if(err.response.status===500)
+    {
+      toast.success('Already addded in cart!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+
+    }
+   
+  }
+    }
+    
+
     return(
         <div className="mt-10 " >
-          <form className="flex flex-col gap-4 "> 
+          <form onSubmit={handlesumit} className="flex flex-col gap-4 "> 
           <div className="flex flex-row 0 justify-around " >
           <label htmlFor="name" className="text-black text-3xl border-gray-500-di">Name</label>
             <input type="text" 
            
             className="h-10  rounded-xl border border-gray-400 w-[60%]   "
             id="name"
+            onChange={(e)=>Setname(e.target.value)}
             />
           </div>
     
@@ -22,23 +59,24 @@ export default function Productpage()
       <ul className="flex flex-row justify-around">
         <li>
           <label className="flex flex-col items-center">
-            <input type="radio" name="category" value="headphones" className="sr-only" />
-            <span className="h-10 w-60 rounded-xl border border-gray-400 flex items-center justify-center cursor-pointer hover:bg-gray-100">
+            <input type="radio" name="category" value="headphones" className="sr-only"  checked={category === "headphones"}   onChange={(e)=>setCategory(e.target.value)}
+/>
+            <span className="h-10 w-60 rounded-xl border border-gray-400 flex items-center justify-center cursor-pointer hover:bg-gray-100 active:bg-red-500">
               Headphones
             </span>
           </label>
         </li>
         <li>
           <label className="flex flex-col items-center">
-            <input type="radio" name="category" value="earphones" className="sr-only" />
-            <span className="h-10 w-60 rounded-xl border border-gray-400 flex items-center justify-center cursor-pointer hover:bg-gray-100">
+            <input type="radio" name="category" value="earphones" className="sr-only" checked={category === "Earphones"}   onChange={(e)=>setCategory(e.target.value)} />
+            <span className="h-10 w-60  rounded-xl border border-gray-400 flex items-center justify-center cursor-pointer hover:bg-gray-100 ">
               Earphones
             </span>
           </label>
         </li>
         <li>
           <label className="flex flex-col items-center">
-            <input type="radio" name="category" value="speakers" className="sr-only" />
+            <input type="radio" name="category" value="speakers" className="sr-only" checked={category === "Speakers"}   onChange={(e)=>setCategory(e.target.value)} />
             <span className="h-10 w-60 rounded-xl border border-gray-400 flex items-center justify-center cursor-pointer hover:bg-gray-100">
               Speakers
             </span>
@@ -56,6 +94,7 @@ export default function Productpage()
             name="count"
             className="h-10  rounded-xl border border-gray-400 w-[60%]   "
             id="count"
+            onChange={(e)=>Setcount(e.target.value)}
             />
           </div>
           <div className="flex flex-row 0 justify-around " >
@@ -64,17 +103,21 @@ export default function Productpage()
             
             className="h-10  rounded-xl border border-gray-400 w-[60%]   "
             id="price"
+            onChange={(e)=>Setprice(e.target.value)}
             />
           </div>
           <div className="flex flex-row 0 justify-around " >
-          <label htmlFor="desc" className="text-black text-3xl border-gray-500-di">Price</label>
+          <label htmlFor="desc" className="text-black text-3xl border-gray-500-di">Description</label>
             <input type="text" 
             name="desc"
             className="h-10  rounded-xl border border-gray-400 w-[60%]   "
-            id="name"
+            id="desc"
+            onChange={(e)=>Setdesc(e.target.value)}
             />
           </div>
+          <input type="submit" className="bg-blue-500 w-20 h-11 mx-auto rounded-2xl mb-5" /> 
             </form>
+            
         </div>
 
 )

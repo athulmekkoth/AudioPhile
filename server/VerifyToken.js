@@ -19,7 +19,7 @@ export const verifyTokenAdmin = (req, res, next) => {
       console.log(req.user.isAdmin)
       next();
     } else {
-      res.status(403).json({ message: "you are not allowed to do that" });
+      return res.status(403).json({ message: "you are not allowed to do that" });
     }
   });
 };
