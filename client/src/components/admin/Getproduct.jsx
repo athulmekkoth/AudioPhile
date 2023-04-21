@@ -1,35 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Productcard from "./Productcard";
 import axios from  "axios"
-export default function Getproduct()
-{
-const[data,setdata]=useState([])
-    useEffect(()=>{
-        const call= async()=>{
-            try{
-            const response = await axios.get("/api/product/getall")
-       setdata(response.data.data)
-       
-           
-            }
-            catch(err)
-            {
-                console.log(err)
-            }
+import { fetchData } from "../redux/Adminslice";
+import { useSelector, useDispatch } from "react-redux";
 
-        }
-        call()
-       
-    },[data])
+export default function Getproduct() {
+  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const response = useSelector((state) => state.admin.items);
 
-    return(
-       
-        <div className="">
-            {data.map((item)=>{
-                return <Productcard items={item} />
-            })}
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
 
+  useEffect(() => {
+    setData(response);
+  }, [response]);
 
-        </div>
-    )
+  return (
+    <div className="">
+      {data.map((item) => {
+        return <Productcard key={item._id} items={item} />;
+      })}
+    </div>
+  );
 }
+

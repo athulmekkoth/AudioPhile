@@ -1,6 +1,6 @@
 
 import userReducer  from './authslice.js'
-
+import adminReducer from "./Adminslice.js"
 import cartReducer  from './cartslice'
 import storage from 'redux-persist/lib/storage';
 
@@ -17,6 +17,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist'
+import { adminSlice } from './Adminslice.js';
 
 
 const persistConfig = {
@@ -29,7 +30,7 @@ const persistConfig = {
 
 
   const rootReducer = combineReducers({ user: userReducer,
-  cart: cartReducer});
+  cart: cartReducer,admin:adminReducer});
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({

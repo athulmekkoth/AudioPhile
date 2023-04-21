@@ -5,7 +5,7 @@ import  multerUploads  from "../controllers/multer.js";
 import express from "express"
 const productrouter=express.Router();
 productrouter.post("/add",verifyTokenAdmin,additem)
-productrouter.delete("/del",verifyToken,del)
+productrouter.delete("/del",verifyTokenAdmin,del)
 productrouter.get("/find/:id",verifyToken,find)
 productrouter.get("/getall/:cat",verifyToken, findbycat)
 productrouter.get("/getall/",verifyToken, getall)
