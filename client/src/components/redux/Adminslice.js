@@ -1,5 +1,6 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import produce from 'immer'
 export const fetchData=createAsyncThunk(
     'cart/fetchData',
 
@@ -43,14 +44,18 @@ export const adminSlice=createSlice({
                   });
                 }
             },
-        remove:(state,action)=>{
-            const id=action.payload._id
-            const data=state.items.find((item)=>item.id===(id))
-            if(data)
-            {
-                state.items=state.items.filter((item)=>item.id!==(id))
-            }
-        }
+            remove: (state, action) => {
+              const id = action.payload.id;
+              const index = state.items.findIndex((item) => item.id === id);
+              if (index !== -1) {
+                // use produce function to safely modify the state object
+                return produce(state, (draftState) => {
+                  draftState.items.splice(index, 1);
+                });
+              }
+              // if id not found, return the original state object
+              return state;
+            },
         
     },
 

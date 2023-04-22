@@ -13,6 +13,8 @@ const del=async()=>{
     try{
  
     console.log(props.items._id)
+    dispatch(remove(props.items._id))
+    
     const response = await axios.delete("/api/product/del", { data: { id: props.items._id } });
 
   console.log(response)
@@ -35,7 +37,7 @@ const del=async()=>{
     <h1  className="mx-5">Instock:{props.items.count}</h1>
     <h1  className="mx-5">Category:{props.items.category}</h1>
     <h1  className="mx-5">Price:{props.items.price}</h1>
-    <Link to="/admin/updateproduct" state={{ from: "occupation" }}>
+    <Link to="/admin/updateproduct" state={{ id:props.items._id }}>
 
         <button  className="bg-gray-700 rounded-md hover:animate-pulse">Update product</button></Link>
  <span onClick={del}  className="mx-5 cursor-pointer"><RiDeleteBin2Line/></span>

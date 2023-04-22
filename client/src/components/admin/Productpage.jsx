@@ -12,18 +12,35 @@ export default function Productpage()
   const [count,Setcount]=useState()
   const [price,Setprice]=useState()
   const [description,Setdesc]=useState("")
-    const handlesumit =async(event)=>{
-      event.preventDefault();
-  try{
-      const response = await axios.post("/api/product/add",{name:name,category:category,  count: Number(count),
- price: Number(price),description:description})
- console.log(response.status);
+  const [images, setImages] = useState([]);
+
+const handleFileChange = (files) => {
+  setImages(Array.from(files));
+};
+const handlesumit = async(event) => {
+  event.preventDefault();
+
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('category', category);
+  formData.append('count', count);
+  formData.append('price', price);
+  formData.append('description', description);
+  for (let i = 0; i < images.length; i++) {
+    formData.append('images', images[i]);
   }
-  catch(err)
-  {
-    if(err.response.status===500)
-    {
-      toast.success('Already addded in cart!', {
+
+  try {
+    const response = await axios.post("/api/product/add", formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    console.log(response.status);
+  }
+  catch(err) {
+    if(err.response.status === 500) {
+      toast.success('Already added in cart!', {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -32,13 +49,11 @@ export default function Productpage()
         draggable: true,
         progress: undefined,
         theme: "dark",
-        });
-
+      });
     }
-   
   }
-    }
-    
+}
+
 
     return(
         <div className="mt-10 " >
@@ -115,7 +130,16 @@ export default function Productpage()
             onChange={(e)=>Setdesc(e.target.value)}
             />
           </div>
+          <div className="flex flex-row  justify-between mx-28" >
+
+          <label  className="text-black text-3xl border-gray-500-di">Images</label>
+          <input type="file" name="images" multiple onChange={(e) => handleFileChange(e.target.files)} />
+            
+          </div>
+         
           <input type="submit" className="bg-blue-500 w-20 h-11 mx-auto rounded-2xl mb-5" /> 
+
+
             </form>
             
         </div>

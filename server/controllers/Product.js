@@ -13,27 +13,17 @@ cloudinary.config({
   
   export const addpic = async (req, res, next) => {
     try {
-      const files = req.files;
-      const dataUris = [];
-  
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const dataUri = getDataUri(file);
-        dataUris.push(dataUri);
-      }
-  
-      const results = await Promise.all(
-        dataUris.map((dataUri) => cloudinary.v2.uploader.upload(dataUri.content))
-      );
-  
-      res.json({ results });
+      
     } catch (err) {
       console.log(err);
       res.status(500).json({ message: 'Internal Server Error' });
     }
   };
   
-  
+  for(let result in results)
+{
+  console.log(results[result].url)
+}
 export const additem = async (req, res, next) => {
   const { name, category, count, price, description } = req.body;
 
@@ -66,6 +56,20 @@ export const deleteitem= async(req,res,next)=>{
  
     const result = await Product.findById({ _id: productId });
     try{
+      const files = req.files;
+      const dataUris = [];
+  
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const dataUri = getDataUri(file);
+        dataUris.push(dataUri);
+      }
+  
+      const results = await Promise.all(
+        dataUris.map((dataUri) => cloudinary.v2.uploader.upload(dataUri.content))
+      );
+  
+      res.json({ results });
     if(result){  
 
         await exist.deleteOne();
