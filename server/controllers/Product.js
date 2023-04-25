@@ -10,52 +10,17 @@ cloudinary.config({
     api_secret: process.env.API_SECRET,
   });
   
-  
   export const addpic = async (req, res, next) => {
+    const photos = [];
+
+    const { name, category, count, price, description } = req.body;
+    const exist = await Product.findOne({ name, category });
+    if (exist) {
+      return res.status(503).json({ message: "item already present" });
+    }
+    else{
     try {
       
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({ message: 'Internal Server Error' });
-    }
-  };
-  
-  for(let result in results)
-{
-  console.log(results[result].url)
-}
-export const additem = async (req, res, next) => {
-  const { name, category, count, price, description } = req.body;
-
-  // Validate the input data
-  if (typeof name !== "string" || typeof category !== "string") {
-    return res.status(400).json({ message: "name and category must be strings" });
-  }
-  
-  if (typeof count !== "number" || typeof price !== "number") {
-    return res.status(410).json({ message: "count and price must be numbers" });
-  }
-
-  // Check if the product already exists
-  const exist = await Product.findOne({ name, category });
-  if (exist) {
-    return res.status(500).json({ message: "item already present" });
-  }
-
-  // Create and save the new product
-  const product = new Product({ name, category, count, price, description });
-  product.save((err) => {
-    if (err) {
-      return res.status(500).json({ message: "error saving item" });
-    }
-    return res.status(200).json({ message: "item saved" });
-  });
-};
-
-export const deleteitem= async(req,res,next)=>{
- 
-    const result = await Product.findById({ _id: productId });
-    try{
       const files = req.files;
       const dataUris = [];
   
@@ -69,7 +34,34 @@ export const deleteitem= async(req,res,next)=>{
         dataUris.map((dataUri) => cloudinary.v2.uploader.upload(dataUri.content))
       );
   
-      res.json({ results });
+      for (let result in results) {
+        photos.push(results[result].secure_url);
+      }
+      const { name, category, count, price, description } = req.body;
+      if (typeof name !== "string" || typeof category !== "string") {
+        return res.status(400).json({ message: "name and category must be strings" });
+      }
+      
+    
+  
+      const product = new Product({ name, category, count, price, description, photos });
+      await product.save();
+      return res.status(200).json({ message: "item saved" });
+    } catch (err) {
+      console.log(err);
+    console.log(err);
+    }
+  };
+}
+  
+  
+  
+  
+
+export const deleteitem= async(req,res,next)=>{
+ 
+    const result = await Product.findById({ _id:req.body.productId });
+   try{
     if(result){  
 
         await exist.deleteOne();
@@ -80,6 +72,7 @@ export const deleteitem= async(req,res,next)=>{
 
    return res.status(500).json({ message: "item noy prdent " });
     }
+  
 }
 catch(err)
 {
@@ -182,3 +175,77 @@ catch(err)
   };
 
 
+/*
+import Product from "../databases/Product.js";
+import cloudinary from "cloudinary"
+import  multerUploads  from "../controllers/multer.js";
+import dotenv from "dotenv"
+import getDataUri from "../utils/dataUri.js";
+dotenv.config()
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+  });
+  
+  
+
+  export const addpic=async(req,res,next)=>{
+    const =[]
+    try{
+      const files = req.files;
+      const dataUris = [];
+  
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const dataUri = getDataUri(file);
+        dataUris.push(dataUri);
+      }
+  
+      const results = await Promise.all(
+        dataUris.map((dataUri) => cloudinary.v2.uploader.upload(dataUri.content)) 
+      
+      )
+      for(let result in results)
+      {
+        img.push(results[result].url)
+
+      }
+   
+    }
+ catch(err)
+ {
+  console.log(err)
+ }
+ }
+
+export const additem = async (req, res, next) => {
+  const { name, category, count, price, description } = req.body;
+
+  // Validate the input data
+  if (typeof name !== "string" || typeof category !== "string") {
+    return res.status(400).json({ message: "name and category must be strings" });
+  }
+  
+  if (typeof count !== "number" || typeof price !== "number") {
+    return res.status(410).json({ message: "count and price must be numbers" });
+  }
+
+  // Check if the product already exists
+  const exist = await Product.findOne({ name, category });
+  if (exist) {
+    return res.status(500).json({ message: "item already present" });
+  }
+
+  // Create and save the new product
+  const product = new Product({ name, category, count, price, description });
+  product.save((err) => {
+    if (err) {
+      return res.status(500).json({ message: "error saving item" });
+    }
+    return res.status(200).json({ message: "item saved" });
+  });
+};
+
+
+*/

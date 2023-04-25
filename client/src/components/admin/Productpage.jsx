@@ -12,10 +12,10 @@ export default function Productpage()
   const [count,Setcount]=useState()
   const [price,Setprice]=useState()
   const [description,Setdesc]=useState("")
-  const [images, setImages] = useState([]);
+  const [files, setFiles] = useState([]);
 
 const handleFileChange = (files) => {
-  setImages(Array.from(files));
+  setFiles(Array.from(files));
 };
 const handlesumit = async(event) => {
   event.preventDefault();
@@ -26,20 +26,25 @@ const handlesumit = async(event) => {
   formData.append('count', count);
   formData.append('price', price);
   formData.append('description', description);
-  for (let i = 0; i < images.length; i++) {
-    formData.append('images', images[i]);
+  for (let i = 0; i < files.length; i++) {
+    formData.append('files', files[i]);
   }
 
   try {
-    const response = await axios.post("/api/product/add", formData, {
+    const response = await axios.post("/api/product/addpic", formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     });
     console.log(response.status);
   }
+  /*
+          const response = await axios.post("/api/product/add",{name:name,category:category,  count: Number(count),
+ price: Number(price),description:description})
+ console.log(response.status);
+  }*/
   catch(err) {
-    if(err.response.status === 500) {
+    if(err.response.status === 503) {
       toast.success('Already added in cart!', {
         position: "top-center",
         autoClose: 5000,
@@ -109,7 +114,7 @@ const handlesumit = async(event) => {
             name="count"
             className="h-10  rounded-xl border border-gray-400 w-[60%]   "
             id="count"
-            onChange={(e)=>Setcount(e.target.value)}
+            onChange={(e)=>Setcount(Number(e.target.value))}
             />
           </div>
           <div className="flex flex-row 0 justify-around " >
@@ -118,7 +123,7 @@ const handlesumit = async(event) => {
             
             className="h-10  rounded-xl border border-gray-400 w-[60%]   "
             id="price"
-            onChange={(e)=>Setprice(e.target.value)}
+            onChange={(e)=>Setprice(Number(e.target.value))}
             />
           </div>
           <div className="flex flex-row 0 justify-around " >
@@ -133,7 +138,7 @@ const handlesumit = async(event) => {
           <div className="flex flex-row  justify-between mx-28" >
 
           <label  className="text-black text-3xl border-gray-500-di">Images</label>
-          <input type="file" name="images" multiple onChange={(e) => handleFileChange(e.target.files)} />
+          <input type="file" name="files" multiple onChange={(e) => handleFileChange(e.target.files)} />
             
           </div>
          
