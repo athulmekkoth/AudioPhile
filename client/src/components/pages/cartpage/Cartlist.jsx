@@ -10,7 +10,9 @@ export default function Cartlist()
   const values= useSelector((state)=>state.cart.items)
   const user= useSelector((state)=>state.user.currentUser)
   const total= useSelector((state)=>state.cart.subtotal)
-
+const get=()=>{
+  console.log(values)
+}
   
     const[data,setdata]=useState([])
     const[price,setprice]=useState()
@@ -39,6 +41,7 @@ export default function Cartlist()
     </div>
     <div className="mx-auto h-48 bg-neutral-100 mt-20 w-[100%] lg:w-[20%] flex flex-col justify-center items-center gap-2 rounded-lg">
     <h1 className=" text-3xl text-black font-mono">Subtototal:{total}</h1>
+    <button className="bg-red-400 w-16 h-10" onClick={get}>click me</button>
     <Link className="" to="/checkout" >
     <button className="bg-yellow-300 w-[100%] rounded-xl h-9">Proceed</button>
     </Link>
@@ -58,6 +61,7 @@ export default function Cartlist()
          Sign up
        </button>
      </Link>
+
    </div>
  </div>
  

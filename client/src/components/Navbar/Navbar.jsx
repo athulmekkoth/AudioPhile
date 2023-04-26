@@ -42,9 +42,9 @@ export default function Navbar()
     let Links =[
         {name:"Home" ,link:"/"},
 
-        {name:"Headphone" ,link:"/head"},
-        {name:"Speaker" ,link:"/speak"},
-        {name:"Earphone"  ,link:"/ear"},
+        {name:"Headphone" ,link:"/headphone"},
+        {name:"Speaker" ,link:"/speaker"},
+        {name:"Earphone"  ,link:"/earphone"},
         
         
   

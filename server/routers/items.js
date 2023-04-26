@@ -9,5 +9,5 @@ productrouter.delete("/del",verifyTokenAdmin,del)
 productrouter.get("/find/:id",verifyToken,find)
 productrouter.get("/getall/:cat",verifyToken, findbycat)
 productrouter.get("/getall/",verifyToken, getall)
-productrouter.post("/addpic",multerUploads, addpic)
+productrouter.post("/addpic",verifyTokenAdmin,multerUploads, addpic)
 export default productrouter;

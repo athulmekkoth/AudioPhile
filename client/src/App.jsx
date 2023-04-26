@@ -58,9 +58,9 @@ function AppWrapper() {
 
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login/>} />
-            <Route path="/head" element={<Commondetail propName="head"/>} />
-            <Route path="/ear" element={<Commondetail propName="ear"/>} />
-            <Route path="/speaker" element={<Commondetail  propName="speak"/>} />
+            <Route path="/headphone" element={<Commondetail propName="headphones"/>} />
+            <Route path="/earphone" element={<Commondetail propName="earphones"/>} />
+            <Route path="/speaker" element={<Commondetail  propName="speakers"/>} />
             <Route path="/product"  >
             <Route path=':id' element={<Product />} />
 

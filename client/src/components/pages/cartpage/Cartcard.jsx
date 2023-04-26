@@ -12,33 +12,24 @@ export default function Cartcard(props)
     const it=useSelector((state)=>state.cart)
     console.log(it)
 
-        const[values,setvalue]=useState(props.item.quantity)
-        console.log
+        const[values,setvalue]=useState(props.item.quantity)////
+  console.log(props.item)
 
     const quantity=props.item.itemprice / props.item.price
    
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-          
-        
-            
-          } catch (err) {
-            console.log(err);
-          }
-        };
-        fetchData();
-      }, [values]);
+  
       
 
 console.log(props.item)
     const dispatch=useDispatch();
     const add=async ()=>{try{
       console.log(values);
-          setvalue(values=>values+1)
+      let response = await axios.post("api/cart/update", { itemId: props.item.product,quantity:values });
+      if(response.status===200){
+        setvalue((prevValue) => prevValue - 1);
           dispatch(increment(props.item.product))
 
-       let response = await axios.post("api/cart/update", { itemId: props.item.product,quantity:values });
+      }
        console.log(response)
         
  
@@ -53,10 +44,13 @@ console.log(props.item)
         try {
        if(values>1){
             console.log(values)
-            setvalue(values => values-1);
-            dispatch(decrement(props.item.product));
-            let response = await axios.post("api/cart/update", { itemId: props.item.product, quantity: values });
-            console.log(response);
+            let response1 = await axios.post("api/cart/update", { itemId: props.item.product,quantity:values });
+            if (response1.status === 200) {
+              console.log("ok");
+              setvalue((prevValue) => prevValue - 1);
+              dispatch(decrement(props.item.product));
+            }
+            console.log(response1);
        }
        else{
         console.warn("sorry")
@@ -70,9 +64,10 @@ console.log(props.item)
    
     const dele=async()=>{
         console.log("remove")
-        console.log(props.item.product)
+     
         try{
-        dispatch(reset())
+       
+        dispatch(remove(props.item.product))
         
         const response = await axios.delete("/api/cart/rem", { data: { id: props.item.product} });
  

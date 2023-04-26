@@ -36,7 +36,19 @@ const handlesumit = async(event) => {
         'Content-Type': 'multipart/form-data'
       }
     });
-    console.log(response.status);
+  if(response.status===200){
+    toast.success('sucessfully added in cart!', {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
+  }
   }
   /*
           const response = await axios.post("/api/product/add",{name:name,category:category,  count: Number(count),

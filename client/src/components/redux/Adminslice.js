@@ -46,6 +46,8 @@ export const adminSlice=createSlice({
             },
             remove: (state, action) => {
               const id = action.payload.id;
+          
+          
               const index = state.items.findIndex((item) => item.id === id);
               if (index !== -1) {
                 // use produce function to safely modify the state object

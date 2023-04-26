@@ -1,5 +1,6 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import produce from 'immer'
 export const fetchCartData = createAsyncThunk(
   'cart/fetchCartData',
   async () => {
@@ -71,20 +72,25 @@ export const cartSlice = createSlice({
         state.subtotal= state.subtotal + existingItem.quantity * existingItem.price
       }
     },
-    
-    remove:(state,action)=>
-    {
-      const data=action.payload
-      const existingcart=state.items.find((item)=>item.product===data);
-      if(existingcart)
-      {
-        state.items=state.items.filter(item=>item.product!==data);
-        state.subtotal=state.subtotal-existingcart.itemprice;
-       
+    remove: (state, action) => {
+      const id = action.payload;
+      console.log(id)
+      const index = state.items.findIndex((item) => item.product === id);
+      console.log(index)
+      if (index !== -1) {
+        const existingItem = state.items[index];
+        // use produce function to safely modify the state object
+        return produce(state, (draftState) => {
+          draftState.items.splice(index, 1);
+          draftState.subtotal -= existingItem.itemprice;
+        });
       }
-  
-      
+      // if id not found, return the original state object
+      return state;
     },
+    
+    
+    
     reset:(state)=>{
       state.items=[]
       state.subtotal=0
