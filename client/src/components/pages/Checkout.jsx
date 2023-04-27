@@ -1,6 +1,9 @@
 import React from "react"
+import { useSelector } from "react-redux"
 export default function Checkout()
 {
+  const total= useSelector((state)=>state.cart.subtotal)
+  console.log(total)
     
           return (
             <div className=" text-black py-12  mt-20">
@@ -83,7 +86,7 @@ export default function Checkout()
                       </div>
                     </div>
                       </form>
-                      <button className="bg-black h-7 font-semibold text-white w-[100%] rounded-xl">Proceed to pay</button>
+                      <button className="bg-black h-7 font-semibold text-white w-[100%] rounded-xl">Proceed to pay:<span className="mx-3">{total}</span></button>
                     </div>
              
                     </div>

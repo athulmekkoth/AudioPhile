@@ -60,6 +60,7 @@ useEffect(() => {
     const response = await axios.get(`/api/product/find/${id}`);
     console.log
     setData(response.data.exist);
+    console.log(data.count)
   };
   getData();
 }, [id]);
@@ -79,7 +80,7 @@ const add = async (product, quantity) => {
       quantity: quantity,
     });
 
-    
+ 
   } catch (err) {
     console.log(err)
     if(err.response.status===300){
@@ -118,10 +119,12 @@ const add = async (product, quantity) => {
    <span onClick={()=>setvalue(values=>values+1)}><FaPlus /></span>
 <p className="">{values}</p>
    <span  onClick={()=>setvalue(values=>values-1)}><FaMinus /></span>
-    <button onClick={() => add(data, values)} className=" w-[70%] mt-3 py-2 bg-orange-500 rounded-lg">
+{data.count>0 ? <button onClick={() => add(data, values)} className=" w-[70%] mt-3 py-2 bg-orange-500 rounded-lg">
   Add to cart
-</button>
-
+</button>: <button o className=" w-[70%] mt-3 py-2 bg-orange-500  disabled rounded-lg">
+  Out of stock
+</button>}
+    
   </div>
   <div className=" mx-auto w-[80%]  overflow-auto">
     <p className="break-words font-extralight ">{data.description}{data.price}</p>

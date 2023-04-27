@@ -17,6 +17,7 @@ import Protected from './components/admin/Protected.jsx'
 import Productpage from './components/admin/Productpage.jsx'
 import Getproduct from './components/admin/Getproduct.jsx'
 import Updateproduct from './components/admin/Updateproduct.jsx'
+import Userlist from './components/admin/Userlist.jsx'
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 
@@ -51,7 +52,7 @@ function AppWrapper() {
   <Route path="addproduct" element={<Productpage />} />
   <Route path="getproduct" element={<Getproduct />} />
     <Route path="updateproduct" element={<Updateproduct />} />
-
+    <Route path="customer" element={<Userlist />} />
   <Route path="dashboard" element={<Productpage />} />
 </Route>
 

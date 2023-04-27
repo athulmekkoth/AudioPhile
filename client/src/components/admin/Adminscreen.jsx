@@ -10,6 +10,7 @@ export default function Adminscreen()
       <div className="mt-24  text-gray-400 text-center">
         <h1 className="text-6xl  "> Admin Dashboard</h1>
         <div className="flex gap-6 justify-center mt-20">
+          <Link to="customer">
         <button
       
       type="submit"
@@ -17,6 +18,7 @@ export default function Adminscreen()
     >
     Customers
     </button>
+    </Link>
     <Link to="addproduct">
     <button
       

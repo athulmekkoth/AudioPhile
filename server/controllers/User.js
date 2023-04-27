@@ -102,3 +102,35 @@ catch(err)
 }
 ////admin roles to be added
 
+export const getall=async(req,res,next)=>{
+  try{
+    const response=await User.find();
+    res.status(200).json({response})
+  }
+  catch(err)
+  {
+    console.log(err)
+  }
+}
+
+export const remove=async(req,res,next)=>{
+
+  try{
+    console.log("called")
+    console.log(req.body.id)
+    const user= await User.findByIdAndRemove(req.body.id)
+   
+    if(user)
+    {
+      res.status(200).json({message:"succces"})
+    }
+    else{
+      res.status(200).json({message:"user dont exist"})
+    }
+  
+  }
+  catch(err)
+  {
+    console.log(err)
+  }
+}

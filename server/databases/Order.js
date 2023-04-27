@@ -10,9 +10,18 @@ const Order=new mongoose.Schema({
         type:String,
         required:true
     },
-    tracking:{
+    modeofpayment:{
         type:String,
         required:true,
+    },
+    ordertotal:{
+        type:Number,
+        required:true
+    },
+    Shippinginformation:{
+        type:Number,
+        required:true
+
     }
     
 })
