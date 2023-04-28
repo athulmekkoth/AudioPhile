@@ -1,7 +1,6 @@
 import express  from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import userrouter from "./routers/Auth.js"
 import cookieParser from "cookie-parser";
 import bodyParser  from 'body-parser'
 import authrouter from "./routers/Auth.js";
@@ -9,7 +8,8 @@ import cors from "cors"
 import productrouter from "./routers/items.js";
 import Cartrouter from "./routers/Cartrt.js"
 import cloudinary from "cloudinary"
-//import Stripe from "stripe";
+import Razorpay from "razorpay";
+import Paymentrouter from "./routers/Payment.js";
 const app=express();
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -40,7 +40,11 @@ const connect=()=>{
 app.use(cookieParser())
 
 app.use("/api/auth",authrouter)
-
+app.use("/api/pay",Paymentrouter)
+export const instance = new Razorpay({
+    key_id: process.env.key_id,
+    key_secret: process.env.key_sec
+  });
     
 
 app.use("/api/product",productrouter)
