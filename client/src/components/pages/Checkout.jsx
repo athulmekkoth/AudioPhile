@@ -1,11 +1,69 @@
-import React from "react"
+import React, { useState } from "react"
 import { useSelector } from "react-redux"
+import axios from "axios"
+
 export default function Checkout()
 {
+  console.log("Checkout component rendered!")
+  /////payment
+  
   const total= useSelector((state)=>state.cart.subtotal)
-  console.log(total)
+const  [order,setOrder]=useState({})
+
+
+
+
+
+
+const  [key,setKey]=useState("")
+
+
+    const payment=async()=>{
+      try{
+        console.log('cliked')
+        const value=await axios.get("http://localhost:5000/api/pay/getkey")
+       setKey(value.data.key)
+      const response= await axios.post("/api/pay/checkout",({amount:total}))
+      setOrder(response.data.order)
     
-          return (
+      const  options = {
+        key,
+        amount: order.amount*100,
+        currency: "INR",
+        name: "Audiophile",
+        description: "Test Transaction",
+        image: "hhttps://res.cloudinary.com/dccwkrftn/image/upload/v1682784194/audiophile-logo_vriczr.svg",
+        order_id: order.id, 
+        callback_url: "http://localhost:5000/api/pay/checkout",
+        prefill: {
+            name: "Gaurav Kumar",
+            email: "gaurav.kumar@example.com",
+            contact: "9000090000"
+        },
+        notes: {
+            address: "Razorpay Corporate Office"
+        },
+        theme: {
+            color: "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+   
+        rzp1.open();
+        e.preventDefault();
+    
+    
+    }      catch(err)
+      {
+        console.log(err)
+      }
+
+  
+  
+
+    }
+
+  return (
             <div className=" text-black py-12  mt-20">
               <div className="container mx-auto max-w-screen-md px-4">
                 <h1 className="text-3xl font-bold mb-8">Checkout</h1>
@@ -86,7 +144,7 @@ export default function Checkout()
                       </div>
                     </div>
                       </form>
-                      <button className="bg-black h-7 font-semibold text-white w-[100%] rounded-xl">Proceed to pay:<span className="mx-3">{total}</span></button>
+                      <button onClick={payment} className="bg-black h-7 font-semibold text-white w-[100%] rounded-xl">Proceed to pay:<span className="mx-3">{total}</span></button>
                     </div>
              
                     </div>

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 export default function Cartlist()
 
 {
+console.log("ejnnej")
   const values= useSelector((state)=>state.cart.items)
   const user= useSelector((state)=>state.user.currentUser)
   const total= useSelector((state)=>state.cart.subtotal)
