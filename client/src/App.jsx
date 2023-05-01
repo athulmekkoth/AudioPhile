@@ -18,6 +18,7 @@ import Productpage from './components/admin/Productpage.jsx'
 import Getproduct from './components/admin/Getproduct.jsx'
 import Updateproduct from './components/admin/Updateproduct.jsx'
 import Userlist from './components/admin/Userlist.jsx'
+import Paymentsuccess from './components/pages/Paymentsuccess.jsx'
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 
@@ -37,10 +38,12 @@ function AppWrapper() {
       
 
       <div className="flex-1">
+        /api/pay/paymentsuccess?reference=pay_LkJlrDGezv4bno
       <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cartlist />} />
             <Route path="/checkout" element={<Checkout/>}/>
+            <Route path="paymentsuccess" element={<Paymentsuccess/>}/>
             <Route
   path="/admin/*"
   element={

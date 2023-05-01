@@ -5,6 +5,10 @@ const Order=new mongoose.Schema({
          required: true,
          ref: 'User'
        },
+       oderId:{
+        type:String,
+        required:true
+       },
     status:
     {
         type:String,

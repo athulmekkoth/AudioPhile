@@ -34,7 +34,7 @@ const  [key,setKey]=useState("")
         description: "Test Transaction",
         image: "hhttps://res.cloudinary.com/dccwkrftn/image/upload/v1682784194/audiophile-logo_vriczr.svg",
         order_id: order.id, 
-        callback_url: "http://localhost:5000/api/pay/checkout",
+        callback_url: "http://localhost:5000/api/pay/paymentverification",
         prefill: {
             name: "Gaurav Kumar",
             email: "gaurav.kumar@example.com",
