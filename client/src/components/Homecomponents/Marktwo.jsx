@@ -4,7 +4,7 @@ import img from '../../../public/images/home/desktop/headphone-hero-image.png'
 export default function Marktwo()
 {
     return(
-        <div className="pb-10 lg:mt-16 bg-black  pt-52  w-full">
+        <div className="pb-10 lg:mt-10 bg-black  pt-52  w-full">
         <div className="  flex-col-reverse flex justify-around lg:ml-24 lg:flex-row">
         <div className=" text-center lg:text-left  basis-1/2">
              <div className="">

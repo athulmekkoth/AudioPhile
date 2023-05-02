@@ -23,7 +23,7 @@ const Order=new mongoose.Schema({
         required:true
     },
     Shippinginformation:{
-        type:Number,
+        type:Object,
         required:true
 
     }
