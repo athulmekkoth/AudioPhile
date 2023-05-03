@@ -10,7 +10,7 @@ const reference=search.get("reference")
         <div className="mt- m-32">
         <div className="mx-auto my-auto w-[80%]   text-center">
         <h1 className=" text-3xl">Order Sucessful</h1>
-  <p>Reference no:{reference}</p>
+        <p>Reference no:{reference}</p>
   <button className="bg-blue-400 rounded-xl w-1/5 mt-3 py-3 transition-property: box-shadow  transition-duration: 150ms">Go to Orderes</button>
         </div>
         </div>

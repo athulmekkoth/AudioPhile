@@ -14,18 +14,15 @@ const Order=new mongoose.Schema({
         type:String,
         required:true
     },
-    modeofpayment:{
-        type:String,
-        required:true,
-    },
     ordertotal:{
         type:Number,
         required:true
     },
-    Shippinginformation:{
+    Shipping:{
         type:Object,
         required:true
 
     }
     
-})
+},{timestamps:true})
+export default mongoose.model("Order",Order)

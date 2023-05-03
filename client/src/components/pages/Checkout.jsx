@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -27,18 +27,20 @@ export default function Checkout() {
     [name]:value
   }))
 
-  console.log(data)
+ 
  }
  
 
   const [key, setKey] = useState("");
 
-  useState(() => {
+  useEffect(() => {
     const init = async () => {
       try {
         const response = await axios.post("/api/pay/checkout", {
           amount: total * 100,
+          
         });
+     
         setOrder(response.data.order);
       } catch (err) {
         console.log(err);
@@ -47,19 +49,19 @@ export default function Checkout() {
     init();
   }, []);
   const payment = async (e) => {
+
+ 
     e.preventDefault();
-
+if(data.city==="" || data.email==="" || data.name===""||data.house ===""|| data.landmark==="" ||data.pincode===""||data.contact==="")
+{
+  console.log("some fileds are emty")
+}else{
     try {
-      if(data.city ==="")
-      {
-
-      }
-      else{
+    
       const value = await axios.get("http://localhost:5000/api/pay/getkey");
       setKey(value.data.key);
 
-      console.log(order);
-
+      console.log(key);
       const options = {
         key,
         amount: order.amount,
@@ -81,13 +83,15 @@ export default function Checkout() {
           color: "#3399cc",
         },
       };
+      
       var rzp1 = new Razorpay(options);
 
       rzp1.open();
-    }
+    
     } catch (err) {
       console.log(err);
     }
+  }
   
   };
 
@@ -140,7 +144,9 @@ export default function Checkout() {
               id="city"
               type="text"
               className="w-full px-4 py-2 rounded-lg border border-gray-400 focus:outline-none focus:border-yellow-600"
-            />
+              name="city"
+              onChange={handelchange}
+           />
           </div>
           <div className="mb-4">
             <label htmlFor="Landmark" className="block font-bold mb-2">
@@ -150,7 +156,9 @@ export default function Checkout() {
               id="Landmark"
               type="text"
               className="w-full px-4 py-2 rounded-lg border border-gray-400 focus:outline-none focus:border-yellow-600"
-            />
+              name="landmark"
+              onChange={handelchange}
+         />
           </div>
           <div className=" flex justify-between gap-20 ">
             <div className="mb-4">
@@ -161,7 +169,9 @@ export default function Checkout() {
                 id="pincode"
                 type="text"
                 className=" w-[100%] px-4 py-2 rounded-lg border border-gray-400 focus:outline-none focus:border-yellow-600"
-              />
+                name="pincode"
+                onChange={handelchange}
+             />
             </div>
             <div className="mb-4  w-2/3">
               <label htmlFor="Mobile-number" className="block font-bold mb-2">
@@ -172,7 +182,9 @@ export default function Checkout() {
                 type="text"
                 placeholder="+91"
                 className="w-[100%] px-4 py-2 rounded-lg border border-gray-400 focus:outline-none focus:border-yellow-600"
-              />
+                name="contact"
+                onChange={handelchange}
+             />
             </div>
           </div>
           <button
