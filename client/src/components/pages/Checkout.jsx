@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Checkout() {
   console.log("Checkout component rendered!");
   /////payment
+
+
 
   const total = useSelector((state) => state.cart.subtotal);
   const [order, setOrder] = useState({});
@@ -21,13 +25,28 @@ export default function Checkout() {
  const handelchange=(e)=>{
   e.preventDefault();
   const{name,value}=e.target
+  if (["pincode", "contact"].includes(name) && isNaN(value)) {
+   
+    toast.info('Only numbers allowed!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
+      return;
+  }else{
   setData(prev=>({
+    
    
     ...prev,
     [name]:value
   }))
 
- 
+}
  }
  
 
@@ -48,52 +67,73 @@ export default function Checkout() {
     };
     init();
   }, []);
-  const payment = async (e) => {
+
+  /* toast.error('Some fileds are empty!', {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    });*/
+    const payment = async (e) => {
 
  
-    e.preventDefault();
-if(data.city==="" || data.email==="" || data.name===""||data.house ===""|| data.landmark==="" ||data.pincode===""||data.contact==="")
-{
-  console.log("some fileds are emty")
-}else{
-    try {
-    
-      const value = await axios.get("http://localhost:5000/api/pay/getkey");
-      setKey(value.data.key);
-
-      console.log(key);
-      const options = {
-        key,
-        amount: order.amount,
-        currency: "INR",
-        name: "Audiophile",
-        description: "Test Transaction",
-        image: "../../../public/images/home/desktop/headphone-hero-image.png",
-        order_id: order.id,
-        callback_url: "http://localhost:5000/api/pay/paymentverification",
-        prefill: {
-          name: "Gaurav Kumar",
-          email: "gaurav.kumar@example.com",
-          contact: "9000090000",
-        },
-        notes: {
-          address: "Razorpay Corporate Office",
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
+      e.preventDefault();
+    if(data.city==="" || data.email==="" || data.name===""||data.house ===""|| data.landmark==="" ||data.pincode===""||data.contact==="")
+    {
+      toast.error('Some fileds are empty!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        })
+    }else{
+      try {
       
-      var rzp1 = new Razorpay(options);
-
-      rzp1.open();
+        const value = await axios.get("http://localhost:5000/api/pay/getkey");
+        setKey(value.data.key);
     
-    } catch (err) {
-      console.log(err);
+        console.log(key);
+        const options = {
+          key,
+          amount: order.amount,
+          currency: "INR",
+          name: "Audiophile",
+          description: "Test Transaction",
+          image: "../../../public/images/home/desktop/headphone-hero-image.png",
+          order_id: order.id,
+          callback_url: "http://localhost:5000/api/pay/paymentverification",
+          prefill: {
+            name: "Gaurav Kumar",
+            email: "gaurav.kumar@example.com",
+            contact: "9000090000",
+          },
+          notes: {
+            address: "Razorpay Corporate Office",
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
+        
+        var rzp1 = new Razorpay(options);
+    
+        rzp1.open();
+      
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }
-  
-  };
+    
+    };
+    
 
   return (
     <div className=" text-black py-12  mt-20">
@@ -162,16 +202,18 @@ if(data.city==="" || data.email==="" || data.name===""||data.house ===""|| data.
           </div>
           <div className=" flex justify-between gap-20 ">
             <div className="mb-4">
-              <label htmlFor="pincode" className="block font-bold mb-2">
-                pincode
-              </label>
-              <input
-                id="pincode"
-                type="text"
-                className=" w-[100%] px-4 py-2 rounded-lg border border-gray-400 focus:outline-none focus:border-yellow-600"
-                name="pincode"
-                onChange={handelchange}
-             />
+            <label htmlFor="pincode" className="block font-bold mb-2">
+  pincode
+</label>
+<input
+  id="pincode"
+  type="text"
+  pattern="[0-9]*"
+  title="Please enter only numbers"
+  className="w-full px-4 py-2 rounded-lg border border-gray-400 focus:outline-none focus:border-yellow-600"
+  name="pincode"
+  onChange={handelchange}
+/>
             </div>
             <div className="mb-4  w-2/3">
               <label htmlFor="Mobile-number" className="block font-bold mb-2">
@@ -181,6 +223,7 @@ if(data.city==="" || data.email==="" || data.name===""||data.house ===""|| data.
                 id="Mobile-number"
                 type="text"
                 placeholder="+91"
+                pattern="[0-9]*"
                 className="w-[100%] px-4 py-2 rounded-lg border border-gray-400 focus:outline-none focus:border-yellow-600"
                 name="contact"
                 onChange={handelchange}

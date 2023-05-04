@@ -7,6 +7,7 @@ import authrouter from "./routers/Auth.js";
 import cors from "cors"
 import productrouter from "./routers/items.js";
 import Cartrouter from "./routers/Cartrt.js"
+import Orderouter from "./routers/Orders.js";
 import cloudinary from "cloudinary"
 import Razorpay from "razorpay";
 import Paymentrouter from "./routers/Payment.js";
@@ -40,6 +41,7 @@ const connect=()=>{
 app.use(cookieParser())
 
 app.use("/api/auth",authrouter)
+app.use("/api/order",Orderouter)
 app.use("/api/pay",Paymentrouter)
 export const instance = new Razorpay({
     key_id: process.env.key_id,

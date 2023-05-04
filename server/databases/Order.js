@@ -7,7 +7,7 @@ const Order=new mongoose.Schema({
        },
        oderId:{
         type:String,
-        required:true
+     
        },
     status:
     {
@@ -19,7 +19,7 @@ const Order=new mongoose.Schema({
         required:true
     },
     Shipping:{
-        type:Object,
+        type:mongoose.Schema.Types.Mixed,
         required:true
 
     }
