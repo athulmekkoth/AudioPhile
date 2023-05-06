@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import crypto from "crypto"
 import exp from "constants";
 import Order from "../databases/Order.js";
+import  Payment  from "../databases/Paymnet.js";
 export const checkout=async(req,res,next)=>{ 
 
 try{
@@ -22,7 +23,7 @@ catch(err)
 }
 }
 export const paymentverification=async(req,res,next)=>{
-  console.log(req.body)
+ 
   const{razorpay_payment_id, razorpay_order_id, razorpay_signature}=req.body;
 
  let body=razorpay_order_id + "|" + razorpay_payment_id;
@@ -37,6 +38,8 @@ const isauthentic=expectedSignature===razorpay_signature;
 if(isauthentic)
 {
  
+ const payment=new Payment({razorpay_payment_id,razorpay_order_id,razorpay_signature})
+ await payment.save()
   res.redirect(`http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`)
 }
 else{

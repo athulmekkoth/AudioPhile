@@ -3,7 +3,7 @@ export const add=async(req,res,next)=>{
     try{
     const {ordertotal,Shipping}=req.body;
     const owner={_id:req.user.id}
-    console.log(owner)
+   
     const status=false;
     const order = new Order({ owner, ordertotal, Shipping, status }); // create a new document instance
     await order.save()

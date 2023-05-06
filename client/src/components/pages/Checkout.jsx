@@ -110,6 +110,20 @@ export default function Checkout() {
           image: "../../../public/images/home/desktop/headphone-hero-image.png",
           order_id: order.id,
           callback_url: "http://localhost:5000/api/pay/paymentverification",
+          handler: async function (response) {
+            console.log('Handler function called');
+            try {
+              const responses = await axios.post("api/order/add", ({ ordertotal: order.amount, Shipping: data }))
+              console.log(responses)
+              setData({})
+              window.location.href = "http://localhost:5000/api/pay/paymentverification"; // Redirect to the callback URL
+            } catch (err) {
+              console.log(err)
+            }
+          },
+          
+          
+       
           prefill: {
             name: "Gaurav Kumar",
             email: "gaurav.kumar@example.com",
@@ -121,11 +135,17 @@ export default function Checkout() {
           theme: {
             color: "#3399cc",
           },
+          theme:{
+
+          }
+          
         };
         
         var rzp1 = new Razorpay(options);
-    
         rzp1.open();
+      
+
+        
       
       } catch (err) {
         console.log(err);
