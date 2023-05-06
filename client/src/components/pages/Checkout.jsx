@@ -68,7 +68,7 @@ export default function Checkout() {
     init();
   }, []);
 
-  /* toast.error('Some fileds are empty!', {
+  toast.error('Some fileds are empty!', {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
@@ -77,7 +77,7 @@ export default function Checkout() {
     draggable: true,
     progress: undefined,
     theme: "colored",
-    });*/
+    });
     const payment = async (e) => {
 
  
