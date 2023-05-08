@@ -47,6 +47,15 @@ const handleSubmit = async (event) => {
   
   
 }
+
+
+const passwordRegex = /^(?=(.*[a-z]){3,})(?=(.*[A-Z]){2,})(?=(.*[0-9]){2,})(?=(.*[!@#$%^&*()\-__+.]){1,}).{8,}$/;
+
+function validatePassword(password) {
+  return passwordRegex.test(password);
+}
+
+
   return (
     <div className="w-full h-screen flex justify-center items-center">
      
