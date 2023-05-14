@@ -135,9 +135,7 @@ export default function Checkout() {
           theme: {
             color: "#3399cc",
           },
-          theme:{
-
-          }
+         
           
         };
         

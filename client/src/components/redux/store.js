@@ -2,6 +2,7 @@
 import userReducer  from './authslice.js'
 import adminReducer from "./Adminslice.js"
 import cartReducer  from './cartslice'
+import  UserlistSlice  from './Userlist.js';
 import storage from 'redux-persist/lib/storage';
 
 import { PersistGate } from 'redux-persist/integration/react'
@@ -30,7 +31,7 @@ const persistConfig = {
 
 
   const rootReducer = combineReducers({ user: userReducer,
-  cart: cartReducer,admin:adminReducer});
+  cart: cartReducer,admin:adminReducer,ulist:UserlistSlice});
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
