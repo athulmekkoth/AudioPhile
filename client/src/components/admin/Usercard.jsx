@@ -2,6 +2,7 @@ import React from "react";
 import { FcEmptyTrash } from "react-icons/fc";
 import remove from "../redux/Userlist.js"
 import { useSelector,useDispatch } from "react-redux";
+import {Link} from "react-router-dom"
 export default function Usercard(props)
 {
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const del=()=>{
             <h2>Email:<span className="mx-3">{props.item.email}</span></h2>
             </div>
             <div className="py-7 mt-3  md:text-2xl flex justify-between align-center w-[90%] mx-auto">
-            <button className="w-22 bg-blue-500 rounded-lg md:px-3  md:py-2 hover:scale-105">View order History</button>
+            <Link to="/orders"><button className="w-22 bg-blue-500 rounded-lg md:px-3  md:py-2 hover:scale-105">View order History</button></Link>
                 <span onClick={del} ><FcEmptyTrash/></span>
            
             </div>

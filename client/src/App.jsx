@@ -19,7 +19,8 @@ import Getproduct from './components/admin/Getproduct.jsx'
 import Updateproduct from './components/admin/Updateproduct.jsx'
 import Userlists from './components/admin/Userlists.jsx'
 import Paymentsuccess from './components/pages/Paymentsuccess.jsx'
-import { useLocation } from 'react-router-dom';
+
+import Orders from './components/admin/Orders.jsx'
 import { useSelector } from 'react-redux'
 
 function AppWrapper() {
@@ -54,9 +55,10 @@ function AppWrapper() {
 >
   <Route path="addproduct" element={<Productpage />} />
   <Route path="getproduct" element={<Getproduct />} />
-    <Route path="updateproduct" element={<Updateproduct />} />
+    <Route path="updateproduct/:id" element={<Updateproduct />} />
     <Route path="customer" element={<Userlists />} />
   <Route path="dashboard" element={<Productpage />} />
+  <Route path="orders" element={<Orders />} />
 </Route>
 
 

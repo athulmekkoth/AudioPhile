@@ -14,3 +14,23 @@ export const add=async(req,res,next)=>{
         console.log(err)
     }
 }
+
+export const get=async(req,res,next)=>{
+    try{
+      
+
+        const response= await Order.find({owner:req.user.id})
+        console.log(response)
+        if(response)
+        {
+            res.status(200).json({response})
+        }
+        else{
+            res.status(404).json({message:'empyt'})
+        }
+    }
+    catch(err)
+    {
+        console.log(err)
+    }
+}

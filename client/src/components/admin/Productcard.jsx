@@ -29,7 +29,7 @@ const del=async()=>{
 
   
     return(
-        <div className="h-24 mt-8 w-[90%] bg-yellow-200 mx-auto rounded-xl flex flex-row-reverse  justify-between items-center ">
+        <div className="h-24 mt-8 w-[90%] bg-black text-white mx-auto rounded-xl flex flex-row-reverse  justify-between items-center ">
 <div  className="mx-5 flex flex-row  ">
    
     <h1  className="mx-5">Name:{props.items.name}</h1>
@@ -37,9 +37,9 @@ const del=async()=>{
     <h1  className="mx-5">Instock:{props.items.count}</h1>
     <h1  className="mx-5">Category:{props.items.category}</h1>
     <h1  className="mx-5">Price:{props.items.price}</h1>
-    <Link to="/admin/updateproduct" state={{ id:props.items._id }}>
+    <Link to={`/admin/updateproduct/${props.items._id}`}>
 
-        <button  className="bg-gray-700 rounded-md hover:animate-pulse">Update product</button></Link>
+        <button  className="bg-gray-700 w-28 rounded-md hover:animate-pulse">Update product</button></Link>
  <span onClick={del}  className="mx-5 cursor-pointer"><RiDeleteBin2Line/></span>
 
     </div>
