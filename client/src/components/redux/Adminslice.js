@@ -8,9 +8,9 @@ async()=>{
     try{
       
         const response = await axios.get("/api/product/getall")
-        console.log(response.data)
+        /*console.log(response.data)
         console.log(`Response data: ${JSON.stringify(response.data)}`);
-        return response.data;
+       */ return response.data;
     }
     catch(err)
     {

@@ -6,9 +6,9 @@ import {Link} from "react-router-dom"
 export default function Usercard(props)
 {
     const dispatch = useDispatch();
-    console.log(props)
+   
 const del=()=>{
-    console.log('clicked')
+    
     
     dispatch(remove({ payload: props.item._id }));
 
