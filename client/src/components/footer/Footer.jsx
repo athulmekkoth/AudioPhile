@@ -14,9 +14,9 @@ const Footer=()=>{
                     <ul className="text-center text-base text-white">
                         <li className=" text-xl px-4 flex flex-col gap-8 lg:flex-row  ">    
                             <Link  to="/" className="px-3hover:text-yellow-500 duration-1000 ease-out">Home</Link>
-                            <Link className=" hover:text-yellow-500 duration-1000">Headphone</Link>
-                            <Link className=" hover:text-yellow-500 duration-1000">Earphone</Link>
-                            <Link className=" hover:text-yellow-500 duration-1000">Speaker</Link>
+                          
+                            <Link className=" hover:text-yellow-500 duration-1000">About Us</Link>
+                            <Link className=" hover:text-yellow-500 duration-1000">Contact Us</Link>
                         </li>
                     </ul>
                     </div>

@@ -1,14 +1,24 @@
-import mongoose from "mongoose"
+import mongoose, { Schema } from "mongoose"
 const Order=new mongoose.Schema({
     owner : {
         type: mongoose.Types.ObjectId,
          required: true,
          ref: 'User'
        },
+       product:{
+        type:Array,
+       
+
+
+       },
        oderId:{
         type:String,
      
        },
+    date:{
+        type:Date,
+        default:Date.now
+    },
     status:
     {
         type:String,
@@ -22,6 +32,10 @@ const Order=new mongoose.Schema({
         type:mongoose.Schema.Types.Mixed,
         required:true
 
+    },
+    total:{
+        type:Number,
+        
     }
     
 },{timestamps:true})
