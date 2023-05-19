@@ -24,9 +24,9 @@ console.log(props.item)
     const dispatch=useDispatch();
     const add=async ()=>{try{
       console.log(values);
-      let response = await axios.post("api/cart/update", { itemId: props.item.product,quantity:values });
+      let response = await axios.post("api/cart/update", { itemId: props.item.product,quantity:values+1 });
       if(response.status===200){
-        setvalue((prevValue) => prevValue - 1);
+        setvalue((prevValue) => prevValue + 1);
           dispatch(increment(props.item.product))
 
       }

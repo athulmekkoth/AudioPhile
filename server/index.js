@@ -8,6 +8,7 @@ import cors from "cors"
 import productrouter from "./routers/items.js";
 import Cartrouter from "./routers/Cartrt.js"
 import Orderouter from "./routers/Orders.js";
+import Messagerouter from "./routers/Message.js";
 import cloudinary from "cloudinary"
 import Razorpay from "razorpay";
 import Paymentrouter from "./routers/Payment.js";
@@ -47,7 +48,8 @@ export const instance = new Razorpay({
     key_id: process.env.key_id,
     key_secret: process.env.key_sec
   });
-    
+
+  app.use("/api/mesg",Messagerouter)
 
 app.use("/api/product",productrouter)
 //app.use("/api/stripe",stripe)
