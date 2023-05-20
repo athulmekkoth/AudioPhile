@@ -1,11 +1,12 @@
-import Contactfrom from "../databases/Contactfrom.js";
+import Message from "../databases/Contactfrom.js";
 
 export const add=async(req,res,next)=>{
     try{
-    const {name,email,message}=req.body
-    const response=new Contactfrom(name,email,message)
+   const {name,contact,message}=req.body
+   console.log(name,contact)
+    const response=new Message({name,contact,message})
     await response.save()
-    res.status(200).json({message:success})
+    res.status(200).json({message:"succes"})
     }
     catch(err)
     {
@@ -15,7 +16,7 @@ export const add=async(req,res,next)=>{
 export const del=async(req,res,next)=>{
     try{
         const {id}=req.body
-        const response=await Contactfrom.findByIdAndDelete(id)
+        const response=await Message.findByIdAndDelete(id)
     if(response){
         res.status(200).json({response})
     }
@@ -31,7 +32,7 @@ export const del=async(req,res,next)=>{
 export const get=async(req,res,next)=>{
     try{
     
-        const response=await Contactfrom.find()
+        const response=await Message.find()
         res.status(200).json({response})
   
       res.status(500).json({message:"error"})

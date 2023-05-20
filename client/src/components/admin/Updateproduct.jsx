@@ -23,8 +23,56 @@ export default function Updateproduct(props) {
 
   },[id])
 
+  const [name,Setname]=useState("")
+  const [category, setCategory] = useState("");
+  const [count,Setcount]=useState()
+  const [price,Setprice]=useState()
+  const [description,Setdesc]=useState("")
+  const [files, setFiles] = useState([]);
+
+const handleFileChange = (files) => {
+  setFiles(Array.from(files));
+};
+const handlesumit = async(event) => {
+  event.preventDefault();
+
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('category', category);
+  formData.append('count', count);
+  formData.append('price', price);
+  formData.append('description', description);
+  for (let i = 0; i < files.length; i++) {
+    formData.append('files', files[i]);
+  }
+
+  try {
+    const response = await axios.post("/api/product/update", formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+  if(response.status===200){
+    toast.success('sucessfully added in cart!', {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  }
+}
+catch(err)
+{
+  console.log(err)
+}
+}
 
 
+  
   return (
     
     <div>
@@ -32,29 +80,34 @@ export default function Updateproduct(props) {
 <div className="mt-12 w-[60%] mx-auto border-2 border-black rounded-xl" > 
 <div className="py-4">
   <label className="pl-4 block text-start md:pl-14 text-2xl text-black" htmlFor="demo1">Category</label>
-  <input id="demo1"className="border-2 border-gray-200 h-8 r w-[90%]"       defaultValue={datas.exist?.category || ""} name="category" />
+  <input id="demo1"className="border-2 border-gray-200 h-8 r w-[90%]"       defaultValue={datas.exist?.category || ""} name="category"  onChange={(e)=>setCategory(e.target.value)} />
 </div>
 
 <div className="py-4">
   <label className="pl-4 block text-start md:pl-14 text-2xl text-black" htmlFor="price">Name</label>
-  <input id="price"className="border-2 border-gray-200 h-8 r w-[90%]"  defaultValue={datas.exist?.name || ""}  name="price" />
+  <input id="price"className="border-2 border-gray-200 h-8 r w-[90%]"  defaultValue={datas.exist?.name || ""}  name="name"   onChange={(e)=>Setname(e.target.value)}/>
 </div>
 <div className="py-4">
   <label className="pl-4 block text-start md:pl-14 text-2xl text-black" htmlFor="demo1">Description</label>
   <input id="demo1"className="border-2 border-gray-200 h-8 r w-[90%]"  defaultValue={datas.exist?.description
- || ""}  name="category" />
+ || ""}  name="desc"  onChange={(e)=>Setdesc(e.target.value)} />
 </div>
 <div className="py-4">
-  <label className="pl-4 block text-start md:pl-14 text-2xl text-black" htmlFor="demo1">Ctaegory</label>
+  <label className="pl-4 block text-start md:pl-14 text-2xl text-black" htmlFor="demo1">Count</label>
   <input id="Description"className="border-2 border-gray-200 h-8 r w-[90%]"  defaultValue={datas.exist?.count
- || ""} name="Description" />
+ || ""} name="count"  onChange={(e)=>Setcount(e.target.value)} />
 </div>
 <div className="py-4">
   <label className="pl-4 block text-start md:pl-14 text-2xl text-black" htmlFor="demo1">Price</label>
   <input id="demo1"className="border-2 border-gray-200 h-8 r w-[90%]" defaultValue={datas.exist?.price
- || ""} name="category" />
+ || ""} name="prce"  onChange={(e)=>Setprice(e.target.value)}/>
 </div>
-<button>Update Now</button>
+<div className="py-4">
+  <label className="pl-4 block text-start md:pl-14 text-2xl text-black" htmlFor="demo1">Price</label>
+  <input type="file" id="demo1"className="border-2 border-gray-200 h-8 r w-[90%]"  name="file"  onChange={(e)=>handleFileChange(e.target.value)}/>
+</div>
+
+<button onClick={handlesumit}>Update Now</button>
 </div>
     ) : (
       <div> loding</div>

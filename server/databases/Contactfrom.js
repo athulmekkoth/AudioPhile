@@ -16,4 +16,4 @@ const MessageSchema = new mongoose.Schema({
 });
 
 
-export default mongoose.model("MessageSchema", MessageSchema);
+export default mongoose.model("Message", MessageSchema);

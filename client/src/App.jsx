@@ -18,10 +18,12 @@ import Productpage from './components/admin/Productpage.jsx'
 import Getproduct from './components/admin/Getproduct.jsx'
 import Updateproduct from './components/admin/Updateproduct.jsx'
 import Userlists from './components/admin/Userlists.jsx'
+import Contactus from './components/pages/Contactus.jsx'
 import Paymentsuccess from './components/pages/Paymentsuccess.jsx'
 
 import Orders from './components/admin/Orders.jsx'
 import { useSelector } from 'react-redux'
+import Conatctus from './components/pages/Contactus.jsx'
 
 function AppWrapper() {
   const isAdmin = useSelector((state) => state.user.isAdmin);
@@ -39,7 +41,7 @@ function AppWrapper() {
       
 
       <div className="flex-1">
-        /api/pay/paymentsuccess?reference=pay_LkJlrDGezv4bno
+    
       <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cartlist />} />
@@ -59,6 +61,7 @@ function AppWrapper() {
     <Route path="customer" element={<Userlists />} />
   <Route path="dashboard" element={<Productpage />} />
   <Route path="orders" element={<Orders />} />
+
 </Route>
 
 
@@ -67,9 +70,10 @@ function AppWrapper() {
             <Route path="/headphone" element={<Commondetail propName="headphones"/>} />
             <Route path="/earphone" element={<Commondetail propName="earphones"/>} />
             <Route path="/speaker" element={<Commondetail  propName="speakers"/>} />
+            <Route  path="/contact" element={<Contactus/>}/>
             <Route path="/product"  >
             <Route path=':id' element={<Product />} />
-
+           
             </Route>
             <Route path="/user/*" element={<Userpage />}>
   <Route path="updatepassword" element={<Updatepassword />} />

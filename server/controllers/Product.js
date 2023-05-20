@@ -174,6 +174,64 @@ catch(err)
     }
   };
 
+export const update=async(req,res,next)=>{
+  const photos = [];
+
+  const { name, category, count, price, description } = req.body;
+  const filter = await Product.findOne({ name:name, category:category });
+  console.log(filter)
+  if (filter) {
+
+  try {
+    
+    const files = req.files;
+    const dataUris = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const dataUri = getDataUri(file);
+      dataUris.push(dataUri);
+    }
+
+    const results = await Promise.all(
+      dataUris.map((dataUri) => cloudinary.v2.uploader.upload(dataUri.content))
+    );
+
+    for (let result in results) {
+      photos.push(results[result].secure_url);
+    }
+    const { name, category, count, price, description } = req.body;
+    if (typeof name !== "string" || typeof category !== "string") {
+      return res.status(400).json({ message: "name and category must be strings" });
+    }
+const update={
+  $set:{
+    name, 
+    category,
+     count, 
+     price,
+      description,
+      photos
+
+  }
+}
+    const options = { new: true };
+const updates=await Product.findByIdAndUpdate(filter,update,options)
+
+    return res.status(200).json({ message: "item saved" });
+  }
+  
+catch (err) {
+    console.log(err);
+  console.log(err);
+  }
+} 
+else{
+  console.log("not exost")
+  res.status(404).json({mesage:"please check"})
+}
+};
+  
 
 /*
 import Product from "../databases/Product.js";
