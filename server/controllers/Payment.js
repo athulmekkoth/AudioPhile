@@ -2,8 +2,9 @@ import { instance } from "../index.js"
 import dotenv from "dotenv"
 import crypto from "crypto"
 import exp from "constants";
-import Order from "../databases/Order.js";
 import  Payment  from "../databases/Paymnet.js";
+import Cart from "../databases/Cart.js";
+import Order from "../databases/Order.js";
 export const checkout=async(req,res,next)=>{ 
 
 try{
@@ -41,6 +42,7 @@ if(isauthentic)
  const payment=new Payment({razorpay_payment_id,razorpay_order_id,razorpay_signature})
  await payment.save()
   res.redirect(`http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`)
+
 }
 else{
   res.status(400).json({succes:false})
@@ -50,3 +52,20 @@ export const getkey=async(req,res,next)=>{
   res.status(200).json({key:process.env.key_id})
   
 }
+
+export const che=async(req,res,next)=>{ 
+
+  try{
+ 
+
+    const cart = await Cart.findOne({ owner: req.user.id })
+  console.log(cart)
+ 
+  
+  res.status(200).json({succes:"d"})
+  }
+  catch(err)
+  {
+    console.log(err)
+  }
+  }
