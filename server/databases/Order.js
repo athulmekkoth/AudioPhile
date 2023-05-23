@@ -7,13 +7,6 @@ const Order=new mongoose.Schema({
        },
        product:{
         type:Array,
-       
-
-
-       },
-       oderId:{
-        type:String,
-     
        },
     date:{
         type:Date,

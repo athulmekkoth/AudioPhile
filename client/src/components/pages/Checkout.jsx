@@ -110,20 +110,6 @@ export default function Checkout() {
           image: "../../../public/images/home/desktop/headphone-hero-image.png",
           order_id: order.id,
           callback_url: "http://localhost:5000/api/pay/paymentverification",
-          handler: async function (response) {
-            console.log('Handler function called');
-            try {
-              const responses = await axios.post("api/order/add", ({ ordertotal: order.amount, Shipping: data }))
-              console.log(responses)
-              setData({})
-              window.location.href = "http://localhost:5000/api/pay/paymentverification"; // Redirect to the callback URL
-            } catch (err) {
-              console.log(err)
-            }
-          },
-          
-          
-       
           prefill: {
             name: "Gaurav Kumar",
             email: "gaurav.kumar@example.com",
@@ -135,7 +121,38 @@ export default function Checkout() {
           theme: {
             color: "#3399cc",
           },
-         
+  
+          handler: async (response) => {
+        // Check if the payment was successful
+        if (response.razorpay_payment_id) {
+          // Payment was successful
+          const paymentId = response.razorpay_payment_id;
+          console.log("Payment successful. Payment ID:", paymentId);
+
+          // Make an API call to your backend to save the order with the address information
+          const addressData = {
+            city: data.city,
+            email: data.email,
+            name: data.name,
+            house: data.house,
+            landmark: data.landmark,
+            pincode: data.pincode,
+            contact: data.contact,
+          };
+          const orderSaveResponse = await axios.post("/api/che", {
+            paymentId,
+            addressData,
+            // Additional data as needed
+          });
+          console.log("Order saved in the database:", orderSaveResponse.data);
+          
+          // You can perform further actions here, such as updating the UI or displaying a success message
+        } else {
+          // Payment failed or was cancelled
+          console.log("Payment failed or cancelled.");
+          // You can handle the failure or cancellation scenario here
+        }
+      },
           
         };
         

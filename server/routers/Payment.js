@@ -4,6 +4,6 @@ import { verifyToken } from "../VerifyToken.js";
 const Paymentrouter=express.Router();
 Paymentrouter.post("/checkout",checkout)
 Paymentrouter.get("/getkey",getkey)
-Paymentrouter.get("/che",verifyToken,che)
+Paymentrouter.post("/che",verifyToken,che)
 Paymentrouter.post("/paymentverification",paymentverification)
 export default Paymentrouter;

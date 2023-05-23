@@ -23,6 +23,11 @@ catch(err)
   console.log(err)
 }
 }
+
+
+
+
+
 export const paymentverification=async(req,res,next)=>{
  
   const{razorpay_payment_id, razorpay_order_id, razorpay_signature}=req.body;
@@ -41,8 +46,8 @@ if(isauthentic)
  
  const payment=new Payment({razorpay_payment_id,razorpay_order_id,razorpay_signature})
  await payment.save()
-  res.redirect(`http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`)
-
+  res.status(200).json({razorpay_payment_id})
+//res.redirect(`http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`)
 }
 else{
   res.status(400).json({succes:false})
@@ -59,8 +64,8 @@ export const che=async(req,res,next)=>{
  
 
     const cart = await Cart.findOne({ owner: req.user.id })
-  console.log(cart)
- 
+  
+ console.log(req.body)
   
   res.status(200).json({succes:"d"})
   }
