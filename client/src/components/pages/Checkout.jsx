@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useNavigate } from 'react-router-dom'
 export default function Checkout() {
   console.log("Checkout component rendered!");
   /////payment
-
+  const navigate = useNavigate();
 
 
   const total = useSelector((state) => state.cart.subtotal);
@@ -29,7 +29,7 @@ export default function Checkout() {
    
     toast.info('Only numbers allowed!', {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
@@ -68,16 +68,9 @@ export default function Checkout() {
     init();
   }, []);
 
-  toast.error('Some fileds are empty!', {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
-    });
+
+
+
     const payment = async (e) => {
 
  
@@ -86,7 +79,7 @@ export default function Checkout() {
     {
       toast.error('Some fileds are empty!', {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -94,7 +87,22 @@ export default function Checkout() {
         progress: undefined,
         theme: "colored",
         })
-    }else{
+      }
+      else if ([data.pincode, data.contact].includes(name) && isNaN(value)) {
+   
+        toast.info('Only numbers allowed in pin and mobile!', {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          });
+       
+        }
+    else{
       try {
       
         const value = await axios.get("http://localhost:5000/api/pay/getkey");
@@ -125,27 +133,7 @@ export default function Checkout() {
           handler: async (response) => {
         // Check if the payment was successful
         if (response.razorpay_payment_id) {
-          // Payment was successful
-          const paymentId = response.razorpay_payment_id;
-          console.log("Payment successful. Payment ID:", paymentId);
-
-          // Make an API call to your backend to save the order with the address information
-          const addressData = {
-            city: data.city,
-            email: data.email,
-            name: data.name,
-            house: data.house,
-            landmark: data.landmark,
-            pincode: data.pincode,
-            contact: data.contact,
-          };
-          const orderSaveResponse = await axios.post("/api/che", {
-            paymentId,
-            addressData,
-            // Additional data as needed
-          });
-          console.log("Order saved in the database:", orderSaveResponse.data);
-          
+          navigate('/')
           // You can perform further actions here, such as updating the UI or displaying a success message
         } else {
           // Payment failed or was cancelled
