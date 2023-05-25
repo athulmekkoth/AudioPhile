@@ -15,7 +15,7 @@ const Order=new mongoose.Schema({
     status:
     {
         type:String,
-        required:true
+        default:false
     },
     ordertotal:{
         type:Number,
@@ -25,10 +25,6 @@ const Order=new mongoose.Schema({
         type:mongoose.Schema.Types.Mixed,
         required:true
 
-    },
-    total:{
-        type:Number,
-        
     }
     
 },{timestamps:true})

@@ -133,8 +133,12 @@ export default function Checkout() {
           handler: async (response) => {
         // Check if the payment was successful
         if (response.razorpay_payment_id) {
+          
+         const response=axios.post("/api/pay/add",({data:data,amout:order.amount}))
+         if(response.status===200)
+         {
           navigate('/')
-          // You can perform further actions here, such as updating the UI or displaying a success message
+         }
         } else {
           // Payment failed or was cancelled
           console.log("Payment failed or cancelled.");

@@ -58,19 +58,20 @@ export const getkey=async(req,res,next)=>{
   
 }
 
-export const che=async(req,res,next)=>{ 
-
-  try{
- 
-
-    const cart = await Cart.findOne({ owner: req.user.id })
-  
- console.log(req.body)
-  
-  res.status(200).json({succes:"d"})
+export const add = async (req, res, next) => {
+  try {
+    const { data } = req.body;
+    const cart = await Cart.findOne({ owner: req.user.id });
+    const order = new Order({
+      owner: req.user.id,
+      product: cart.items,
+      ordertotal: cart.total,
+      Shipping: data,
+    });
+    await order.save();
+    res.status(200).json({ message: "success" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err });
   }
-  catch(err)
-  {
-    console.log(err)
-  }
-  }
+};
