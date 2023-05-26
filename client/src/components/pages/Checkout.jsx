@@ -131,20 +131,30 @@ export default function Checkout() {
           },
   
           handler: async (response) => {
-        // Check if the payment was successful
-        if (response.razorpay_payment_id) {
           
-         const response=axios.post("/api/pay/add",({data:data,amout:order.amount}))
-         if(response.status===200)
-         {
-          navigate('/')
-         }
-        } else {
-          // Payment failed or was cancelled
-          console.log("Payment failed or cancelled.");
-          // You can handle the failure or cancellation scenario here
-        }
-      },
+            if (response.razorpay_payment_id) {
+              try {
+              
+                const responseData = {
+                  data: data,
+                  amount: order.amount
+                };
+          
+                const response = await axios.post("/api/pay/add", responseData);
+                
+                if (response.status) {
+                  navigate('/paymentsuccess');
+                }
+              } catch (error) {
+                console.log(error);
+              }
+            } else {
+              // Payment failed or was cancelled
+              console.log("Payment failed or cancelled.");
+              // You can handle the failure or cancellation scenario here
+            }
+          }
+          
           
         };
         

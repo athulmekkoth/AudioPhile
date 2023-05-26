@@ -46,7 +46,7 @@ function AppWrapper() {
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cartlist />} />
             <Route path="/checkout" element={<Checkout/>}/>
-            <Route path="paymentsuccess" element={<Paymentsuccess/>}/>
+            <Route path="/paymentsuccess" element={<Paymentsuccess/>}/>
             <Route
   path="/admin/*"
   element={
