@@ -1,5 +1,5 @@
 import mongoose, { mongo } from "mongoose";
-const Sales = new mongo.Schema({
+const Salesschema = new mongoose.Schema({
     totalsaleprice:{
         type:Number,
         default:0,
@@ -9,4 +9,4 @@ const Sales = new mongo.Schema({
 
     
 })
-export default mongoose.model("Sales",Sales )
+export default mongoose.model("Sales",Salesschema )

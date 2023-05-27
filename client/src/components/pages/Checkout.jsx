@@ -143,6 +143,7 @@ export default function Checkout() {
                 const response = await axios.post("/api/pay/add", responseData);
                 
                 if (response.status) {
+                  
                   navigate('/paymentsuccess');
                 }
               } catch (error) {

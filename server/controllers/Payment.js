@@ -5,6 +5,7 @@ import exp from "constants";
 import  Payment  from "../databases/Paymnet.js";
 import Cart from "../databases/Cart.js";
 import Order from "../databases/Order.js";
+import Sales from '../databases/Sales.js'
 export const checkout=async(req,res,next)=>{ 
 
 try{
@@ -69,6 +70,20 @@ export const add = async (req, res, next) => {
       Shipping: data,
     });
     await order.save();
+    const sales=await Sales.find()
+    if(sales)
+    {
+      const reponse=await Sales.findOneAndDelete({},{$inc:{totalsaleprice:cart.total}},{new:true})
+    }
+    else{
+      try{
+      const sales=new Sales({totalsaleprice:cart.total})
+      }
+      catch(err)
+      {
+        console.log(err)
+      }
+    }
     res.status(200).json({ message: "success" });
   } catch (err) {
     console.log(err);

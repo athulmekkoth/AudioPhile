@@ -135,3 +135,21 @@ export const update = async (req, res, next) => {
     res.status(500).json({ message: "error found" });
   }
 }; 
+
+export const ctdelete=async(req,res,next)=>{
+try{
+  const owner=req.user.id
+  const cart=await Cart.findOneAndDelete({owner:owner})
+  if(cart){
+  res.status(200).json("sucees")}
+  else{
+    res.status(404).json("not founc cart")
+  }
+}
+
+catch(err)
+{
+  console.log(err)
+  res.status(500).json("fail")
+}
+}
