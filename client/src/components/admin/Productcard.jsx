@@ -29,25 +29,25 @@ const del=async()=>{
 
   
     return(
-        <div className="h-24 mt-8 w-[90%] bg-black text-white mx-auto rounded-xl flex flex-row-reverse  justify-between items-center ">
-<div  className="mx-5 flex flex-row  ">
+        <div className="bg-black w-[80%] mx-auto flex flex-row justify-between my-4 py-4 rounded-lg">
+            <div  className="flex-col mx-5 flex  mt-5  lg:text-2xl lg:w-[70%] items-start lg:mx-12">
    
-    <h1  className="mx-5">Name:{props.items.name}</h1>
-  
-    <h1  className="mx-5">Instock:{props.items.count}</h1>
-    <h1  className="mx-5">Category:{props.items.category}</h1>
-    <h1  className="mx-5">Price:{props.items.price}</h1>
-    <Link to={`/admin/updateproduct/${props.items._id}`}>
+   <h1  className="my-3">Name:{props.items.name}</h1>
+   <h1  className="my-3">Category:{props.items.category}</h1>
+   <h1  className="my-3">Instock:{props.items.count}</h1>
 
-        <button  className="bg-gray-700 w-28 rounded-md hover:animate-pulse">Update product</button></Link>
- <span onClick={del}  className="mx-5 cursor-pointer"><RiDeleteBin2Line/></span>
+   <h1  className="my-3">Price:{props.items.price}</h1>
+   <Link to={`/admin/updateproduct/${props.items._id}`}>
 
-    </div>
-<div className="mx-5 ">
-<img  className="rounded-xl  w-12 " src={img} />
+<button  className="bg-gray-700 w-[100%] rounded-md hover:animate-pulse">Update product</button></Link>
 
+   </div>
+<div className="mx-5 flex flex-col justify-between my-4  ">
+<img  className="rounded-xl  w-32 " src={img} />
+
+<span onClick={del}  className="mx-5 cursor-pointer"><RiDeleteBin2Line/></span>
 </div>
-<Outlet />
+
 
 </div>
        

@@ -40,8 +40,8 @@ const get=()=>{
         <Cartcard key={item.id} item={item} />
     ))}
     </div>
-    <div className="mx-auto h-48  bg-neutral-100 mt-20 w-1/3 lg:w-[20%] flex flex-col justify-center items-center gap-2 rounded-lg">
-    <h1 className="mx-5  text-3xl text-black font-mono">Subtototal:{total}</h1>
+    <div className="mx-auto h-48  bg-neutral-100 mt-20 w-1/2 lg:w-[20%] flex flex-col justify-center items-center gap-2 rounded-lg">
+    <h1 className="mx-5 w-[100%] text-center  rounded-xl text-3xl text-black font-mono">Subtototal:{total}</h1>
    
     <Link className="w-1/2 " to="/checkout"  >
     <button className="bg-yellow-300 w-full rounded-xl h-9">Proceed</button>

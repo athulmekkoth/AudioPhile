@@ -14,12 +14,13 @@ export default function UserPage() {
       Hello, {user.name}
     </h1>
     <div className="w-[100%] text-center mt-12 ">
+    <Link to="/ordersuser">
     <button
 
         className="mx-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
         My orderes
-      </button>
+      </button></Link>
       <Link to="updatepassword">
       <button
     
