@@ -1,13 +1,31 @@
 import React, { useEffect, useState } from "react";
-
+import axios from "axios";
 
 
 export default function Orders(){
 
-    return(
-        <div className="mt-48">
-            <h1 className="text-yellow-200">kcff3ef3</h1>
+    const[data,setData]=useState([])
+    useEffect(()=>{
+        
+            const response=async()=>{
+                try{
+                const res=await axios.get("/api/order/getall")
+                setData(res.data)
+                console.log(res.data)
+            }
+      catch(err)
+        {
+            console.log(err)
+        }
+    }
+    response()
+    },[])
+    
+    return (
+        <div>
+          {data.map((item) => {
+            return <Card item={item} />;
+          })}
         </div>
-    )
-
-}
+      );
+        }      

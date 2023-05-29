@@ -46,7 +46,7 @@ Update/Delete
 Sales
     </button>
     </Link >
-    <Link to="getproduct">
+    <Link to="orders">
     <button
       
       type="submit"
