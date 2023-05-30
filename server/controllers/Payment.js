@@ -5,7 +5,7 @@ import exp from "constants";
 import  Payment  from "../databases/Paymnet.js";
 import Cart from "../databases/Cart.js";
 import Order from "../databases/Order.js";
-import Sales from '../databases/Sales.js'
+
 export const checkout=async(req,res,next)=>{ 
 
 try{
@@ -73,7 +73,7 @@ export const add = async (req, res, next) => {
     const sales=await Sales.find()
     if(sales)
     {
-      const reponse=await Sales.findOneAndDelete({},{$inc:{totalsaleprice:cart.total}},{new:true})
+      const reponse=await Sales.findOneAndUpdate({},{$inc:{totalsaleprice:cart.total}},{new:true})
     }
     else{
       try{

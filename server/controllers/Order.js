@@ -1,10 +1,12 @@
 import Order from "../databases/Order.js";
 import Cart from "../databases/Cart.js";
-
+import Sales from '../databases/Sales.js'
 
 export const add = async (req, res, next) => {
   try {
-    const { ordertotal, Shipping } = req.body;
+    const {  Shipping,mode} = req.body;
+    console.log(Shipping)
+   
     const owner = req.user.id;
 
     // Fetch cart items for the owner
@@ -24,13 +26,43 @@ export const add = async (req, res, next) => {
     }));
 
     // Calculate the total from the cart
-    const total = cart.total;
+    const ordertotal = cart.total;
 
-    const status = false;
-    const order = new Order({ owner, product: products, ordertotal, Shipping, total, status });
-    await order.save();
+   
+    const sales=await Sales.findOne()
+    if(sales)
+    {
+      try{
+   
+    
+      const filter = { _id: sales._id}
+      const update = { $inc: { totalsaleprice:ordertotal } };
+      const options = { new: true }
+      const response = await Sales.findOneAndUpdate(filter, update, options);
 
-    res.status(200).json({ order });
+     const order = new Order({ owner, product: products,  Shipping, ordertotal,mode });
+      await order.save();
+    console.log(response)
+      res.status(200).json({ response,order});
+    }
+    catch(err)
+    {
+      console.log(err)
+    }
+  }
+    else{
+      try{
+        console.log("not")
+      const sales=new Sales({totalsaleprice:ordertotal})
+      sales.save()
+      const order = new Order({ owner, product: products,  Shipping, ordertotal,mode });
+      await order.save();
+      }
+      catch(err)
+      {
+        console.log(err)
+      }
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: 'Internal Server Error' });
@@ -76,3 +108,6 @@ export const getall=async(req,res,next)=>{
         console.log(err)
     }
 }
+
+    /* const order = new Order({ owner, product: products, ordertotal, Shipping, total,mode });
+      await order.save();*/

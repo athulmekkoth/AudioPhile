@@ -13,6 +13,49 @@ export default function Checkout() {
   const total = useSelector((state) => state.cart.subtotal);
   const [order, setOrder] = useState({});
 
+
+
+  const checkEmptyFields = () => {
+    if (
+      data.city === "" ||
+      data.email === "" ||
+      data.name === "" ||
+      data.house === "" ||
+      data.landmark === "" ||
+      data.pincode === "" ||
+      data.contact === ""
+    ) {
+      toast.error("Some fields are empty!", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return true;
+    }
+
+    if (isNaN(data.pincode) || isNaN(data.contact)) {
+      toast.info("Only numbers allowed in pin and mobile!", {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return true;
+    }
+
+    return false;
+  };
+
+
   const [data, setData] = useState({
     email: "",
     name: "",
@@ -22,6 +65,9 @@ export default function Checkout() {
     pincode: "",
     contact: "",
   });
+
+
+  
  const handelchange=(e)=>{
   e.preventDefault();
   const{name,value}=e.target
@@ -75,33 +121,9 @@ export default function Checkout() {
 
  
       e.preventDefault();
-    if(data.city==="" || data.email==="" || data.name===""||data.house ===""|| data.landmark==="" ||data.pincode===""||data.contact==="")
-    {
-      toast.error('Some fileds are empty!', {
-        position: "top-right",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        })
+      if (checkEmptyFields()) {
+        return;
       }
-      else if ([data.pincode, data.contact].includes(name) && isNaN(value)) {
-   
-        toast.info('Only numbers allowed in pin and mobile!', {
-          position: "top-right",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          });
-       
-        }
     else{
       try {
       
@@ -136,11 +158,12 @@ export default function Checkout() {
               try {
               
                 const responseData = {
-                  data: data,
-                  amount: order.amount
+                  Shipping: data,
+                
+                  mode:"online"
                 };
           
-                const response = await axios.post("/api/pay/add", responseData);
+                const response = await axios.post("/api/order/add", responseData);
                 
                 if (response.status) {
                   
@@ -171,6 +194,33 @@ export default function Checkout() {
     }
     
     };
+    const call=async()=>
+    {
+      if (checkEmptyFields()) {
+        return;
+      }
+        else{
+      try {
+        console.log("called")
+              
+        const responseData = {
+          Shipping: data,
+         
+          mode:"cash"
+         
+        };
+  
+        const response = await axios.post("/api/order/add", responseData);
+        console.log(response.status)
+        if (response.status===200) {
+          
+          navigate('/paymentsuccess');
+        }
+      } catch (error) {
+        console.log(error);}
+      }
+  }
+
     
 
   return (
@@ -268,12 +318,24 @@ export default function Checkout() {
              />
             </div>
           </div>
+          <div className="bg-black rounded-lg my-4 text-center text-white font-extralight font-mono py-1">TOTAL:{total}</div>
+          <div className="flex w-[100%] justify-between " >
+          
           <button
             type="submit"
-            className="bg-black h-7 font-semibold text-white w-[100%] rounded-xl"
+            className="bg-black h-7 font-semibold text-white w-[40%] rounded-xl"
           >
-            Proceed to pay:<span className="mx-3">{total}</span>
+            Proceed to pay:<span className="mx-3">Via online</span>
           </button>
+
+          <button
+          type="button"
+          onClick={call}
+            className="bg-black h-7 font-semibold text-white w-[40%] rounded-xl"
+          >
+            Proceed to pay:<span className="mx-3">COD</span>
+          </button>
+          </div>
         </form>
       </div>
     </div>

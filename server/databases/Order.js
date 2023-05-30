@@ -15,7 +15,7 @@ const Order=new mongoose.Schema({
     status:
     {
         type:String,
-        default:false
+        default:"false"
     },
     ordertotal:{
         type:Number,
@@ -24,6 +24,11 @@ const Order=new mongoose.Schema({
     Shipping:{
         type:mongoose.Schema.Types.Mixed,
         required:true
+
+    },
+    mode:{
+        type:String,
+        
 
     }
     
