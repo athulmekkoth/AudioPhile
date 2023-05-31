@@ -22,6 +22,7 @@ cloudinary.config({
     try {
       
       const files = req.files;
+      console.log(req.files)
       const dataUris = [];
   
       for (let i = 0; i < files.length; i++) {
@@ -174,32 +175,44 @@ catch(err)
     }
   };
 
+  /////////////////////////////////
+/* export const addpic = async (req, res, next) => {
+    const photos = [];
+
+    }
+    else{
+    try {
+      
+     
+  
+   
+    
+  
+      const product = new Product({ name, category, count, price, description, photos });
+      await product.save();
+      return res.status(200).json({ message: "item saved" });
+    } catch (err) {
+      console.log(err);
+    console.log(err);
+    }
+  };
+}
+  
+  */
 export const update=async(req,res,next)=>{
   const photos = [];
 
-  const { name, category, count, price, description } = req.body;
-  const filter = await Product.findOne({ name:name, category:category });
-  console.log(filter)
+  const { name, category, count, price, description,ids} = req.body;
+
+  const filter = await Product.findOne({_id:ids});
+ 
+ 
   if (filter) {
 
   try {
-    
     const files = req.files;
-    const dataUris = [];
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const dataUri = getDataUri(file);
-      dataUris.push(dataUri);
-    }
-
-    const results = await Promise.all(
-      dataUris.map((dataUri) => cloudinary.v2.uploader.upload(dataUri.content))
-    );
-
-    for (let result in results) {
-      photos.push(results[result].secure_url);
-    }
+      console.log(req.files)
+   
     const { name, category, count, price, description } = req.body;
     if (typeof name !== "string" || typeof category !== "string") {
       return res.status(400).json({ message: "name and category must be strings" });
@@ -211,7 +224,7 @@ const update={
      count, 
      price,
       description,
-      photos
+     // photos
 
   }
 }
@@ -227,7 +240,7 @@ catch (err) {
   }
 } 
 else{
-  console.log("not exost")
+  console.log("sorry producr dosent exist")
   res.status(404).json({mesage:"please check"})
 }
 };

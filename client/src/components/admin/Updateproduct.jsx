@@ -7,13 +7,22 @@ export default function Updateproduct(props) {
   const {id}=useParams()
   const [datas, setDatas] = useState({});
 
+  const [name,Setname]=useState("")
+  const [category, setCategory] = useState("");
+  const [count,Setcount]=useState()
+  const [price,Setprice]=useState()
+  const [description,Setdesc]=useState("")
+  const [ids,Setid]=useState("")
+  const [files, setFiles] = useState([]);
+ 
   useEffect(()=>{
     const getdata=async()=>{
       try{
       const response=await axios.get(`/api/product/find/${id}`)
-     console.log(response)
-      console.log("rendered")
-      setDatas(response.data);}
+     
+      
+      setDatas(response.data);
+      Setid(response.data.exist._id)}
       catch(err)
       {
         console.log(err)
@@ -23,15 +32,11 @@ export default function Updateproduct(props) {
 
   },[id])
 
-  const [name,Setname]=useState("")
-  const [category, setCategory] = useState("");
-  const [count,Setcount]=useState()
-  const [price,Setprice]=useState()
-  const [description,Setdesc]=useState("")
-  const [files, setFiles] = useState([]);
+
 
 const handleFileChange = (files) => {
   setFiles(Array.from(files));
+
 };
 const handlesumit = async(event) => {
   event.preventDefault();
@@ -42,18 +47,22 @@ const handlesumit = async(event) => {
   formData.append('count', count);
   formData.append('price', price);
   formData.append('description', description);
+  formData.append('ids', id);
   for (let i = 0; i < files.length; i++) {
     formData.append('files', files[i]);
+    
   }
 
   try {
+    console.log(files)
+ 
     const response = await axios.post("/api/product/update", formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     });
   if(response.status===200){
-    toast.success('sucessfully added in cart!', {
+    toast.success('sucessfully added product!', {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
