@@ -113,7 +113,7 @@ catch(err)
 </div>
 <div className="py-4">
   <label className="pl-4 block text-start md:pl-14 text-2xl text-black" htmlFor="demo1">Price</label>
-  <input type="file" id="demo1"className="border-2 border-gray-200 h-8 r w-[90%]"  name="file"  onChange={(e)=>handleFileChange(e.target.value)}/>
+  <input type="file" id="demo1"className="border-2 border-gray-200 h-8 r w-[90%]"  name="file"  onChange={(e)=>handleFileChange(e.target.files)}/>
 </div>
 
 <button onClick={handlesumit}>Update Now</button>

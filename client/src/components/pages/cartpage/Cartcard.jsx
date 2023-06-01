@@ -23,7 +23,10 @@ export default function Cartcard(props)
 console.log(props.item)
     const dispatch=useDispatch();
     const add=async ()=>{try{
-      console.log(values);
+      if(values >=4)
+      {
+        alert("maximmum order is 4 per one person")
+      }else{
       let response = await axios.post("api/cart/update", { itemId: props.item.product,quantity:values+1 });
       if(response.status===200){
         setvalue((prevValue) => prevValue + 1);
@@ -34,11 +37,13 @@ console.log(props.item)
         
  
      }
-     catch(err)
+    
+     } catch(err)
      {
          console.log(err)
      }
      }
+
 
      const sub=async ()=>{
         try {

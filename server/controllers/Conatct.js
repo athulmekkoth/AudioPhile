@@ -2,9 +2,9 @@ import Message from "../databases/Contactfrom.js";
 
 export const add=async(req,res,next)=>{
     try{
-   const {name,contact,message}=req.body
-   console.log(name,contact)
-    const response=new Message({name,contact,message})
+   const {name,email,message}=req.body
+   console.log(name,email,message)
+    const response=new Message({name,email,message})
     await response.save()
     res.status(200).json({message:"succes"})
     }

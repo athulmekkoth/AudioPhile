@@ -116,9 +116,9 @@ const add = async (product, quantity) => {
 <div className="">
   <div className="flex  flex-row  justify-evenly items-center mx-3 my-5 py-4 flex-wrap ">
     <p>Select qty:</p>
-   <span onClick={()=>setvalue(values=>values+1)}><FaPlus /></span>
+   <span onClick={()=>values>=4?alert("maximmum 4 per oder"):setvalue(values=>values+1)}><FaPlus /></span>
 <p className="">{values}</p>
-   <span  onClick={()=>setvalue(values=>values-1)}><FaMinus /></span>
+   <span onClick={()=>values>=1?setvalue(values=>values-1):alert("minimmum order is 1")}><FaMinus /></span>
 {data.count>0 ? <button onClick={() => add(data, values)} className=" w-[70%] mt-3 py-2 bg-orange-500 rounded-lg">
   Add to cart
 </button>: <button o className=" w-[70%] mt-3 py-2 bg-orange-500  disabled rounded-lg">
