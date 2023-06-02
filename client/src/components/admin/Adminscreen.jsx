@@ -9,7 +9,7 @@ export default function Adminscreen()
     return(
       <div className="mt-24  text-gray-400 text-center">
         <h1 className="text-6xl  "> Admin Dashboard</h1>
-        <div className="flex gap-6 justify-center mt-20">
+        <div className="flex flex-col lg:flex-row gap-6 justify-center mt-20">
           <Link to="customer">
         <button
       
@@ -46,13 +46,13 @@ Update/Delete
 Sales
     </button>
     </Link >
-    <Link to="orders">
+    <Link to="messages">
     <button
       
       type="submit"
       className="bg-blue-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
     >
-Orders
+messages
     </button>
     </Link >
     </div>

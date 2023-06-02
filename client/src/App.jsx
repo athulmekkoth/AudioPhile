@@ -21,7 +21,7 @@ import Userlists from './components/admin/Userlists.jsx'
 import Contactus from './components/pages/Contactus.jsx'
 import Paymentsuccess from './components/pages/Paymentsuccess.jsx'
 
-import Orders from './components/admin/Orders.jsx'
+import Orders from './components/reusable/Order.jsx'
 import { useSelector } from 'react-redux'
 import Conatctus from './components/pages/Contactus.jsx'
 
