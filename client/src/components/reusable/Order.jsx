@@ -34,7 +34,7 @@ export default function Orders(){
     
     return (
         <div>
-            <h1 className="my-20">kl3emdk</h1>
+          
           {data.map((item) => {
             return <Card item={item} />;
           })}
