@@ -15,7 +15,7 @@ const Order=new mongoose.Schema({
     status:
     {
         type:String,
-        default:"false"
+        default:"pending"
     },
     ordertotal:{
         type:Number,

@@ -33,7 +33,7 @@ export default function Orders(){
     },[])
     
     return (
-        <div>
+        <div className="mx-3">
           
           {data.map((item) => {
             return <Card item={item} />;

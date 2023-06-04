@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Card = (props) => {
-    console.log(props.item)
+  console.log(props.item);
   const {
-  
     Shipping,
     date,
     mode,
@@ -11,50 +10,66 @@ const Card = (props) => {
     owner,
     product,
     status,
-  } = props.item
-console.log(Shipping
-    )
-    const change=async()=>{
+  } = props.item;
+const[state,setState]=useState("")
+  const change = async(e)=>
+  {
+  const response=await axios.post()
+  };
 
-    }
   return (
     <div className="bg-black my-3 shadow rounded p-6">
-    <div className="mb-4">
-      <h1 className="text-2xl font-bold">Shipping Details</h1>
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold">Shipping Details</h1>
+      </div>
+      <div className="flex flex-col space-y-4">
+        <p className="flex flex-col">
+          Adress
+          <span className="font-bold">NAME: {Shipping.name}</span>
+          <span className="font-bold">CITY: {Shipping.city}</span>
+          <span className="font-bold">CONTACT: {Shipping.email}</span>
+          <span className="font-bold">HOUSE: {Shipping.house}</span>
+          <span className="font-bold">Mobile: {Shipping.contact}</span>
+          <span className="font-bold">LANDMARK: {Shipping.landmark}</span>
+          <span className="font-bold">PINCODE: {Shipping.PINCODE}</span>
+        </p>
+
+        <p>
+          <span className="font-bold">Date:</span> {date}
+        </p>
+        <p>
+          <span className="font-bold">Mode:</span> {mode}
+        </p>
+        <p>
+          <span className="font-bold">Order Total:</span> {ordertotal}
+        </p>
+        <p>
+          <span className="font-bold">Owner:</span> {owner}
+        </p>
+        <p className="rounded-md p-4">
+          <span className="font-bold">Product Detail:</span>{" "}
+          {product.map((item) => (
+            <span className="text-blue-800 text-xl" key={item.name}>
+              <br />
+              Name: {item.name}, Quantity: {item.quantity}
+            </span>
+          ))}
+        </p>
+        <p>
+          <span className="font-bold">Shipped:</span> {status}
+        </p>
+        <select defaultValue={status} className="w-1/3 mx-auto" onChange={ (e)=>{setState(e.target.value)}}>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+        </select>
+        <div className="flex justify-center gap-5">
+          <button onClick={change} className="bg-yellow-400 w-1/4 px-2 py-2 text-white rounded-xl">
+            DELETE
+          </button>
+          <button className="bg-white w-1/4 px-2 py-2 text-black rounded-xl">Update</button>
+        </div>
+      </div>
     </div>
-    <div className="flex flex-col space-y-4">
-    <p>
-        <span className="font-bold">shippin:</span>{Shipping.name}
-      </p>
-    
-      <p>
-        <span className="font-bold">Date:</span> {date}
-      </p>
-      <p>
-        <span className="font-bold">Mode:</span> {mode}
-      </p>
-      <p>
-        <span className="font-bold">Order Total:</span> {ordertotal}
-      </p>
-      <p>
-        <span className="font-bold">Owner:</span> {owner}
-      </p>
-      <p>
-        <span className="font-bold">Product Detail:</span>{" "}
-        {product.map((item) => (
-          <span className="text-blue-400"><br>
-          </br>Name:{item.name} <br></br> Quantity:{item.quantity} </span>
-        ))}
-      </p>
-      <p>
-        <span className="font-bold">Shipped:</span> {status}
-      </p>
-      <select onChange={change} value={status} className="w-1/3 mx-auto">
-  <option value="false">False</option>
-  <option value="true">True</option>
-</select>
-    </div>
-  </div>
   );
 };
 
