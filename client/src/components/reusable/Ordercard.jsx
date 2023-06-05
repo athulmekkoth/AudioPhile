@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-
+import axios from "axios"
 const Card = (props) => {
   console.log(props.item);
   const {
+    _id,
     Shipping,
     date,
     mode,
@@ -11,12 +12,30 @@ const Card = (props) => {
     product,
     status,
   } = props.item;
+
 const[state,setState]=useState("")
   const change = async(e)=>
   {
-  const response=await axios.post()
-  };
-
+try{
+  const response=await axios.post("/api/order/update",{status:state,id:_id})
+}
+catch(err)
+{
+  console.log(err)
+} 
+};
+  const remove = async(e)=>
+  {
+try{
+ 
+  const response=await axios.post("/api/order/delete",{id:_id})
+  console.log(response)
+}
+catch(err)
+{
+  console.log(err)
+}  
+};
   return (
     <div className="bg-black my-3 shadow rounded p-6">
       <div className="mb-4">
@@ -63,10 +82,10 @@ const[state,setState]=useState("")
           <option value="completed">Completed</option>
         </select>
         <div className="flex justify-center gap-5">
-          <button onClick={change} className="bg-yellow-400 w-1/4 px-2 py-2 text-white rounded-xl">
+          <button onClick={remove} className="bg-yellow-400 w-1/4 px-2 py-2 text-white rounded-xl">
             DELETE
           </button>
-          <button className="bg-white w-1/4 px-2 py-2 text-black rounded-xl">Update</button>
+          <button  onClick={change} className="bg-white w-1/4 px-2 py-2 text-black rounded-xl">Update</button>
         </div>
       </div>
     </div>

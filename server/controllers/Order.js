@@ -94,7 +94,7 @@ export const getall=async(req,res,next)=>{
       
 
         const response= await Order.find()
-        console.log(response)
+    
         if(response)
         {
             res.status(200).json({response})
@@ -108,6 +108,41 @@ export const getall=async(req,res,next)=>{
         console.log(err)
     }
 }
+
+
+export const update = async (req, res, next) => {
+  const { status, id } = req.body;
+  
+  try {
+    const filter = await Order.updateOne(
+      { _id: id },
+      { $set: { status: status } }
+    );
+    console.log(filter)
+    if (filter.nModified === 1) {
+      res.status(200).json({ message: 'Document updated successfully' });
+    } else {
+      res.status(404).json({ message: 'Document not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating document', error });
+  }
+};
+export const deletes = async (req, res, next) => {
+  const {  id } = req.body;
+  console.log(id)
+  try {
+    const filter = await Order.findByIdAndDelete(id);
+    console.log(filter)
+    if (filter) {
+      res.status(200).json({ message: 'Document updated successfully' });
+    } else {
+      res.status(404).json({ message: 'Document not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating document', error });
+  }
+};
 
     /* const order = new Order({ owner, product: products, ordertotal, Shipping, total,mode });
       await order.save();*/
