@@ -27,9 +27,9 @@ catch(err)
   const remove = async(e)=>
   {
 try{
- 
-  const response=await axios.post("/api/order/delete",{id:_id})
-  console.log(response)
+
+  const response=await axios.post("/api/order/delete",{_id})
+
 }
 catch(err)
 {
@@ -37,7 +37,7 @@ catch(err)
 }  
 };
   return (
-    <div className="bg-black my-3 shadow rounded p-6">
+    <div className="bg-black my-3 shadow rounded p-6 w-1/2 mx-auto">
       <div className="mb-4">
         <h1 className="text-2xl font-bold">Shipping Details</h1>
       </div>
@@ -50,7 +50,7 @@ catch(err)
           <span className="font-bold">HOUSE: {Shipping.house}</span>
           <span className="font-bold">Mobile: {Shipping.contact}</span>
           <span className="font-bold">LANDMARK: {Shipping.landmark}</span>
-          <span className="font-bold">PINCODE: {Shipping.PINCODE}</span>
+          <span className="font-bold">PINCODE: {Shipping.pincode}</span>
         </p>
 
         <p>
@@ -70,7 +70,7 @@ catch(err)
           {product.map((item) => (
             <span className="text-blue-800 text-xl" key={item.name}>
               <br />
-              Name: {item.name}, Quantity: {item.quantity}
+              Name: {item.name}, Quantity: {item.quantity},price:{item.price}
             </span>
           ))}
         </p>

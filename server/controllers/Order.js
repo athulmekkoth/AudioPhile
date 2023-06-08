@@ -119,7 +119,7 @@ export const update = async (req, res, next) => {
       { $set: { status: status } }
     );
     console.log(filter)
-    if (filter.nModified === 1) {
+    if (filter.modifiedCount === 1) {
       res.status(200).json({ message: 'Document updated successfully' });
     } else {
       res.status(404).json({ message: 'Document not found' });
@@ -129,18 +129,18 @@ export const update = async (req, res, next) => {
   }
 };
 export const deletes = async (req, res, next) => {
-  const {  id } = req.body;
-  console.log(id)
+  const {  _id } = req.body;
+  console.log(_id)
   try {
-    const filter = await Order.findByIdAndDelete(id);
+    const filter = await Order.findByIdAndDelete(_id);
     console.log(filter)
     if (filter) {
-      res.status(200).json({ message: 'Document updated successfully' });
+      res.status(200).json({ message: 'Document deleted successfully' });
     } else {
       res.status(404).json({ message: 'Document not found' });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Error updating document', error });
+    res.status(500).json({ message: 'Error deleting document', error });
   }
 };
 

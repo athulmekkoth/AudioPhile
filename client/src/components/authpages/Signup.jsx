@@ -6,8 +6,8 @@ import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { loginStart,loginSuccess,loginFailed } from "../redux/authslice.js";
-
-
+import {signInWithPopup} from "firebase/auth"
+import {auth,provider} from "./firebase.js"
 const Signup = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -15,6 +15,17 @@ const Signup = () => {
   const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
+
+const handleClick = async () => {
+  try {
+    const response = await signInWithPopup(auth, provider);
+    console.log(response.user.displayName);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 const handleSubmit = async (event) => {
   event.preventDefault();
 
@@ -94,7 +105,7 @@ function validatePassword(password) {
                 <button onClick={handleSubmit} className="bg-black w-[70%] h-8 rounded-xl text-white font-thin " >Create an Account</button>
                 <Link to="/login" className="">Already have a account? <span className="hover:text-yellow-500g">Login</span></Link>
             </div>
-       
+       <button onClick={handleClick}>sing in ith google</button>
           </div>
         </div>
      
