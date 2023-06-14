@@ -12,7 +12,7 @@ export default function Card(props) {
   
       <div className="p-4">
         <h3 className="font-medium text-lg">{props.item.name}</h3>
-        <img src={props.item.photos[0]}  alt="P"/>
+        <img className="w-80 h-60" src={props.item.photos[0]}  alt="P"/>
       
         <div className="flex justify-between items-center mt-4">
           <p className="text-gray-700 font-medium">${props.item.price}</p>

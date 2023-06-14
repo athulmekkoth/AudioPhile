@@ -1,5 +1,5 @@
 import React from "react";
-import img from "../../../public/images/shared/man-headerphone.png";
+import img from "/images/shared/man-headerphone.png";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -38,7 +38,7 @@ export default function ProductCard(props) {
         </Link>
       </div>
       <div className="mx-5 flex flex-col justify-between items-center my-4">
-        <img className="rounded-xl w-32" src={img} />
+        <img className="rounded-xl w-32" src={props.items.photos[0]} />
         <span onClick={del} className="mx-5 cursor-pointer">
           <RiDeleteBin2Line />
         </span>

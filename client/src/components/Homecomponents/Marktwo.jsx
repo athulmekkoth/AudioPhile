@@ -1,6 +1,7 @@
 import React from "react";
 
-import img from '../../../public/images/home/desktop/headphone-hero-image.png'
+import img from '/images/home/desktop/headphone-hero-image.png'
+import { Link } from "react-router-dom";
 export default function Marktwo()
 {
     return(
@@ -19,9 +20,9 @@ export default function Marktwo()
            made for the passionate music enthusiast.
          </p>
          </div>
-         <button className="bg-orange-400 text-white rounded-xl w-40 h-14 hover:bg-orange-600">
+         <Link to='product/6489b6c7768a5979e4591a4d' className="bg-orange-400 text-white rounded-xl w-40 h-14 p-6 hover:bg-orange-600">
       SEE PRODUCT
-    </button>
+    </Link>
          </div>
     
          

@@ -20,8 +20,8 @@ import Updateproduct from './components/admin/Updateproduct.jsx'
 import Userlists from './components/admin/Userlists.jsx'
 import Contactus from './components/pages/Contactus.jsx'
 import Paymentsuccess from './components/pages/Paymentsuccess.jsx'
-
-import Orders from './components/reusable/Order.jsx'
+import Userorder from './components/user/Userorder.jsx'
+import Orders from "./components/admin/Order.jsx"
 import { useSelector } from 'react-redux'
 import Conatctus from './components/pages/Contactus.jsx'
 
@@ -78,6 +78,8 @@ function AppWrapper() {
             </Route>
             <Route path="/user/*" element={<Userpage />}>
   <Route path="updatepassword" element={<Updatepassword />} />
+  <Route path="userorder" element={< Userorder  />} />
+ 
 </Route>
           
           </Routes>

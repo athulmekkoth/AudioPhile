@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 const ProductSchema= new mongoose.Schema({
    
     price: {
@@ -28,8 +28,8 @@ const ProductSchema= new mongoose.Schema({
     count:{
         required:true,
         type:String,
-    }
-    
+    },
+   
 
 
 

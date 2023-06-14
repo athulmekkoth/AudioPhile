@@ -1,6 +1,7 @@
 import React, { useEffect, useState ,useRef} from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from "../redux/authslice.js";
+import { reset } from "../redux/cartslice.jsx";
 import { AiOutlineCloseCircle, AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
@@ -23,6 +24,8 @@ export default function Navbar()
     const log=async()=>{
       navigate('/')
         dispatch(logOut())
+        dispatch(reset())
+
         
 
 

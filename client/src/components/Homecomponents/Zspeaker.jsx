@@ -1,5 +1,5 @@
 import React from "react";
-import img from '../../../public/images/home/desktop/image-speaker-zx9.png'
+import img from '/images/home/desktop/image-speaker-zx9.png'
 export default function Zspeaker()
 {
 

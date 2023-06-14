@@ -1,8 +1,8 @@
 import React from "react";
 import Earphone from "./Earphone";
-import headphone from '../../../public/images/product-xx99-mark-one-headphones/desktop/image-category-page-preview.jpg'
-import earphone from '../../../public/images/home/desktop/image-earphones-yx1.jpg'
-import speaker from '../../../public/images/home/desktop/image-speaker-zx9.png'
+import headphone from '/images/product-xx99-mark-one-headphones/desktop/image-category-page-preview.jpg'
+import earphone from '/images/home/desktop/image-earphones-yx1.jpg'
+import speaker from '/images/home/desktop/image-speaker-zx9.png'
 export default function Listpage()
 {
     return (

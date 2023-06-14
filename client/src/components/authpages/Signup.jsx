@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import img from "../../../public/images/shared/audiophile-logo.svg";
+import img from "/images/shared/audiophile-logo.svg";
 import axios from "axios"
 import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
@@ -8,6 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import { loginStart,loginSuccess,loginFailed } from "../redux/authslice.js";
 import {signInWithPopup} from "firebase/auth"
 import {auth,provider} from "./firebase.js"
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Signup = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -15,8 +18,10 @@ const Signup = () => {
   const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
+const[cpass,setCPassword]=useState("")
 
 const handleClick = async () => {
+  
   try {
     const response = await signInWithPopup(auth, provider);
     console.log(response.user.displayName);
@@ -34,6 +39,20 @@ const handleSubmit = async (event) => {
       if(password.length < 8)
       {
         alert("password should be atelast 8 characters")
+      }
+      else if(cpass!=password)
+      {
+        toast.warn('Password dosent match each other!', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+
       }
       else{
       const response = await axios.post("/api/auth/signup", { name, email, password });
@@ -99,7 +118,13 @@ function validatePassword(password) {
                type="password"
             onChange={(e)=>setPassword(e.target.value)} 
             />
-                    
+                     <label>confirm password</label>
+              <input   className="border-2 h-9  rounded-xl border-slate-700"
+               name="cpassword" 
+               placeholder="password" 
+               type="password"
+            onChange={(e)=>setCPassword(e.target.value)} 
+            />   
             </form>
             <div className="w-full  pb-5 flex flex-col justify-center items-center">
                 <button onClick={handleSubmit} className="bg-black w-[70%] h-8 rounded-xl text-white font-thin " >Create an Account</button>

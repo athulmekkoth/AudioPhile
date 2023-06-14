@@ -1,5 +1,5 @@
 import React from "react";
-import img from "../../../public/images/shared/man-headerphone.png"
+import img from "/images/shared/man-headerphone.png"
 export default function Detail()
 {
     return(

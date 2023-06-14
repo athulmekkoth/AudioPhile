@@ -63,6 +63,7 @@ export const add = async (req, res, next) => {
   try {
     const { data } = req.body;
     const cart = await Cart.findOne({ owner: req.user.id });
+    if(cart){
     const order = new Order({
       owner: req.user.id,
       product: cart.items,
@@ -70,6 +71,10 @@ export const add = async (req, res, next) => {
       Shipping: data,
     });
     await order.save();
+  }
+  else{
+    res.status(500).json({ error:"erorr"})
+  }
     const sales=await Sales.find()
     if(sales)
     {

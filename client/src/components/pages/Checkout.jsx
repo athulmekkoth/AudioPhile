@@ -165,8 +165,8 @@ export default function Checkout() {
           
                 const response = await axios.post("/api/order/add", responseData);
                 
-                if (response.status) {
-                  
+                if (response.status===200) {
+                  await axios.delete("/api//cart/del")
                   navigate('/paymentsuccess');
                 }
               } catch (error) {

@@ -5,7 +5,7 @@ import { loginStart,loginSuccess,loginFailed } from "../redux/authslice.js";
 import axios from "axios"
 import {  fetchCartData } from "../redux/cartslice.jsx";
 import { useSelector, useDispatch } from 'react-redux'
-import img from "../../../public/images/shared/audiophile-logo.svg";
+import img from "/images/shared/audiophile-logo.svg";
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -18,9 +18,6 @@ const Login = () => {
     try{
       
 
-
-
-      
       const response = await axios.post("/api/auth/signin",{email,password})
       if(response)
       {
