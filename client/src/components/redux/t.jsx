@@ -20,4 +20,4 @@ export  const fetchdata=createAsyncThunk('cart/getcart',async()=>{
         .addCase(fetchdata.rejected, (state) => {
           state.loading = false;
         });
-    },
+    }

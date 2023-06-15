@@ -1,132 +1,102 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
-import { logOut } from "../redux/authslice.js";
-import { AiOutlineCloseCircle, AiOutlineSearch, AiOutlineShoppingCart, AiOutlineLogout, AiOutlineUser } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import cart from "../assets/images/cart.png";
-import { TfiMenu } from "react-icons/tfi";
-import axios from "axios";
-export default function Navbar()
-{
-  const [on, setOn] = React.useState(false);
 
-  const handleOpen = () => {
-    console.log(on)
-    setOn(!on);
-  };
-    const [searchresult,setsearchresult]=useState([])
-    const[val,setval]=useState("")
-    useEffect(() => {
-        const search = async () => {
-          try {
-            if (val.trim()) {
-              const response = await axios.get(`api/product/all?page=${val}` );
-              if (response.data) {
-                console.log(response.data);
-                setsearchresult(response.data);
-              } else {
-                setsearchresult([]);
-              }
-            } else {
-              setsearchresult([]);
-            }
-          } catch (err) {
-            console.log(err);
-          }
-        };
-        search();
-      }, [val]);
-      
-      
-      
-    const dispatch=useDispatch();
-    const log=async()=>{
-        console.log("clicled")
-        dispatch(logOut())
-        
+import Home from './components/Home/Home.jsx'
+import Userpage from "./components/user/Userpage.jsx"
+import Navbar from './components/Navbar/Navbar'
+import Footer from './components/footer/Footer'
+import Signup from './components/authpages/Signup'
+import {BrowserRouter,Routes,Route} from "react-router-dom"
+import Login from './components/authpages/Login'
+import Commondetail from './components/pages/Commondetail.jsx'
+import Product from './components/pages/Product.jsx'
+import Cartlist from './components/pages/cartpage/Cartlist.jsx'
+import Checkout from './components/pages/Checkout.jsx'
+import Updatepassword from './components/user/Updatepassword.jsx'
+import Adminscreen from './components/admin/Adminscreen.jsx'
+import React, { useState,useEffect } from 'react';
+import Protected from './components/admin/Protected.jsx'
+import Productpage from './components/admin/Productpage.jsx'
+import Getproduct from './components/admin/Getproduct.jsx'
+import Updateproduct from './components/admin/Updateproduct.jsx'
+import Userlists from './components/admin/Userlists.jsx'
+import Contactus from './components/pages/Contactus.jsx'
+import Paymentsuccess from './components/pages/Paymentsuccess.jsx'
+import Userorder from './components/user/Userorder.jsx'
+import Orders from "./components/admin/Order.jsx"
+import { useSelector } from 'react-redux'
+import Conatctus from './components/pages/Contactus.jsx'
 
+function AppWrapper() {
+  const isAdmin = useSelector((state) => state.user.isAdmin);
+  const [admin, setAdmin] = useState(isAdmin);
+  console.log(admin)
 
-    }
-    const {currentUser}=useSelector((state)=>state.user)
-   
-    const [open,setopen]=React.useState(false)
+  useEffect(() => {
+    setAdmin(isAdmin);
+  }, [isAdmin]);
 
-    let authLink = currentUser ? 
-  { name: "Logout" ,onclick:log} 
-  : { name: "Login", link: "/login" };
-
-  let activity = currentUser ? { name: "My Account", link: "/myaccount" } : null;
-
-    let Links =[
-        {name:"Home" ,link:"/"},
-
-        {name:"Headphone" ,link:"/head"},
-        {name:"Speaker" ,link:"/speak"},
-        {name:"Earphone"  ,link:"/ear"},
-  
+  return (
+    <div className="min-h-screen flex flex-col">
      
+        <Navbar />
       
-    ]
-    const change=()=>{
-        setopen(!open)
 
-    }
-    return(
-    < >
- 
-   <div className="bg-black   h-12">
-
-    <div className=" z-5000 fixed shadow-md w-full  top-0 left-0 ">
-
-    <div className="  lg:flex  bg-black py-4 md:justify-around items-center">
-  
-   <div className=" text-2xl flex justify-between px-3 pt-2  text-white cursor-pointer font-[Poppins]">audiophile
-   <div onClick={change} className=" lg:hidden  w-9 inline-block  ">
-    {open ?     <span  className=""><AiOutlineCloseCircle/></span>:    <span  className=""><TfiMenu/></span>}
-
-
-   </div>
-   </div>
-  
-   <ul className={`lg:flex md:items-center ${open ?"" :"hidden"}  `}>
-    {
-        Links.map((link)=>(
-            <li className='  my-7  ml-8 text-xl '> 
-        <a href={link.link} className='text-white  hover:text-yellow-500 duration-1000'>{link.name}</a>
-        </li>
-        ))
-        
-    }
-   </ul>
-
-   <Link to="/cart">
-  <button className="text-white cursor-pointer text-2xl lg:flex items-center">
-    <AiOutlineShoppingCart />
-  </button>
-</Link>
-   </div>
-   <div className="mt-6  lg:mt-1 bg-black  flex justify-center items-center   " > 
-        <form>
-        <input 
-        className="  rounded-lg h-8 lg:w-72"  
-        type="text"
-        placeholder="searching"
-        value={val}
-        onChange={(e)=>setval(e.target.value)}
-        
-        />
-        
+      <div className="flex-1">
     
-        </form>
-        <button  className="bg-white  w-10 h-6 border-gray-600"> <AiOutlineSearch/></button>
-       
-   
+      <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cartlist />} />
+            <Route path="/checkout" element={<Checkout/>}/>
+            <Route path="/paymentsuccess" element={<Paymentsuccess/>}/>
+             <Route path="/ordersuser" element={<Orders/>}/>
+            <Route
+  path="/admin/*"
+  element={
+    <Protected isSignedIn={admin}>
+      <Adminscreen />
+    </Protected>
+  }
+>
+  <Route path="addproduct" element={<Productpage />} />
+  <Route path="getproduct" element={<Getproduct />} />
+    <Route path="updateproduct/:id" element={<Updateproduct />} />
+    <Route path="customer" element={<Userlists />} />
+  <Route path="dashboard" element={<Productpage />} />
+  <Route path="orders" element={<Orders />} />
 
+</Route>
+
+
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/headphone" element={<Commondetail propName="headphones"/>} />
+            <Route path="/earphone" element={<Commondetail propName="earphones"/>} />
+            <Route path="/speaker" element={<Commondetail  propName="speakers"/>} />
+            <Route  path="/contact" element={<Contactus/>}/>
+            <Route path="/product"  >
+            <Route path=':id' element={<Product />} />
+           
+            </Route>
+            <Route path="/user/*" element={<Userpage />}>
+  <Route path="updatepassword" element={<Updatepassword />} />
+  <Route path="userorder" element={< Userorder  />} />
+ 
+</Route>
+          
+          </Routes>
+
+      </div>
+
+     
+        <Footer />
+      
     </div>
-   </div>
-   </div>
-   </>
-    )
+  );
 }
 
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppWrapper />
+    </BrowserRouter>
+  );
+}
