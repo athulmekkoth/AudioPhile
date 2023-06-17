@@ -1,31 +1,41 @@
-import react from "react"
-import Card from "./Card.jsx";
-import { useEffect ,useState} from "react";
-import { Audio } from  'react-loader-spinner'
-import axios from "axios"
-export default function Commondetail(props)
+import React, { useEffect, useState } from 'react';
+import Card from './Card.jsx';
 
-{
+import axios from 'axios';
+
+export default function Commondetail(props) {
   const [state, setState] = useState([]);
+  const [sort, setSort] = useState('');
 
-useEffect(() => {
   const fetchData = async () => {
-    const response = await axios.get(`/api/product/getall/${props.propName}`);
- 
+    const response = await axios.get(`/api/product/getall/${props.propName}?sort=${sort}`);
     setState(response.data);
   };
-  fetchData();
-}, []);
 
+  useEffect(() => {
+    fetchData();
+  }, [sort]);
 
-    return(
-        <div className="grid lg:grid-cols-3 gap-4 py-16 justify-items-center    ">
- {state.map((item)=>{
-  return <Card  item={item}/>
-})}
-  </div>
-    )
+  const handleSorting = (e) => {
+    setSort(e.target.value);
+  };
 
+  return (
+    <div>
+      <div className="mt-24 text-end mr-5 ">
+        <select name="sort" id="sort" onChange={handleSorting}>
+          <option value="">Default Sorting</option>
+          <option value="lowest">Price Lowest</option>
+          <option value="highest">Price Highest</option>
+          <option value="asc">Name [A-Z]</option>
+          <option value="desc">Name [Z-A]</option>
+        </select>
+      </div>
+      <div className="grid lg:grid-cols-3 gap-4 py-16 justify-items-center">
+        {state.map((item) => {
+          return <Card item={item} />;
+        })}
+      </div>
+    </div>
+  );
 }
-
-/*      */

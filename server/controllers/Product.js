@@ -105,24 +105,29 @@ catch(err)
 
 }
  }
- export const findbycat=async(req,res,next)=>
- {
-    
-    try{
+ export const findbycat = async (req, res, next) => {
+  try {
+    const { cat } = req.params;
+    const { sort } = req.query;
 
-        console.log(req.params.cat)
-       
-       
-        
-        const exist= await Product.find({category: req.params.cat});
-        if(exist)
-        {
-            res.status(200).json(exist)
-        }
-    } catch(err) {
-        console.log(err);
+    let products = await Product.find({ category: cat });
+
+    if (sort === 'lowest') {
+      products = products.sort((a, b) => a.price - b.price);
+    } else if (sort === 'highest') {
+      products = products.sort((a, b) => b.price - a.price);
+    } else if (sort === 'asc') {
+      products = products.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sort === 'desc') {
+      products = products.sort((a, b) => b.name.localeCompare(a.name));
     }
- }
+
+    res.status(200).json(products);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Failed to fetch products.' });
+  }
+};
 
  export const findbysearch=async(req,res,next)=>
  {
