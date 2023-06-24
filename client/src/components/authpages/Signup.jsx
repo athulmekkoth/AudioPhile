@@ -57,13 +57,24 @@ const handleSubmit = async (event) => {
       else{
       const response = await axios.post("/api/auth/signup", { name, email, password });
   
-
+console.log(response.status)
       dispatch(loginStart());
  
-      if(response)
+      if(response.status === 200)
       {
         dispatch(loginSuccess(response.data));
+
         navigate('/')
+toast.success('sucesss!', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
 
       }
     }
@@ -71,7 +82,16 @@ const handleSubmit = async (event) => {
     } catch (err) {
       dispatch(loginFailed())
       if (err.response.status === 409) {
-        alert('User already exists');
+        toast.warn('user mail id exist', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
       }
     }
   

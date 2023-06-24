@@ -27,13 +27,14 @@ export const add = async (req, res, next) => {
     const filter = { owner: req.user.id };
 
     const data= await Product.findById({_id:req.body.itemId})
+  
     const cart = await Cart.findOne({ owner: req.user.id }).populate('items');
 let totals = 0; // default value
 if (cart) {
   totals = cart.total;
-  console.log(cart.total);
+
 } else {
-  console.log(totals);
+
 }
 
  const {price}=data
@@ -41,9 +42,9 @@ if (cart) {
  const  itemprices=req.body.quantity*price
 
 
- console.log(data.price)
-    const update = { $push: { items:{ name:data.name,product:req.body.itemId ,quantity:req.body.quantity,itemprice:itemprices,price:data.price}} ,
-   
+
+    const update = { $push: { items:{ name
+   :data.name,product:req.body.itemId ,quantity:req.body.quantity,itemprice:itemprices,price:data.price,photos:data.photos}} ,
   $set:{total:totals+itemprices }
 };
     const options = { upsert: true, new: true, setDefaultsOnInsert: true };

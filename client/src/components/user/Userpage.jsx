@@ -10,10 +10,10 @@ export default function UserPage() {
 
   return (
     <div className="mt-20 text-center ">
-    <h1 className="text-9xl text-gray-500">
+    <h1 className="text-5xl lg:text-9xl text-gray-500">
       Hello, {user.name}
     </h1>
-    <div className="w-[100%] text-center mt-12 ">
+    <div className="flex flex-col  gap-4 lg:flex-row w-[100%] lg:justify-center text-center mt-12 ">
     <Link to="userorder">
     <button
 
@@ -30,9 +30,10 @@ export default function UserPage() {
     Update Password
   </button>
   </Link>
-  <Outlet />
+
     
       </div>
+      <Outlet />
     </div>
   );
 }

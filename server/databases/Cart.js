@@ -29,7 +29,11 @@ const Cartschema= new mongoose.Schema({
      price:{
         type:Number,
         required:true
+      },
+      photos:[{
+        type: String 
       }
+      ]
       }],
    
   

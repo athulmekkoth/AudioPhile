@@ -319,21 +319,21 @@ export default function Checkout() {
             </div>
           </div>
           <div className="bg-black rounded-lg my-4 text-center text-white font-extralight font-mono py-1">TOTAL:{total}</div>
-          <div className="flex w-[100%] justify-between " >
+          <div className="flex flex-col justify-center gap-5 w-[100%] lg:flex-row lg:justify-between " >
           
           <button
             type="submit"
-            className="bg-black h-7 font-semibold text-white w-[40%] rounded-xl"
+            className="bg-black h-10 font-semibold  mx-auto  text-white w-[80%] rounded-xl"
           >
-            Proceed to pay:<span className="mx-3">Via online</span>
+          UPI,CARDS
           </button>
 
           <button
           type="button"
           onClick={call}
-            className="bg-black h-7 font-semibold text-white w-[40%] rounded-xl"
+            className="bg-black h-10  mx-auto font-semibold text-white w-[80%] rounded-xl"
           >
-            Proceed to pay:<span className="mx-3">COD</span>
+           CASH ON DELIVERY
           </button>
           </div>
         </form>

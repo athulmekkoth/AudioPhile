@@ -39,6 +39,7 @@ export const cartSlice = createSlice({
           name: newItem.name,
           price: newItem.price,
           quantity: values,
+          photos:newItem.photos,
           itemprice: newItem.price * values, // calculate total based on price and quantity
  
         });

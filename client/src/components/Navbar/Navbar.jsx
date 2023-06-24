@@ -23,8 +23,13 @@ export default function Navbar()
     const dispatch=useDispatch();
     const log=async()=>{
       navigate('/')
-        dispatch(logOut())
-        dispatch(reset())
+      const response=await axios.get("/api/auth/logut")
+  if(response.status===200)
+  {
+    dispatch(logOut())
+    dispatch(reset())
+  }
+        
 
         
 

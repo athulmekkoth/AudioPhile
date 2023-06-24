@@ -30,7 +30,12 @@ const Order=new mongoose.Schema({
         type:String,
         
 
-    }
+    },
+    photos:[
+        {
+            photos:String,
+        }
+    ]
     
 },{timestamps:true})
 export default mongoose.model("Order",Order)

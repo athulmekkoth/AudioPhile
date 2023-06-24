@@ -18,11 +18,13 @@ export const add = async (req, res, next) => {
 
     // Extract the products from the cart
     const products = cart.items.map((item) => ({
+      
       name: item.name,
       product: item.product,
       quantity: item.quantity,
       itemprice: item.itemprice,
       price: item.price,
+      photos:item.photos
     }));
 
     // Calculate the total from the cart
@@ -73,9 +75,10 @@ export const add = async (req, res, next) => {
 export const get=async(req,res,next)=>{
     try{
       
-
+      console.log(req.user)
         const response= await Order.find({owner:req.user.id})
-        console.log(response)
+       
+       
         if(response)
         {
             res.status(200).json({response})
