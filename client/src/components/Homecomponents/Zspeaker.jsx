@@ -1,5 +1,6 @@
 import React from "react";
 import img from '/images/home/desktop/image-speaker-zx9.png'
+import { Link } from "react-router-dom";
 export default function Zspeaker()
 {
 
@@ -12,9 +13,12 @@ export default function Zspeaker()
     <div className="items-center flex flex-col lg:items-start text-white py-7">
       <h1 className=" font-bold ... leading-9 text-center text-5xl">ZXP<br></br>Speaker</h1>
       <p className="font-thin pt-3 text-center lg:text-justify  ">Upgrade to premium speakers that are phenomenally built to deliver truly remarkable sound. </p>
-    <button className="mt-4 w-1/2 h-11    rounded-xl  bg-black hover:scale-105 ease-in duration-500 lg:w-36 ">
+   <Link to="/product/649d258b4d3a1f4a7d3ba673">
+   <button className="mt-4 w-1/2 h-11    rounded-xl  bg-black hover:scale-105 ease-in duration-500 lg:w-36 ">
       Shop Now
     </button>
+   </Link>
+   
     </div>
   </div>
 </div>

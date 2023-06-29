@@ -1,102 +1,131 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { addtocart } from "../redux/cartslice";
+import { FaPlus, FaMinus } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
 
-import Home from './components/Home/Home.jsx'
-import Userpage from "./components/user/Userpage.jsx"
-import Navbar from './components/Navbar/Navbar'
-import Footer from './components/footer/Footer'
-import Signup from './components/authpages/Signup'
-import {BrowserRouter,Routes,Route} from "react-router-dom"
-import Login from './components/authpages/Login'
-import Commondetail from './components/pages/Commondetail.jsx'
-import Product from './components/pages/Product.jsx'
-import Cartlist from './components/pages/cartpage/Cartlist.jsx'
-import Checkout from './components/pages/Checkout.jsx'
-import Updatepassword from './components/user/Updatepassword.jsx'
-import Adminscreen from './components/admin/Adminscreen.jsx'
-import React, { useState,useEffect } from 'react';
-import Protected from './components/admin/Protected.jsx'
-import Productpage from './components/admin/Productpage.jsx'
-import Getproduct from './components/admin/Getproduct.jsx'
-import Updateproduct from './components/admin/Updateproduct.jsx'
-import Userlists from './components/admin/Userlists.jsx'
-import Contactus from './components/pages/Contactus.jsx'
-import Paymentsuccess from './components/pages/Paymentsuccess.jsx'
-import Userorder from './components/user/Userorder.jsx'
-import Orders from "./components/admin/Order.jsx"
-import { useSelector } from 'react-redux'
-import Conatctus from './components/pages/Contactus.jsx'
 
-function AppWrapper() {
-  const isAdmin = useSelector((state) => state.user.isAdmin);
-  const [admin, setAdmin] = useState(isAdmin);
-  console.log(admin)
+
+export default function Product() {
+
+ 
+
+  // Redux
+  const dispatch = useDispatch();
+  const res = useSelector((state) => state.cart);
+
+  const adde = () => {
+    setvalue((values) => values + 1);
+  };
+
+  // Selector dropdown
+  const [values, setvalue] = useState(1);
+
+  const handleDragStart = (e) => e.preventDefault();
+
+  const onselect = () => {
+    console.log(values);
+  };
+
+  // For id
+  const { id } = useParams();
+  console.log(id);
+
+  // Getting data
+  const [data, setData] = useState({});
+  const [pic, setPic] = useState([]);
+  useEffect(() => {}, [data]);
 
   useEffect(() => {
-    setAdmin(isAdmin);
-  }, [isAdmin]);
+    const getData = async () => {
+      const response = await axios.get(`/api/product/find/${id}`);
+      setData(response.data.exist);
+   setPic(response.data.exist.photos)
+      console.log(data.count);
+    };
+    getData();
+  }, [id]);
+
+  const add = async (product, quantity) => {
+    try {
+      dispatch(
+        addtocart({
+          data: product,
+          values: quantity,
+        })
+      );
+
+      const response = await axios.post("/api/cart/add", {
+        itemId: product._id,
+        quantity: quantity,
+      });
+    } catch (err) {
+      console.log(err);
+      if (err.response.status === 300) {
+        toast.success("Already added in cart!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+    }
+  };
+  const items = pic.map(item => 
+    
+    
+    (<img src={item} onDragStart={handleDragStart} role="presentation" />
+      
+      
+      
+      ));
+
+console.log(items)
 
   return (
-    <div className="min-h-screen flex flex-col">
-     
-        <Navbar />
-      
+    <div className="">
 
-      <div className="flex-1">
-    
-      <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cartlist />} />
-            <Route path="/checkout" element={<Checkout/>}/>
-            <Route path="/paymentsuccess" element={<Paymentsuccess/>}/>
-             <Route path="/ordersuser" element={<Orders/>}/>
-            <Route
-  path="/admin/*"
-  element={
-    <Protected isSignedIn={admin}>
-      <Adminscreen />
-    </Protected>
-  }
->
-  <Route path="addproduct" element={<Productpage />} />
-  <Route path="getproduct" element={<Getproduct />} />
-    <Route path="updateproduct/:id" element={<Updateproduct />} />
-    <Route path="customer" element={<Userlists />} />
-  <Route path="dashboard" element={<Productpage />} />
-  <Route path="orders" element={<Orders />} />
+    <div className=" pt-28 flex">
+    <div className="w-[70%] -z-10 flex flex-col justify-center items-center mx-auto gap-28 lg:flex-row-reverse">
+    <h1 className=" font-extrabold text-6xl lg:text-7xl" >{data.name}</h1>
+    <div className="w-1/2 h-80 rounded-xl">
+  <AliceCarousel autoPlay={true} mouseTracking items={items} renderItem={(item) => (
+    <img src={item.url} alt="Carousel Image" className="w-full h-full object-cover" />
+  )} />
+</div>
 
-</Route>
-
-
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login/>} />
-            <Route path="/headphone" element={<Commondetail propName="headphones"/>} />
-            <Route path="/earphone" element={<Commondetail propName="earphones"/>} />
-            <Route path="/speaker" element={<Commondetail  propName="speakers"/>} />
-            <Route  path="/contact" element={<Contactus/>}/>
-            <Route path="/product"  >
-            <Route path=':id' element={<Product />} />
-           
-            </Route>
-            <Route path="/user/*" element={<Userpage />}>
-  <Route path="updatepassword" element={<Updatepassword />} />
-  <Route path="userorder" element={< Userorder  />} />
- 
-</Route>
-          
-          </Routes>
-
-      </div>
-
-     
-        <Footer />
+  
+    </div>
+  
+  
+    </div>
+  <div className="mt-96">
+    <div className="flex  flex-row  justify-evenly items-center mx-3 my-5 py-4 flex-wrap ">
+      <p>Select qty:</p>
+     <span onClick={()=>values>=4?alert("maximmum 4 per oder"):setvalue(values=>values+1)}><FaPlus /></span>
+  <p className="">{values}</p>
+     <span onClick={()=>values>=1?setvalue(values=>values-1):alert("minimmum order is 1")}><FaMinus /></span>
+  {data.count>0 ? <button onClick={() => add(data, values)} className=" w-[70%] mt-3 py-2 bg-orange-500 rounded-lg">
+    Add to cart
+  </button>: <button o className=" w-[70%] mt-3 py-2 bg-orange-500  disabled rounded-lg">
+    Out of stock
+  </button>}
       
     </div>
-  );
-}
-
-export default function App() {
-  return (
-    <BrowserRouter>
-      <AppWrapper />
-    </BrowserRouter>
+    <div className=" mx-auto w-[80%]  overflow-auto text-cente text-xl">
+      <p>Price$:{data.price}</p>
+      <p className="break-words font-extralight ">{data.description}</p>
+    </div>
+  </div>;
+  </div>
   );
 }

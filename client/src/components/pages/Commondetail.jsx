@@ -31,7 +31,7 @@ export default function Commondetail(props) {
           <option value="desc">Name [Z-A]</option>
         </select>
       </div>
-      <div className="grid lg:grid-cols-3 gap-4 py-16 justify-items-center">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 py-16 justify-items-center">
         {state.map((item) => {
           return <Card item={item} />;
         })}

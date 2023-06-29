@@ -3,8 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Signup from './components/authpages/Signup'
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/footer/Footer';
+import Messages from './components/admin/Messages';
 import  { useState,useEffect } from 'react';
 const Home = lazy(() => import('./components/Home/Home.jsx'));
+
 const Userpage = lazy(() => import('./components/user/Userpage.jsx'));
 import Protected from './components/admin/Protected.jsx'
 const Login = lazy(() => import('./components/authpages/Login.jsx'));
@@ -51,6 +53,7 @@ function AppWrapper() {
               }
             >
               <Route path="addproduct" element={<Productpage />} />
+              <Route path="messages" element={<Messages />} />
               <Route path="getproduct" element={<Getproduct />} />
               <Route path="updateproduct/:id" element={<Updateproduct />} />
               <Route path="customer" element={<Userlists />} />

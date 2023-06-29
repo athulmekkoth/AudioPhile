@@ -19,7 +19,7 @@ const Login = () => {
       
 
       const response = await axios.post("/api/auth/signin",{email,password})
-      if(response)
+      if(response.status===200)
       {
       
         dispatch(loginSuccess(response.data));
@@ -48,7 +48,7 @@ const Login = () => {
   return (
     <div className="w-full h-screen flex justify-center items-center">
      
-        <div className="w-[70%] my-auto mx-auto  text-left border-2 rounded-md border-black">
+        <div className="w-[90%] lg:w-[40%] my-auto mx-auto  text-left border-2 rounded-md border-black">
           <div className=" mt-5  text-center w-full h-9 ">
           <h1 className="text-4xl font-semibold font-mono">audiophile</h1>
           </div>
@@ -58,13 +58,13 @@ const Login = () => {
               <label>Email</label>
               <input name="email"
            
-                       className="border-2 h-9  border-slate-700 rounded-xl"
+                       className="border-2 h-9 p-2  border-slate-700 rounded-xl"
                         placeholder="email"
                          type="email"
                          onChange={(e)=>setEmail(e.target.value)}
                          />
               <label>Password</label>
-              <input   className="border-2 h-9  rounded-xl border-slate-700"
+              <input   className="border-2 h-9  p-2 rounded-xl border-slate-700"
                name="password" 
                placeholder="password" 
                type="password"

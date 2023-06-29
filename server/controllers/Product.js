@@ -87,6 +87,7 @@ export const find= async(req,res,next)=>{
 
     try{
         const exist = await Product.findById(ids);
+        console.log(ids)
     if(!exist){
 
         
@@ -148,7 +149,7 @@ catch(err)
     try {
         const data= await Product.find();
     
-      res.status(201).json({ data }); // return data as JSON response
+      res.status(201).json({ data }); 
     } catch (err) {
       console.log(err);
       res.status(500).json({ message: 'Error fetching data' });
@@ -269,4 +270,3 @@ else{
   res.status(404).json({mesage:"please check"})
 }
 };
- 

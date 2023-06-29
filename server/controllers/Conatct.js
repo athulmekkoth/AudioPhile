@@ -16,6 +16,7 @@ export const add=async(req,res,next)=>{
 export const del=async(req,res,next)=>{
     try{
         const {id}=req.body
+        console.log(id)
         const response=await Message.findByIdAndDelete(id)
     if(response){
         res.status(200).json({response})
@@ -35,11 +36,12 @@ export const get=async(req,res,next)=>{
         const response=await Message.find()
         res.status(200).json({response})
   
-      res.status(500).json({message:"error"})
+     
     }
         
         catch(err)
         {
+            res.status(500).json({message:"error"})
             console.log(err)
         }
 }

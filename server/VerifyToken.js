@@ -7,9 +7,8 @@ export const verifyToken = (req, res, next) => {
     if (err) res.status(403).json({ message: "not valid token" });
     req.user = user;
     
-   
-    
-    next();
+   next()
+
   });
 };
 

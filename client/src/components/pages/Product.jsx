@@ -13,7 +13,33 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 
 export default function Product() {
 
- 
+ const notification=(text,type)=>{
+  console.log(type)
+  type === "success"?
+  toast.success(text, {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  })
+  
+  :
+  toast.warn(text, {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  });
+
+ }
 
   // Redux
   const dispatch = useDispatch();
@@ -63,20 +89,17 @@ export default function Product() {
       const response = await axios.post("/api/cart/add", {
         itemId: product._id,
         quantity: quantity,
+       
       });
+      if(response.status===200)
+      {
+        notification("Added to cart","success")
+
+      }
     } catch (err) {
       console.log(err);
       if (err.response.status === 300) {
-        toast.success("Already added in cart!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+       notification("already in cart","success")
       }
     }
   };
@@ -98,7 +121,7 @@ console.log(items)
     <div className="w-[70%] -z-10 flex flex-col justify-center items-center mx-auto gap-28 lg:flex-row-reverse">
     <h1 className=" font-extrabold text-6xl lg:text-7xl" >{data.name}</h1>
     <div className="w-1/2 h-80 rounded-xl">
-  <AliceCarousel autoPlay={true} mouseTracking items={items} renderItem={(item) => (
+  <AliceCarousel disableDotsControls={true} animationDuration={700} autoPlay={true} infinite={true} disableButtonsControls={true} mouseTracking items={items} renderItem={(item) => (
     <img src={item.url} alt="Carousel Image" className="w-full h-full object-cover" />
   )} />
 </div>
@@ -108,22 +131,31 @@ console.log(items)
   
   
     </div>
-  <div className="mt-96">
-    <div className="flex  flex-row  justify-evenly items-center mx-3 my-5 py-4 flex-wrap ">
+  <div className="mt-20 lg:mt-96">
+    <div className="flex text-2xl flex-row  justify-evenly items-center mx-3 my-5 py-4 flex-wrap ">
+     
+      <div className="flex flex-row gap-10 bg-gray-400 p-4 rounded-lg">
       <p>Select qty:</p>
      <span onClick={()=>values>=4?alert("maximmum 4 per oder"):setvalue(values=>values+1)}><FaPlus /></span>
   <p className="">{values}</p>
      <span onClick={()=>values>=1?setvalue(values=>values-1):alert("minimmum order is 1")}><FaMinus /></span>
-  {data.count>0 ? <button onClick={() => add(data, values)} className=" w-[70%] mt-3 py-2 bg-orange-500 rounded-lg">
+   
+     </div>
+  {data.count>0 ? <button onClick={() =>values==0?notification("values must not be zero","warn"): add(data, values)} className=" w-[70%] mt-3 py-2 bg-orange-500 rounded-lg">
     Add to cart
   </button>: <button o className=" w-[70%] mt-3 py-2 bg-orange-500  disabled rounded-lg">
     Out of stock
   </button>}
       
     </div>
-    <div className=" mx-auto w-[80%]  overflow-auto text-cente text-xl">
-      <p>Price$:{data.price}</p>
-      <p className="break-words font-extralight ">{data.description}</p>
+    
+   
+     
+
+  
+    <div className="flex flex-col items-center gap-3 lg:gap-0 lg:flex-row w-[90%] mx-auto  lg:justify-around text-2xl"  >
+    <p className="  overflow-auto text-cente text-3xl ">Price$:{data.price}</p>
+    <p className="break-word font-extralight lg:w-[50%] text-center lg:text-left">{data.description}</p>
     </div>
   </div>;
   </div>

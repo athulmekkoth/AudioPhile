@@ -25,6 +25,7 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
+    timeout: 24 * 60 * 60 * 1000,
   }
 
 

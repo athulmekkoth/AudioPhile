@@ -64,7 +64,7 @@ if (cart) {
 "new": if set to true, returns the updated document instead of the original document.
 "setDefaultsOnInsert": if set to true, sets default values for fields that are not specified in the update object.
 */
-    res.status(200).send(cart);
+    res.status(200).json({message:"succes"});
 }
   } catch (error) {
     console.log(error);
@@ -85,7 +85,7 @@ export const remove = async (req, res, next) => {
     const option = { new: true }
     const updatedCart = await Cart.findOneAndUpdate(filter, update, option);
 
-    res.status(200).send(updatedCart);
+    res.status(200).json(updatedCart);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error found" });
@@ -125,7 +125,7 @@ export const update = async (req, res, next) => {
       };
       const options = { new: true };
       const updatedCart = await Cart.findOneAndUpdate(filter, update, options);
-      res.status(200).send(updatedCart);
+      res.status(200).json({message:"succes"});
       return;
     }
   }

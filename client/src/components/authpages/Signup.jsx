@@ -117,7 +117,7 @@ function validatePassword(password) {
             <form className="flex gap-5 flex-col w-[70%] mx-auto py-7">
               <label>Name</label>
               <input
-                className="border-2 h-9  border-slate-700 rounded-xl"
+                className="border-2 h-9 p-2 border-slate-700 rounded-xl"
                 name="name"
                 placeholder="name"
                 type="text"
@@ -125,21 +125,21 @@ function validatePassword(password) {
               />
               <label>Email</label>
               <input name="email"
-                       className="border-2 h-9  border-slate-700 rounded-xl"
+                       className="border-2 h-9 p-2 border-slate-700 rounded-xl"
                         placeholder="email"
                          type="email"
                          onChange={(e)=>setEmail(e.target.value)}
                           />
                             
               <label>Password</label>
-              <input   className="border-2 h-9  rounded-xl border-slate-700"
+              <input   className="border-2 h-9 p-2 rounded-xl border-slate-700"
                name="password" 
                placeholder="password" 
                type="password"
             onChange={(e)=>setPassword(e.target.value)} 
             />
                      <label>confirm password</label>
-              <input   className="border-2 h-9  rounded-xl border-slate-700"
+              <input   className="border-2 h-9 p-2 rounded-xl border-slate-700"
                name="cpassword" 
                placeholder="password" 
                type="password"

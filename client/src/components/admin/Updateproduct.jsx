@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios"
 import { useState, } from "react";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Updateproduct(props) {
   const {id}=useParams()
   const [datas, setDatas] = useState({});
@@ -76,7 +77,16 @@ const handlesumit = async(event) => {
 }
 catch(err)
 {
-  console.log(err)
+  toast.warn('Opps something went wrong!', {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  });
 }
 }
 
@@ -113,10 +123,11 @@ catch(err)
 </div>
 <div className="py-4">
   <label className="pl-4 block text-start md:pl-14 text-2xl text-black" htmlFor="demo1">Price</label>
-  <input type="file" id="demo1"className="border-2 border-gray-200 h-8 r w-[90%]"  name="file"  onChange={(e)=>handleFileChange(e.target.files)}/>
+  <input type="file" id="demo1" className="border-2 border-gray-200 h-8 r w-[90%]" name="files" multiple onChange={(e) => handleFileChange(e.target.files)} />
+
 </div>
 
-<button onClick={handlesumit}>Update Now</button>
+<button className="bg-blue-500 w-20 h-11 mx-auto rounded-2xl mb-5"  onClick={handlesumit}>Update Now</button>
 </div>
     ) : (
       <div> loding</div>
