@@ -120,9 +120,9 @@ console.log(items)
     <div className=" pt-28 flex">
     <div className="w-[70%] -z-10 flex flex-col justify-center items-center mx-auto gap-28 lg:flex-row-reverse">
     <h1 className=" font-extrabold text-6xl lg:text-7xl" >{data.name}</h1>
-    <div className="w-1/2 h-80 rounded-xl">
+    <div className="w-1/2 h-80 object-contain rounded-xl">
   <AliceCarousel disableDotsControls={true} animationDuration={700} autoPlay={true} infinite={true} disableButtonsControls={true} mouseTracking items={items} renderItem={(item) => (
-    <img src={item.url} alt="Carousel Image" className="w-full h-full object-cover" />
+    <img src={item.url}  style={{ objectFit: "cover" }} alt="Carousel Image" className="w-full h-full object-cover" />
   )} />
 </div>
 
@@ -157,7 +157,33 @@ console.log(items)
     <p className="  overflow-auto text-cente text-3xl ">Price$:{data.price}</p>
     <p className="break-word font-extralight lg:w-[50%] text-center lg:text-left">{data.description}</p>
     </div>
-  </div>;
   </div>
+  <div className="flex flex-col gap-6 items-center mx-10 my-10 lg:flex-row justify-between">
+    <div >
+   <h1 className="text-center text-orange-300 text-2xl">Whats in the Box</h1> 
+    <ol className="flex  flex-col justify-center items-center ">
+     <li>Headphone
+      </li> 
+      <li>C type Cable
+      </li> 
+      <li>User manual and warrant card
+      </li> 
+    </ol>
+    </div>
+    <div className="w-[70%] lg:w-[40%]">
+      <h1>Warranty and Support</h1>
+      <p>
+      Your satisfaction is our top priority, which is why we stand behind the quality of our earphones with a comprehensive warranty.
+       Our warranty covers any manufacturing defects or malfunctions that may occur within a specified period from the date of purchase.
+       In the unlikely event that your earphones experience any issues, simply contact 
+       our customer service team, and we will be happy to assist you.<br></br>
+       <span className="font-bold text-orange-400">For any query:<br></br>support@audiophile.com.</span>
+      </p>
+    </div>
+
+    </div>
+  
+  </div>
+  
   );
 }
