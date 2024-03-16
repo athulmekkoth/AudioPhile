@@ -1,4 +1,4 @@
-# MERN eCommerce with Razorpay Integration
+# Audiophile with Razorpay Integration
 This is a full-stack eCommerce application built using the MERN stack (MongoDB, Express, React, Node.js) and integrated with Razorpay for payment processing.
 
 ## Features
