@@ -9,6 +9,7 @@ export default function Commondetail(props) {
 
   const fetchData = async () => {
     const response = await axios.get(`/api/product/getall/${props.propName}?sort=${sort}`);
+   console.log(response.data)
     setState(response.data);
   };
 
@@ -32,10 +33,10 @@ export default function Commondetail(props) {
         </select>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 py-16 justify-items-center">
-        {state.map((item) => {
-          return <Card item={item} />;
-        })}
-      </div>
+      {Array.isArray(state) && state.map((item) => (
+        <Card key={item.id} item={item} />
+      ))}
+    </div>
     </div>
   );
 }

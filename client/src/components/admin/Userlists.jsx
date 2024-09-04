@@ -23,7 +23,7 @@ const Userlists=()=>{
 
 return(
     <div className="py-3">
-      {data.map((item)=>{
+      {data?.map((item)=>{
         return    <Usercard item={item}  />
 
       })}

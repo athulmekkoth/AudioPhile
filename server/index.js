@@ -40,7 +40,9 @@ const connect=()=>{
 
 }
 app.use(cookieParser())
-
+app.get("/hello",(req,res)=>{
+    res.status(200).json({message:"works"})
+})
 app.use("/api/auth",authrouter)
 app.use("/api/order",Orderouter)
 app.use("/api/pay",Paymentrouter)

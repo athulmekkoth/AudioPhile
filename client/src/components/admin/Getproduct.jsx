@@ -19,7 +19,7 @@ export default function Getproduct() {
 
   return (
     <div className="">
-      {data.map((item) => {
+      {data?.map((item) => {
         return <Productcard key={item._id} items={item} />;
       })}
     </div>

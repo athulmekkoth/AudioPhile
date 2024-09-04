@@ -67,7 +67,7 @@ catch(err)
         </p>
         <p className="rounded-md p-4">
           <span className="font-bold">Product Detail:</span>{" "}
-          {product.map((item) => (
+          {product?.map((item) => (
             <span className="text-blue-800 text-xl" key={item.name}>
               <br />
               Name: {item.name}, Quantity: {item.quantity},price:{item.price}
