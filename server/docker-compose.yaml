@@ -1,0 +1,29 @@
+version: '3.8'  # Specify the version
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb-server
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=athul
+      - MONGO_INITDB_ROOT_PASSWORD=athul
+    volumes:
+      - ~/mongo/data:/data/db
+    networks:
+      - backend-ecom
+  
+  backendapi:
+    image: athulmekkoth/backend:v3
+    container_name: backend-server 
+    ports:
+      - "5000:5000"  
+    networks:
+      - backend-ecom  
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+
+networks:
+  backend-ecom:
+    driver: bridge

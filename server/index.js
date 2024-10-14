@@ -31,12 +31,13 @@ app.use(express.json());
 dotenv.config()
 
 const connect=()=>{
-    mongoose.connect(process.env.MONGO).then(()=>{
-        console.log("connected to db")
+    mongoose.connect(`mongodb://athul:athul@mongodb-server:27017/test`).then(() => {
+        console.log("connected to db");
     })
-    .catch((err)=>{
-        console.log("not connected to db")
-    })
+    .catch((err) => {
+        console.log("not connected to db", err);
+    });
+    
 
 }
 app.use(cookieParser())

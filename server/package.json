@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "docker:publish":"docker build -t  athulmekkoth/backend:v2 --platform linux/amd64 . && docker push athulmekkoth/backend:v2"
   },
   "author": "",
   "license": "ISC",
