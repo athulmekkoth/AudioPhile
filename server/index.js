@@ -1,62 +1,69 @@
-import express  from "express";
+
+
+import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import bodyParser  from 'body-parser'
+import bodyParser from "body-parser";
 import authrouter from "./routers/Auth.js";
-import cors from "cors"
+import cors from "cors";
 import productrouter from "./routers/items.js";
-import Cartrouter from "./routers/Cartrt.js"
+import Cartrouter from "./routers/Cartrt.js";
 import Orderouter from "./routers/Orders.js";
 import Messagerouter from "./routers/Message.js";
-import cloudinary from "cloudinary"
+import cloudinary from "cloudinary";
 import Razorpay from "razorpay";
 import Paymentrouter from "./routers/Payment.js";
-const app=express();
+const app = express();
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors()); // Enable CORS for all routes
 
-
 cloudinary.v2.config({
-    cloud_name:process.env.CLOUD_NAME,
-    api_key:process.env.API_KEY,
-    api_secret:process.env.API_SECRET
-})
-mongoose.set('strictQuery', false);
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
+mongoose.set("strictQuery", false);
 
-  
 app.use(express.json());
-dotenv.config()
+dotenv.config();
 
-const connect=()=>{
-    mongoose.connect(`mongodb://athul:athul@mongodb-server:27017/test`).then(() => {
-        console.log("connected to db");
-    })
-    .catch((err) => {
-        console.log("not connected to db", err);
-    });
-    
+const connect = async () => {
+  try {
+    mongoose.connect(
+      "mongodb://athul:athul@mongodb-server:27017/test?authSource=admin",
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    );
 
-}
-app.use(cookieParser())
+    console.log("Connected to DB");
+  } catch (err) {
+    console.error("Failed to connect to DB:", err);
+  }
+};
 
-app.use("/api/auth",authrouter)
-app.use("/api/order",Orderouter)
-app.use("/api/pay",Paymentrouter)
+app.use(cookieParser());
+app.get("/hello", (req, res) => {
+  res.status(200).json({ message: "works" });
+});
+app.use("/api/auth", authrouter);
+app.use("/api/order", Orderouter);
+app.use("/api/pay", Paymentrouter);
 export const instance = new Razorpay({
-    key_id: process.env.key_id,
-    key_secret: process.env.key_sec
-  });
+  key_id: process.env.key_id,
+  key_secret: process.env.key_sec,
+});
 
-  app.use("/api/mesg",Messagerouter)
+app.use("/api/mesg", Messagerouter);
 
-app.use("/api/product",productrouter)
+app.use("/api/product", productrouter);
 //app.use("/api/stripe",stripe)
-app.use("/api/cart",Cartrouter)
-app.listen(5000,()=>{
+app.use("/api/cart", Cartrouter);
+app.listen(5000, () => {
   connect();
-    console.log("connected")
-})
-  
+  console.log("connected");
+});
