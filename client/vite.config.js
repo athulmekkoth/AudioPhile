@@ -4,7 +4,7 @@ export default {
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
+        target: "http://143.110.183.82",
         changeOrigin: true,
       },
     },
